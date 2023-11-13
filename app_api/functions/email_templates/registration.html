@@ -1,0 +1,252 @@
+<html>
+
+<head>
+
+    <style>
+        .img {
+            width: 130px;
+        }
+
+        body {
+            background-color: #f6f6f6;
+            font-family: sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-size: 14px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+            width: 100%;
+        }
+
+        .body {
+            background-color: #f6f6f6;
+            width: 100%;
+        }
+
+        .ml {
+            margin-left: 20px
+        }
+
+
+        .container {
+            display: block;
+            margin: 0 auto !important;
+            /* makes it centered */
+            max-width: 580px;
+            padding: 10px;
+            width: 580px;
+        }
+
+        .content {
+            box-sizing: border-box;
+            display: block;
+            margin: 0 auto;
+            max-width: 580px;
+            padding: 10px;
+        }
+
+        .main {
+            background: #ffffff;
+            border-radius: 3px;
+            width: 100%;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+        .align-right {
+            text-align: right;
+        }
+
+        .align-left {
+            text-align: left;
+        }
+
+        .border {
+            /* position: relative; */
+            border: 1px solid #f46a24;
+            border-bottom: 0px;
+            min-height: 300px;
+            width: -webkit-fill-available;
+            text-align: left;
+        }
+
+        .heading {
+            font-size: 30px;
+            font-weight: 500;
+            width: 100%;
+            margin: auto;
+            text-align: center;
+            color: #fff;
+            padding: 10px;
+            /* background-image: linear-gradient(45deg, #f46a24, #f46a24); */
+            background: #f46a24
+        }
+
+        .header {
+            display: flex;
+            /* place-items: center; */
+            border: 3px solid #f46a24;
+            border-bottom: 0px;
+        }
+
+        .hil {
+            font-size: 17px !important;
+            font-weight: 600;
+            color: #f46a24;
+        }
+
+        .sub-text {
+            font-size: 15px;
+        }
+
+        .mail_body {
+            padding: 15px;
+        }
+
+        .lh {
+            line-height: 1.4em;
+        }
+
+        .footer {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #e7e1dd;
+            color: white;
+            display: flex;
+        }
+
+        .footer a {
+            color: #f46a24;
+            font-size: 20px;
+            margin: auto;
+            text-decoration: none !important;
+        }
+
+        .social-icons {
+            padding: 10px;
+            margin: auto;
+        }
+
+        /* SOCIAL ICONS */
+
+        .whatsapp {
+            width: 40px;
+        }
+
+        .facebook {
+            width: 40px;
+        }
+
+        .twitter {
+            width: 40px;
+        }
+
+        .instagram {
+            width: 40px;
+        }
+
+        .youtube {
+            width: 40px;
+        }
+
+        .socialimage {
+            width: 35px;
+        }
+
+        .btn {
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .btn>tbody>tr>td {
+            padding-bottom: 15px;
+        }
+
+        .btn table {
+            width: auto;
+        }
+
+        .btn table td {
+            background-color: #ffffff;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .btn a {
+            background-color: #ffffff;
+            border: solid 1px #f46a24;
+            border-radius: 5px;
+            box-sizing: border-box;
+            color: #f46a24;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0;
+            padding: 12px 25px;
+            text-decoration: none;
+            text-transform: capitalize;
+        }
+
+        .btn-primary table td {
+            background-color: #f46a24;
+        }
+
+        .btn-primary a {
+            background-color: #f46a24;
+            border-color: #f46a24;
+            color: #ffffff;
+        }
+
+        .body-width {
+            width: 70%;
+            margin-bottom: 25px;
+        }
+
+        @media screen and (max-width:600px) {
+            .body-width {
+                width: 90%;
+                margin-bottom: 25px;
+            }
+
+            .img {
+                width: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body-width" style="margin: auto; text-align: center;">
+        <img class="img" src="https://exams.swarabharathi.com/static/images/exam-papers-img/Logo.png" />
+        <div class="header">
+            <span class="heading"><span>Contact Us Form</span></span>
+        </div>
+        <div class="border">
+            <div class="mail_body">
+                <br>
+                
+                <span class="sub-text"><b>Name : </b>{name}</span><br>
+                <span class="sub-text"><b>Email : </b>{email}</span><br>
+                <span class="sub-text"><b>Mobile : </b>{mobile}</span><br>
+                <span class="sub-text"><b>Subject : </b>{subject}</span><br><br>
+                <span class="sub-text"><b>Message : </b><br></span><br>
+                <span class="sub-text">{message}</span><br>
+                <br>
+            </div>
+            <br>
+            <br>
+        </div>
+        <div class="footer">
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
