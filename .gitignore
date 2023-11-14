@@ -1,0 +1,4 @@
+* pyc
+app_web/migrations/
+app_api/migrations/
+vgyanportal/__pycache__/
