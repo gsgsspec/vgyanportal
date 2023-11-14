@@ -1,0 +1,15 @@
+@media (min-width: 300px) {
+
+  .my-courses-images{
+    width: 120px;
+  }
+  .my-courses-card-body{
+    width: 120px ;
+  }
+  .my-course-card{
+    display: flex;
+  }
+
+
+
+}
