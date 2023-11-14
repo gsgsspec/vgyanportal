@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
 
-    <title>Swara Bharathi login</title>
+    <title>Swara Bharathi Login</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{% static 'lib/img/logo-new.png' %}" />
@@ -20,22 +20,22 @@
     <link rel="stylesheet" href="{% static 'lib/assets/vendor/fonts/boxicons.css' %}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{% static 'lib/assets/vendor/css/core.css'  %}" />
-    <link rel="stylesheet" href="{% static 'lib/assets/vendor/css/theme-default.css' %}" />
+    <link rel="stylesheet" href="{% static 'lib/css/core.css'  %}" />
+    <link rel="stylesheet" href="{% static 'lib/css/theme-default.css' %}" />
     <link rel="stylesheet" href="{% static 'lib/assets/css/demo.css' %}" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{% static 'lib/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
 
-    <!-- Page CSS -->
-    <!-- Page -->
     <link rel="stylesheet" href="{% static 'lib/assets/vendor/css/pages/page-auth.css' %}" />
-    <!-- Helpers -->
+    
     <script src="{% static 'lib/assets/vendor/js/helpers.js' %}"></script>
 
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{% static 'lib/assets/js/config.js' %}"></script>
+
+    <script>
+      var CSRF_TOKEN = '{{ csrf_token }}';
+    </script>
   </head>
 
   <body>
@@ -49,28 +49,26 @@
             <div class="card-body">
               
               <img src="{% static 'lib/img/logo-new.png' %}" class='img-fluid' style='padding:35px'> 
-              
-              {% comment %} <h4 class="mb-2">Welcome 👋</h4> {% endcomment %}
   
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="login_form" class="mb-3">
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
+                  <label class="form-label">Email</label>
                   <input type="text" class="form-control" id="email" placeholder="Enter your email"/>
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Password</label>
+                    <label class="form-label">Password</label>
                     <a href="auth-forgot-password-basic.html">
                       <small>Forgot Password?</small>
                     </a>
                   </div>
                   <div class="input-group input-group-merge">
-                    <input type="password" id="password" class="form-control" name="password" placeholder="Password">
+                    <input type="password" id="password" class="form-control" placeholder="Password">
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div><br>
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Log in</button>
+                  <button class="btn btn-primary d-grid w-100" id='login'>Log in</button>
                 </div>
               </form>
             </div>
@@ -88,9 +86,6 @@
     <script src="{% static 'lib/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
 
     <script src="{% static 'lib/assets/vendor/js/menu.js' %}"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
 
     <!-- Main JS -->
     <script src="{% static 'lib/assets/js/main.js' %}"></script>
@@ -99,5 +94,8 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js' %}"></script>
+
+    <script src="{% static "js/login.js" %}"></script>
+    <script src="{% static "config/config.js" %}"></script>
   </body>
 </html>

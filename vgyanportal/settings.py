@@ -40,12 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'allauth', # for allauth
+    'allauth.account', # for allauth accounts
+    'allauth.socialaccount', # for allauth social login / signups       
+    'rest_framework.authtoken',
 
     'app_web',
     'app_api'
 ]
 
 MIDDLEWARE = [
+    'allauth.account.middleware.AccountMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

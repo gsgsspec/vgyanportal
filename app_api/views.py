@@ -52,16 +52,18 @@ def loginView(request):
             auth_token = authentication_service(dataObjs)
             print('auth token',auth_token)
             if auth_token[0] != None:
-                usr = User_data.objects.filter(email=dataObjs['mail_id']).first()
+                usr = User_data.objects.filter(usr_email=dataObjs['email']).first()
                 perform_login(request._request, usr, allauth_settings.EMAIL_VERIFICATION, signup=False,
                               redirect_url=None, signal_kwargs=None)
                 user = auth_user(usr)
-                
+                print('user',user)
                 response['token'] = 'token_generated'
+                response['data'] = 'Successfully logged-in'
                 response['login_type'] = auth_token[1]
             else:
                 response['token'] = 'AnonymousUser'
-            response['data'] = 'Successfully logged-in'
+                response['data'] = 'login failed'
+            
             response['statusCode'] = 0
 
 
