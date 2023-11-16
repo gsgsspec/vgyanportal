@@ -1,6 +1,6 @@
 from rest_framework.authtoken.models import Token
 from .database import addUserDB
-from app_api.models import Registration, User_data
+from app_api.models import Registration, User_data , CourseRegistration
 
 
 def authentication_service(dataObjs):
@@ -38,3 +38,11 @@ def addUserService(dataObjs):
     except Exception as e:
         raise
 
+
+def getMyCourses(userId):
+
+    getCourse = CourseRegistration.objects.filter(registrationid = userId).values()
+    for getcourse in getCourse:
+        courseId = getcourse['courseid']
+
+    print('getCourse :: ',getCourse)

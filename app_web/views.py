@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from app_api.functions.masterdata import user_not_active
-
+from app_api.functions.masterdata import user_not_active,auth_user
+from app_api.functions.services import getMyCourses
 
 def loginPage(request):
     try:
@@ -17,6 +17,11 @@ def coursesPage(request):
         return user_not_active(request, after_login_redirect_to=str(request.META["PATH_INFO"]))
     
     try:
+        user_mail = request.user
+        user_data = auth_user(user_mail)
+        userId = user_data.id
+
+        getMyCourses(userId)
         
         return render(request,'index.html',{'template_name':'courses.html'})
     except Exception as e:

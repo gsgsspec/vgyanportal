@@ -19,7 +19,7 @@ document.getElementById('login').onclick=function(){
         
             if (res.statusCode == 0){
                 if (res.token == 'token_generated'){
-                    window.location.href = '/my-courses';
+                    window.location.href = '/courses';
                 }
             }
         })
