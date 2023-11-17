@@ -8579,7 +8579,7 @@ button.list-group-item-gray.active {
 
 .bg-success.toast, .bg-success.bs-toast {
   color: #fff;
-  background-color: rgba(113, 221, 55, 0.85) !important;
+  background-color: #71dd37 !important;
   box-shadow: 0 0.25rem 1rem rgba(113, 221, 55, 0.4);
 }
 .bg-success.toast .toast-header, .bg-success.bs-toast .toast-header {

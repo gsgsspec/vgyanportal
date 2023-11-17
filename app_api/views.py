@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view,authentication_classes,permission
 from allauth.account.utils import perform_login
 from allauth.account import app_settings as allauth_settings
 from app_api.functions.masterdata import auth_user
-from .functions.services import addUserService, authentication_service
+from .functions.services import addUserService, authentication_service, saveProfileDetails
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
 
@@ -48,9 +48,7 @@ def loginView(request):
         if request.method == "POST":
 
             dataObjs = json.loads(request.POST.get('data'))
-            print('dataObjs',dataObjs)
             auth_token = authentication_service(dataObjs)
-            print('auth token',auth_token)
             if auth_token[0] != None:
                 usr = User_data.objects.filter(usr_email=dataObjs['email']).first()
                 perform_login(request._request, usr, allauth_settings.EMAIL_VERIFICATION, signup=False,
@@ -72,3 +70,27 @@ def loginView(request):
         response['error'] = str(e)
         raise
     return JsonResponse(response)
+
+
+
+@api_view(['POST'])
+def saveProfile(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+    try:
+        if request.method == "POST":
+            fileObjs = request.FILES
+            dataObjs = json.loads(request.POST.get('data'))
+            saveProfileDetails(dataObjs, fileObjs)
+            response['data'] = "Profile dDetails Saved Sucessfully"
+            response['statusCode'] = 0
+     
+    except Exception as e:
+        response['data'] = 'Error in save profile'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)
+

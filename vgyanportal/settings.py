@@ -87,9 +87,9 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-       	'NAME': 'vgyan_portial',
+       	'NAME': 'swaragyan',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'pass123',
         'HOST': 'localhost',
         'PORT': 3306
     }
@@ -157,3 +157,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, '\app_web\static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

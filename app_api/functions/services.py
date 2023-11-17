@@ -1,5 +1,6 @@
 from rest_framework.authtoken.models import Token
-from .database import addUserDB
+from vgyanportal.metadata import getConfig
+from .database import addUserDB, saveProfileDetailsDB
 from app_api.models import Registration, User_data , CourseRegistration, Course
 
 
@@ -13,7 +14,6 @@ def authentication_service(dataObjs):
         if user:
             check1 = User_data.objects.filter(usr_email=user.email, usr_password=user.password)
             if not check1:
-                print('1')
                 User_data(username=user.email, usr_email=user.email, usr_password=user.password, is_staff=True).save()
             token_obj = Token.objects.filter(user__usr_email=user.email).order_by('-created').first()
             user_data = User_data.objects.get(usr_email=user.email, usr_password=user.password)
@@ -69,4 +69,31 @@ def getMyCourses(userId):
                 
                 courseList.append(courseDetails)
     return courseList
- 
+
+
+def getUserProfile(user_email):
+    try:
+
+        user = Registration.objects.get(email=user_email)
+        media_domain = getConfig()['MEDIA']['media_domain']
+
+        user_data = {
+            'first_name': user.firstname,
+            'last_name':user.lastname,
+            'email':user.email,
+            'password':user.password,
+            'country':user.country if user.country else "",
+            'profile_img': f"{media_domain}{user.profilepicurl}"
+        }
+
+        return user_data
+
+    except Exception as e:
+        raise
+
+
+def saveProfileDetails(dataObjs, fileObjs):
+    try:
+        saveProfileDetailsDB(dataObjs, fileObjs)
+    except Exception as e:
+        raise
