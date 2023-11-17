@@ -21,8 +21,10 @@ def coursesPage(request):
         user_data = auth_user(user_mail)
         userId = user_data.id
 
-        getMyCourses(userId)
-        
-        return render(request,'index.html',{'template_name':'courses.html'})
+        getCoursesList = getMyCourses(userId)
+
+        return render(request,'index.html',{'template_name':'courses.html',
+        'getCoursesList' : getCoursesList})
+    
     except Exception as e:
         raise

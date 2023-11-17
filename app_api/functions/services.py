@@ -1,6 +1,6 @@
 from rest_framework.authtoken.models import Token
 from .database import addUserDB
-from app_api.models import Registration, User_data , CourseRegistration
+from app_api.models import Registration, User_data , CourseRegistration, Course
 
 
 def authentication_service(dataObjs):
@@ -40,9 +40,33 @@ def addUserService(dataObjs):
 
 
 def getMyCourses(userId):
-
+    courseList = []
     getCourse = CourseRegistration.objects.filter(registrationid = userId).values()
     for getcourse in getCourse:
-        courseId = getcourse['courseid']
+        if getcourse['status'] == "A":
+            courseId = getcourse['courseid']
+            if courseId:
+                getCourseDetails = Course.objects.filter(id = courseId).last()
 
-    print('getCourse :: ',getCourse)
+                courseDetails = {
+                    "id"           : getCourseDetails.id,
+                    "title"        : getCourseDetails.title,
+                    "subjectid"    : getCourseDetails.subjectid,
+                    "about"        : getCourseDetails.about,
+                    "outcomes"     : getCourseDetails.outcomes,
+                    "level"        : getCourseDetails.level,
+                    "instructorid" : getCourseDetails.instructorid,
+                    "agegroup"     : getCourseDetails.agegroup,
+                    "language"     : getCourseDetails.language,
+                    "duration"     : getCourseDetails.duration,
+                    "timeframe"    : getCourseDetails.timeframe,
+                    "certificate"  : getCourseDetails.certificate,
+                    "price"        : getCourseDetails.price,
+                    "objectives"   : getCourseDetails.objectives,
+                    "eligibility"  : getCourseDetails.eligibility,
+                    "status"       : getCourseDetails.status,
+                }
+                
+                courseList.append(courseDetails)
+    return courseList
+ 

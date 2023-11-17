@@ -45,3 +45,7 @@
   /* Adjust margin as needed */
   margin: 10px;
 }
+
+.card-move-transition:hover{
+  transition: all ease-in-out 2s;
+}
