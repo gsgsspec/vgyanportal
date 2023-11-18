@@ -1,22 +1,24 @@
 var showMoreChecked = []
-var getScreenWidth = screen.width
 
 // Show card depends on Screen Size
 window.addEventListener("resize", handleResize);
 function handleResize() {
-    showCoursesCards()
+    var getScreenWidth = screen.width
+    showCoursesCards(getScreenWidth)
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    showCoursesCards()
+    var getScreenWidth = screen.width
+
+    showCoursesCards(getScreenWidth)
 });
 
-function showCoursesCards(){
-    
-    if (getScreenWidth >= 992){
+function showCoursesCards(getScreenWidth) {
+
+    if (getScreenWidth >= 992) {
         largeScreenView()
     }
-    else{
+    else {
         smallScreenView()
     }
 
@@ -27,29 +29,24 @@ var cardsCount = getChildren.length;
 
 function largeScreenView() {
 
-    for (var child = 0; child < 4; child++) {
-        
+    for (var child = 0; child < cardsCounts; child++) {
         var childId = getChildren[child].id;
 
-        if (cardsCount) {
+        if (child < 4) {
             document.getElementById(childId).classList.remove('d-none')
         }
+
     }
 }
 
-function smallScreenView(){
+function smallScreenView() {
 
-    for (var child = 0; child < 6; child++) {
-        var childId = getChildren[child].id;
-        document.getElementById(childId).classList.add('d-none')
-    }
+    for (var child = 0; child < cardsCounts; child++) {
 
-    for (var child = 0; child < 2; child++) {
-        
         var childId = getChildren[child].id;
         document.getElementById(childId).classList.add('d-none')
 
-        if (cardsCount) {
+        if (child < 2) {
             document.getElementById(childId).classList.remove('d-none')
         }
     }
@@ -63,34 +60,54 @@ function smallScreenView(){
 var getChildrens = document.getElementById('CourseCardContainer').children;
 var cardsCounts = getChildrens.length;
 
-function showMore(event){
+function showMore(event) {
+    var getScreenWidth = screen.width
+
+    console.log('getScreenWidth :: ', getScreenWidth)
+
     event.preventDefault()
-    
+
     if (showMoreChecked[0] === undefined) {
 
-        for (var Card = 0 ; Card < cardsCounts ; Card ++ ){
+        for (var Card = 0; Card < cardsCounts; Card++) {
             document.getElementById(getChildrens[Card].id).classList.remove('d-none');
         }
-        document.getElementById('showMoreId').textContent = 'Show Less'; 
+
+        document.getElementById('showMoreId').textContent = 'Show Less';
         showMoreChecked.push('SHOW')
 
     }
-    else{
+    else {
 
-        if (getScreenWidth >= 992){
-            for (var Card = 0 ; Card < 2 ; Card ++ ){
-                document.getElementById(getChildrens[Card].id).classList.add('d-none');  
+        var getScreenWidth = screen.width
+
+        if (getScreenWidth >= 992) {
+
+            for (var Card = 0; Card < cardsCounts; Card++) {
+
+                document.getElementById(getChildrens[Card].id).classList.add('d-none');
+
+                if (Card < 4) {
+                    document.getElementById(getChildrens[Card].id).classList.remove('d-none');
+                }
+
             }
-    
+
             document.getElementById('showMoreId').textContent = 'Show More';
             showMoreChecked = []
         }
-        else{
-            
-            for (var Card = 0 ; Card < 4 ; Card ++ ){
-                document.getElementById(getChildrens[Card].id).classList.add('d-none');   
+        else {
+
+            for (var Card = 0; Card < cardsCounts; Card++) {
+
+                document.getElementById(getChildrens[Card].id).classList.add('d-none');
+
+                if (Card < 2) {
+                    document.getElementById(getChildrens[Card].id).classList.remove('d-none');
+                }
+
             }
-    
+
             document.getElementById('showMoreId').textContent = 'Show More';
             showMoreChecked = []
         }

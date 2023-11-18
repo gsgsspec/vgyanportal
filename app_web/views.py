@@ -40,3 +40,16 @@ def profilePage(request):
         return render(request,'index.html',{'template_name':'profile.html','user_data':user_data})
     except Exception as e:
         raise
+
+
+def askQuestionPage(request):
+    if not request.user.is_active or not request.user.is_staff:
+        return user_not_active(request, after_login_redirect_to=str(request.META["PATH_INFO"]))
+    try:
+
+        user_mail = request.user
+        user_data = getUserProfile(user_mail)
+
+        return render(request,'index.html',{'template_name':'ask_question.html','user_data':user_data})
+    except Exception as e:
+        raise

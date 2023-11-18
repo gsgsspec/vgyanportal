@@ -46,6 +46,13 @@
   margin: 10px;
 }
 
-.card-move-transition:hover{
-  transition: all ease-in-out 2s;
+.courses-card-class{
+  cursor: pointer;
 }
+@media only screen and (max-width: 600px) { 
+
+   .my-courses-alert{
+    width: 97% !important;
+  }
+
+   }
