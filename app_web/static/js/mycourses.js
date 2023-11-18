@@ -29,6 +29,10 @@ var cardsCount = getChildren.length;
 
 function largeScreenView() {
 
+    if (cardsCount <= 4){
+        document.getElementById('showMoreId').classList.add('d-none')
+    }
+
     for (var child = 0; child < cardsCounts; child++) {
         var childId = getChildren[child].id;
 
@@ -40,6 +44,10 @@ function largeScreenView() {
 }
 
 function smallScreenView() {
+
+    if (cardsCount <= 2){
+        document.getElementById('showMoreId').classList.add('d-none')
+    }
 
     for (var child = 0; child < cardsCounts; child++) {
 
