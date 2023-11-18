@@ -43,6 +43,7 @@
     <script>
         var CSRF_TOKEN = '{{ csrf_token }}';
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
   <body>
@@ -75,7 +76,6 @@
       <div class="toast-header">
         <i class="fas fa-check-circle" style="color: #fff;"></i>&ensp;
         <div class="me-auto fw-semibold">Success</div>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body"></div>
     </div>
@@ -84,7 +84,6 @@
       <div class="toast-header">
         <i class="fas fa-times-circle" style='color:#fff'></i>&ensp;
         <div class="me-auto fw-semibold">Failed</div>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body"></div>
     </div>

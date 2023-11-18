@@ -117,8 +117,8 @@
                         <div class="mb-3 col-md-6">
                         <label class="form-label" for="phoneNumber">Mobile Number</label>
                         <div class="input-group input-group-merge">
-                            <span class="input-group-text">IND (+91)</span>
-                            <input type="text" id="mbl_number" class="form-control"/>
+                            {% comment %} <span class="input-group-text">IND (+91)</span> {% endcomment %}
+                            <input type="text" id="mbl_number" placeholder="Mobile number" class="form-control"/>
                         </div>
                         </div>
                           <div class="mb-3 col-md-6">
@@ -127,7 +127,7 @@
                         </div>
                         <div class="mb-3 col-md-6">
                           <label for="state" class="form-label">State</label>
-                          <input class="form-control" type="text" id="state">
+                          <input class="form-control" placeholder="State" type="text" id="state">
                         </div>
                         <div class="mb-3 col-md-6">
                           <label for="country" class="form-label">Country</label>

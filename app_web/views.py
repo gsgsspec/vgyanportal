@@ -51,5 +51,14 @@ def askQuestionPage(request):
         user_data = getUserProfile(user_mail)
 
         return render(request,'index.html',{'template_name':'ask_question.html','user_data':user_data})
+    
+
+def ratingPage(request):
+    if not request.user.is_active or not request.user.is_staff:
+        return user_not_active(request, after_login_redirect_to=str(request.META["PATH_INFO"]))
+    
+    try:
+
+        return render(request, 'index.html',{'template_name':'rating.html'})
     except Exception as e:
         raise

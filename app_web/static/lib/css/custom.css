@@ -1,3 +1,29 @@
+.my-course-card-body{
+  width: 100%;
+  padding: 1rem 0rem;
+  padding-right: 2rem;
+}
+
+.my-courses-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-md {
+  flex: 1;
+  margin: 10px;
+}
+
+.courses-card-class{
+  cursor: pointer;
+}
+
+.ask-question {
+  display: flex;
+  justify-content: end;
+}
+
+
 @media (min-width: 300px) {
   .my-courses-images{
     width: 120px;
@@ -13,46 +39,29 @@
   }
 }
 
+
 @media (min-width: 768px) {
-    .my-courses-images{
-        width: 120px;
-      }
-      
-      .my-course-card{
-        display: flex !important;
-        flex-direction: row !important;
-      }
-      .my-course-card-body{
-        width: 65% !important;
-        padding: 1rem 0rem;
-        padding-right: 2rem;
-      }
+  .my-courses-images{
+    width: 120px;
   }
   
-.my-course-card-body{
-  width: 100%;
-  padding: 1rem 0rem;
-  padding-right: 2rem;
+  .my-course-card{
+    display: flex !important;
+    flex-direction: row !important;
+  }
+  
+  .my-course-card-body{
+    width: 65% !important;
+    padding: 1rem 0rem;
+    padding-right: 2rem;
+  }
 }
-.my-courses-container {
-  display: flex;
-  flex-wrap: wrap;
-}
+  
 
-.col-md {
-  /* Set a width or flex-basis to control the size of the columns */
-  flex: 1;
-  /* Adjust margin as needed */
-  margin: 10px;
-}
-
-.courses-card-class{
-  cursor: pointer;
-}
 @media only screen and (max-width: 600px) { 
 
-   .my-courses-alert{
+  .my-courses-alert{
     width: 97% !important;
   }
 
-   }
+}
