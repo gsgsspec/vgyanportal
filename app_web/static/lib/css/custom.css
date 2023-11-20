@@ -22,6 +22,12 @@
   display: flex;
   justify-content: end;
 }
+.custom-btn-color:focus{
+  background-color: #f46a24 !important;
+}
+.ask-question-custom-input-width{
+  width: 5rem !important;
+}
 
 
 @media (min-width: 300px) {
@@ -41,6 +47,9 @@
 
 
 @media (min-width: 768px) {
+  .ask-question-input-feld{
+    margin-bottom: 1rem !important;
+  }
   .my-courses-images{
     width: 120px;
   }
