@@ -27,10 +27,21 @@ document.getElementById('save_rating').onclick=function(){
 
 }
 
+localStorage.removeItem('dataObj');
 
 
 
+document.getElementById('courseDetailsData').onclick=function(){
 
+    dataObj = {
+        'courseId'  : 1,
+        'moduleId'  : 2,
+        'lessionId' : 2,
+    }
+    localStorage.setItem('dataObj', JSON.stringify(dataObj));
+
+    window.location.href = '/ask-question';
+}
 
 
 

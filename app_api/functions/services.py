@@ -152,3 +152,69 @@ def getCourseDetails(cid):
 
     except Exception as e:
         raise
+
+def getModuleLessonService(dataObjs):
+    try:
+        getCourseId = dataObjs['courseId']
+        getModuleId = dataObjs['moduleId']
+        getLessonId = dataObjs['lessionId']
+
+        moduleAndLessonsData = {}
+
+        modulesList = [] 
+        lessonsList = []
+
+        getCourseIdDb = Course.objects.filter(id  = getCourseId).last()
+        
+        if getCourseIdDb.id:
+            
+            getCourseModuleIdDb = CourseModule.objects.filter(courseid = getCourseIdDb.id)
+
+            for module in getCourseModuleIdDb:
+
+                default = "NO"
+
+                if int(getModuleId) == module.id:
+
+                    default = "YES"
+
+                modulesData = {
+                    'selected' : default,
+                    'moduleId' : module.id,
+                    'moduleName' : module.name,
+                    'moduleSequence' : module.sequence
+                }
+
+                modulesList.append(modulesData)
+            
+            getModeulesDetails = getCourseModuleIdDb.first()
+
+            courseId = getModeulesDetails.courseid
+            moduleId = getModeulesDetails.id
+
+            getModulesLesson = CourseLesson.objects.filter(courseid = courseId, moduleid = moduleId)
+            
+            for lesson in getModulesLesson:
+                
+                defaultLesson = 'NO'
+
+                if lesson.id == getLessonId:
+
+                    defaultLesson = 'YES'
+                
+                lessonData = {
+                    'defaultLesson' : defaultLesson,
+                    'lessonid' : lesson.id,
+                    'title'    : lesson.title,
+                }
+
+                lessonsList.append(lessonData)
+
+        
+            moduleAndLessonsData['Modules'] = modulesList
+            moduleAndLessonsData['lesson']  = lessonsList
+
+        return moduleAndLessonsData
+            
+    except Exception as e:
+        raise

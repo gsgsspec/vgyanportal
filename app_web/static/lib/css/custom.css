@@ -47,9 +47,7 @@
 
 
 @media (min-width: 768px) {
-  .ask-question-input-feld{
-    margin-bottom: 1rem !important;
-  }
+
   .my-courses-images{
     width: 120px;
   }
@@ -65,7 +63,17 @@
     padding-right: 2rem;
   }
 }
-  
+@media (max-width: 833px) {
+  .ask-question-input-feld{
+    margin-bottom: 0rem !important;
+  }
+}
+@media (min-width: 838px) {
+  .ask-question-input-feld{
+    margin-bottom: 1rem !important;
+  }
+}
+
 
 @media only screen and (max-width: 600px) { 
 

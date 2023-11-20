@@ -71,7 +71,7 @@ var cardsCounts = getChildrens.length;
 function showMore(event) {
     var getScreenWidth = screen.width
 
-    console.log('getScreenWidth :: ', getScreenWidth)
+    // console.log('getScreenWidth :: ', getScreenWidth)
 
     event.preventDefault()
 
