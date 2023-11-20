@@ -1,36 +1,18 @@
 $(document).ready(function(){
-    getModuleLesson()
-    // askQuestionInputField()
+
+    var receivedData = localStorage.getItem('dataObj');
+    var courseData = JSON.parse(receivedData)
+
+    var courseId  =  courseData['courseId']
+    var moduleId  =  courseData['moduleId']
+    var lessionId =  courseData['lessionId']
+
+    getModuleLesson(courseId,moduleId,lessionId)
 })
 
 
-// function askQuestionInputField(){
-//     $('#askaQuestionCardContainer').append(
+function getModuleLesson(courseId,moduleId,lessionId){
 
-//         ' <div class="col-12 col-md-12 col-lg-6">' +
-//                         '<div class="card mb-3">'  +
-//                           '<div class="my-course-card">' +
-//                             '<div class="m-3 col-md-4 my-courses-images"></div>' +
-//                             '<div class="col-md-8 my-course-card-body">' +
-//                               '<div class="card-body m-0 p-0">' +
-//                                 '<h5 class="card-title"></h5>'  +
-//                                 '<p> </p>' +
-                                
-//                               '</div>' +
-//                             '</div>'   +
-//                          '</div>'      +
-//                         '</div>'       +
-//                       '</div>'         
-// )}
-
-var receivedData = localStorage.getItem('dataObj');
-courseData = JSON.parse(receivedData)
-
-courseId  =  courseData['courseId']
-moduleId  =  courseData['moduleId']
-lessionId =  courseData['lessionId']
-
-function getModuleLesson(){
     var dataobj = {
         'courseId'  : courseId,
         'moduleId'  : moduleId,
@@ -43,8 +25,6 @@ function getModuleLesson(){
     }
 
     $.post(CONFIG['domain'] + "/api/get-module-lessons", final_data, function (res) {
-        console.log('res',res.data.Modules);
-        console.log('res',);
 
         var getModulesDataList = res.data.Modules;
         var getLessonsDataList = res.data.lesson;
