@@ -127,7 +127,7 @@
                 <div class="row" id="CourseCardContainer">
                   {% for course in getCoursesList %}
 
-                  <div class="col-12 col-md-12 col-lg-6 d-none courses-card-class"  id="CourseCard_{{ course.id }}" >
+                  <div class="col-12 col-md-12 col-lg-6 d-none courses-card-class" onclick="window.location.href='/course-details/{{course.id}}'" id="CourseCard_{{ course.id }}" >
                     <div class="card mb-3">
                       <div class="my-course-card">
                         <div class="m-3 col-md-4 my-courses-images">

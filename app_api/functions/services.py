@@ -1,7 +1,7 @@
 from rest_framework.authtoken.models import Token
 from vgyanportal.metadata import getConfig
 from .database import addUserDB, saveProfileDetailsDB
-from app_api.models import Registration, User_data , CourseRegistration, Course
+from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia
 
 
 def authentication_service(dataObjs):
@@ -95,5 +95,60 @@ def getUserProfile(user_email):
 def saveProfileDetails(dataObjs, fileObjs):
     try:
         saveProfileDetailsDB(dataObjs, fileObjs)
+    except Exception as e:
+        raise
+
+
+def getCourseDetails(cid):
+    try:
+
+        course = Course.objects.get(id=cid)
+
+        course_details = {
+            'courseid':course.id,
+            'title':course.title,
+            'module': None,
+            # 'instructor_details':None,
+        }
+
+        c_module = CourseModule.objects.filter(courseid=cid,status='A').order_by('sequence')
+
+        module_details = []
+
+        for module in c_module:
+
+            c_lesson = CourseLesson.objects.filter(courseid=cid,moduleid=module.id,status='A').order_by('sequence')
+
+            lesson_title = []
+
+            for lesson in c_lesson:
+                lesson_title.append({
+                    'title':lesson.title
+                })
+
+            module_details.append({
+                'module_name':module.name,
+                'lesson_title': lesson_title
+            })
+
+
+        # instructor = Instructor.objects.get(id=course.instructorid,status='A')
+        # instructor_rating = CourseRating.objects.filter(instructorid=instructor.id).aggregate(avg_rating=Avg('rating'))
+        # instructor_courses = Course.objects.filter(instructorid=instructor.id).count()
+
+        # instructor_details = {
+        #     'name': instructor.name,
+        #     'rating':instructor_rating['avg_rating'],
+        #     'courses': instructor_courses,
+        #     'about':instructor.about,
+        #     'experience':instructor.experience
+        # }
+
+        course_details["module"] = module_details
+        # course_details["instructor_details"] = instructor_details
+
+        return course_details
+
+
     except Exception as e:
         raise

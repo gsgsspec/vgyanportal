@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from app_api.functions.masterdata import user_not_active,auth_user
-from app_api.functions.services import getMyCourses, getUserProfile
+from app_api.functions.services import getMyCourses, getUserProfile, getCourseDetails
 
 def loginPage(request):
     try:
@@ -51,7 +51,8 @@ def askQuestionPage(request):
         user_data = getUserProfile(user_mail)
 
         return render(request,'index.html',{'template_name':'ask_question.html','user_data':user_data})
-    
+    except Exception as e:
+        raise
 
 def ratingPage(request):
     if not request.user.is_active or not request.user.is_staff:
@@ -60,5 +61,20 @@ def ratingPage(request):
     try:
 
         return render(request, 'index.html',{'template_name':'rating.html'})
+    except Exception as e:
+        raise
+
+
+def courseDetailsPage(request,cid):
+    if not request.user.is_active or not request.user.is_staff:
+        return user_not_active(request, after_login_redirect_to=str(request.META["PATH_INFO"]))
+    
+    try:
+
+        course_details = getCourseDetails(cid)
+        print('course_details',course_details)
+
+        return render(request, 'index.html',{'template_name':'course_details.html','course_details':course_details})
+    
     except Exception as e:
         raise

@@ -1,0 +1,260 @@
+{% load static %}
+
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <div class="layout-page">
+            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                    <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <div class="navbar-nav align-items-center">
+                    <div class="nav-item d-flex align-items-center">
+                        <i class="bx bx-search fs-4 lh-0"></i>
+                        <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..."/>
+                    </div>
+                    </div>
+                
+                    <ul class="navbar-nav flex-row align-items-center ms-auto">
+                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                        <div class="avatar avatar-online">
+                            <img src="{{user_data.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
+                        </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                <div class="avatar avatar-online">
+                                    <img src="{{user_data.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
+                                </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                <span class="fw-semibold d-block">John Doe</span>
+                                <small class="text-muted">Admin</small>
+                                </div>
+                            </div>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="dropdown-divider"></div>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                            <i class="bx bx-user me-2"></i>
+                            <span class="align-middle">My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                            <i class="bx bx-cog me-2"></i>
+                            <span class="align-middle">Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="dropdown-divider"></div>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="auth-login-basic.html">
+                            <i class="bx bx-power-off me-2"></i>
+                            <span class="align-middle">Log Out</span>
+                            </a>
+                        </li>
+                        </ul>
+                    </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <h3 class="pb-1 mb-4 d-flex justify-content-between">{{course_details.title}}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#rating_popup">
+                            <i class="fas fa-star" style="color: #fff;"></i>&nbsp; Rate the Course
+                        </button>
+                    </h3>
+                    <video width="100%" height="600px" controls>
+                        <source src="movie.mp4" type="video/mp4">
+                        <source src="movie.ogg" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class='ask-question'>
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-question" style="color: #fff;"></i>&nbsp; Ask a Question
+                        </button>
+                    </div>
+                    <div class="col-md mb-4 mb-md-0">
+                        <small class="text-light fw-semibold">Course Modules</small>
+                        <div class="accordion mt-3" id="accordionExample">
+                            {% for module in course_details.module %}
+                            <div class="card accordion-item">
+                                <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                                    <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accord_{{ forloop.counter }}" aria-expanded="true" aria-controls="accord_{{ forloop.counter }}">{{module.module_name}}</button>
+                                </h2>
+                                <div id="accord_{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <ul class="list-group">
+                                        {% for lesson in module.lesson_title %}
+                                        <li class="list-group-item d-flex align-items-center">
+                                            <i class="far fa-play-circle" style='color:black'></i>&nbsp; {{lesson.title}}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div> 
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="modal fade" id="rating_popup" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">  
+                                    <h5 class="modal-title">{{course_details.title}}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form id='rating_form'>
+                                    <div class="modal-body">
+                                        <div class="stars">
+                                            <label class="rate">
+                                                <input type="radio" name="radio1" id="star1" value="star1">
+                                                <div class="face"></div>
+                                                <i class="far fa-star star one-star"></i>
+                                            </label>
+                                            <label class="rate">
+                                                <input type="radio" name="radio1" id="star2" value="star2">
+                                                <div class="face"></div>
+                                                <i class="far fa-star star two-star"></i>
+                                            </label>
+                                            <label class="rate">
+                                                <input type="radio" name="radio1" id="star3" value="star3">
+                                                <div class="face"></div>
+                                                <i class="far fa-star star three-star"></i>
+                                            </label>
+                                            <label class="rate">
+                                                <input type="radio" name="radio1" id="star4" value="star4">
+                                                <div class="face"></div>
+                                                <i class="far fa-star star four-star"></i>
+                                            </label>
+                                            <label class="rate">
+                                                <input type="radio" name="radio1" id="star5" value="star5">
+                                                <div class="face"></div>
+                                                <i class="far fa-star star five-star"></i>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <textarea type="textarea" rows="3" class="form-control" placeholder="Message (optional)"></textarea>
+                                        </div>   
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" id='save_rating' class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/course_details.js' %}"></script>
+
+<style>
+    .stars {
+        width: fit-content;
+        margin: 0 auto;
+        cursor: pointer;
+    }
+    .star {
+        color: #f46a24 !important;
+    }
+    .rate {
+        height: 50px;
+        margin-left: -5px;
+        padding: 5px;
+        font-size: 25px;
+        position: relative;
+        cursor: pointer;
+    }
+    .rate input[type="radio"] {
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,0%);
+        pointer-events: none;
+    }
+    .star-over::after {
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        font-size: 16px;
+        content: "\f005";
+        display: inline-block;
+        color: #f46a24;
+        z-index: 1;
+        position: absolute;
+        top: 17px;
+        left: 10px;
+    }
+    
+    .rate:nth-child(1) .face::after {
+        content: "\f119"; /* ☹ */
+    }
+    .rate:nth-child(2) .face::after {
+        content: "\f11a"; /* 😐 */
+    }
+    .rate:nth-child(3) .face::after {
+        content: "\f118"; /* 🙂 */
+    }
+    .rate:nth-child(4) .face::after {
+        content: "\f580"; /* 😊 */
+    }
+    .rate:nth-child(5) .face::after {
+        content: "\f59a"; /* 😄 */
+    }
+    .face {
+        opacity: 0;
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        background: #f46a24;
+        border-radius: 5px;
+        top: -30px;
+        left: 2px;
+        transition: 0.2s;
+        pointer-events: none;
+    }
+    .face::before {
+        font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+        content: "\f0dd";
+        display: inline-block;
+        color: #f46a24;
+        z-index: 1;
+        position: absolute;
+        left: 9px;
+        bottom: -15px;
+    }
+    .face::after {
+        font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+        display: inline-block;
+        color: #fff;
+        z-index: 1;
+        position: absolute;
+        left: 5px;
+        top: -1px;
+    }
+    
+    .rate:hover .face {
+        opacity: 1;
+    }
+    
+</style>
