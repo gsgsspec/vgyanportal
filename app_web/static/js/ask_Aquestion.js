@@ -19,7 +19,7 @@ $(document).ready(function(){
 
 $('#moduleId').change(function(){
 
-    console.log( $('#moduleId').val() )
+    // console.log( $('#moduleId').val() )
 
     var courseId  =  1 
     var moduleId  =  $('#moduleId').val()
@@ -121,7 +121,7 @@ function askQuestion(){
         }
 
         $.post(CONFIG['domain'] + "/api/save-question", final_data, function (res) {
-            console.log('res',res);
+            // console.log('res',res);
         
             if (res.statusCode == 0){
                 $('#AskQuestionTextAreaId').val('');
@@ -144,7 +144,7 @@ function getQuestionsList(getQuestionData) {
 
     $.post(CONFIG['domain'] + "/api/get-questions", final_data, function (res) {
 
-        console.log('res', res);
+        // console.log('res', res);
 
         var answeredQuestion = res.data.questionList;
         var unansweredQuestion = res.data.unansweredQuestion;
@@ -157,7 +157,7 @@ function getQuestionsList(getQuestionData) {
                 var questionId = answeredQuestion[ans]['id'];
                 var questionAnswer = answeredQuestion[ans]['ans'];
 
-                console.log('question ::: ', question);
+                // console.log('question ::: ', question);
 
                 $('#questionsId').append(
                     '<div class="card accordion-item">' +
