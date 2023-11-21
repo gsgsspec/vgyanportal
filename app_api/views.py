@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view,authentication_classes,permission
 from allauth.account.utils import perform_login
 from allauth.account import app_settings as allauth_settings
 from app_api.functions.masterdata import auth_user
-from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService, saveCourseRating
+from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService, saveCourseRating, saveAskQuestion, getAskQuestion
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
 
@@ -139,3 +139,50 @@ def getModuleLesson(request):
         raise
     return JsonResponse(response)
 
+
+
+@api_view(['POST'])
+def saveQuestion(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+    try:
+        if request.method == "POST":
+            dataObjs = json.loads(request.POST.get('data'))
+
+            saveAskQuestion(dataObjs)
+
+            response['data'] = 'Question Saved'
+            response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saveQuestion'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)
+
+
+
+@api_view(['POST'])
+def getQuestion(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+    try:
+        if request.method == "POST":
+            dataObjs = json.loads(request.POST.get('data'))
+
+            getquestionsList = getAskQuestion(dataObjs)
+
+            response['data'] = getquestionsList
+            response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saveQuestion'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)

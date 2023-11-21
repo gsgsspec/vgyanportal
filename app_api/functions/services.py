@@ -1,7 +1,7 @@
 from rest_framework.authtoken.models import Token
 from vgyanportal.metadata import getConfig
-from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB
-from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia
+from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB, saveAskQuestionDb
+from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia , question
 
 
 def authentication_service(dataObjs):
@@ -220,5 +220,53 @@ def saveCourseRating(dataObjs,user):
     try:
         course_rating =  saveCourseRatingDB(dataObjs,user)
         return course_rating
+    except Exception as e:
+        raise
+
+
+def saveAskQuestion(dataObjs):
+    try:
+        saveAskQuestionDb(dataObjs)
+    except Exception as e:
+        raise
+
+
+def getAskQuestion(dataObjs):
+    try:
+        questionList = []
+        unansweredQuestion = []
+        sendQuestions = {}
+        userCourseId = int(dataObjs['getQuestionData']['courseId'])
+        registeredUerId   = int(dataObjs['getQuestionData']['userId'])
+
+        userCourseDetails = CourseRegistration.objects.filter(courseid = userCourseId ,registrationid = registeredUerId).last()
+
+        getcourseid = userCourseDetails.courseid
+
+        getQuestions = question.objects.filter(registrationid = userCourseDetails.registrationid,courseid = getcourseid)
+
+        for ques in getQuestions:
+            if ques.answer:
+                questions = {
+                    'id'   : ques.id,
+                    'ques' : ques.question,
+                    'ans'  : ques.answer
+                }
+
+                questionList.append(questions)
+
+            else:
+                unquestions = {
+                    'id'   : ques.id,
+                    'ques' : ques.question 
+                }
+                unansweredQuestion.append(unquestions
+                )
+        
+        sendQuestions['questionList'] = questionList
+        sendQuestions['unansweredQuestion'] = unansweredQuestion
+
+        return sendQuestions
+
     except Exception as e:
         raise

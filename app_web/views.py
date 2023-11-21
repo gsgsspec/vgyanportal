@@ -79,8 +79,6 @@ def courseDetailsPage(request,cid):
             
             course_details = getCourseDetails(request,cid)
 
-            print('course_details',course_details)
-
             return render(request, 'index.html',{'template_name':'course_details.html','course_details':course_details})
         
         else:

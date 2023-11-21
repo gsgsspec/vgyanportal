@@ -8,9 +8,13 @@ $(document).ready(function(){
     var lessionId =  courseData['lessionId']
 
     getModuleLesson(courseId,moduleId,lessionId)
-    // console.log('++++++++++++++++++++++++++++++++')
-    // console.log(courseId,moduleId,lessionId)
-    // console.log('++++++++++++++++++++++++++++++++')
+
+    var getQuestionData = {
+        'courseId' : 1,
+        'userId'   : 1
+        }
+
+    getQuestionsList(getQuestionData)
 })
 
 $('#moduleId').change(function(){
@@ -97,14 +101,75 @@ function getModuleLesson(courseId,moduleId,lessionId){
 function askQuestion(){
 
     $('#askQuestionForm').unbind('submit').bind('submit',function(event){
-
         event.preventDefault();
 
         var courseId = $('#courseId').attr('data-course-id');
         var moduleId = $('#moduleId').val();
         var lessonId = $('#lessonId').val();
-        var question = $('#basic-default-message').val();
+        var question = $('#AskQuestionTextAreaId').val();
+
+        dataObj = {
+            'courseId':  courseId,
+            'moduleId':  moduleId,
+            'lessonId':  lessonId,
+            'question':  question
+        }
+
+        var final_data = {
+            'data': JSON.stringify(dataObj),
+            csrfmiddlewaretoken: CSRF_TOKEN,
+        }
+
+        $.post(CONFIG['domain'] + "/api/save-question", final_data, function (res) {
+            console.log('res',res);
+        
+            if (res.statusCode == 0){
+                $('#AskQuestionTextAreaId').val('');
+            }
+        })
 
     }) 
 }
 
+function getQuestionsList(getQuestionData) {
+    dataObj = {
+        'getQuestionData': getQuestionData
+    }
+
+    var final_data = {
+        'data': JSON.stringify(dataObj),
+        csrfmiddlewaretoken: CSRF_TOKEN,
+    }
+
+    $.post(CONFIG['domain'] + "/api/get-questions", final_data, function (res) {
+
+        console.log('res', res);
+
+        var answeredQuestion = res.data.questionList;
+        var unansweredQuestion = res.data.unansweredQuestion;
+
+        if (res.statusCode == 0) {
+
+            for (var ans = 0; ans < answeredQuestion.length; ans++) {
+
+                var question = answeredQuestion[ans]['ques'];
+                var questionId = answeredQuestion[ans]['id'];
+                var questionAnswer = answeredQuestion[ans]['ans'];
+
+                console.log('question ::: ', question);
+
+                $('#questionsId').append(
+                    '<div class="card accordion-item">' +
+                    '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
+                    '<button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
+                    question + ' </button>' +
+                    '</h2>' +
+                    '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
+                    '<div class="accordion-body"> ' + questionAnswer + ' </div>' +
+                    '</div>' +
+                    '</div>'
+                );
+            }
+        }
+    });
+}

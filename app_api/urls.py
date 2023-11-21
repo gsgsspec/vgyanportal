@@ -9,4 +9,6 @@ urlpatterns = [
     path('get-module-lessons',views.getModuleLesson),
     path('save-rating',views.saveRating),
 
+    path('save-question',views.saveQuestion),
+    path('get-questions',views.getQuestion),
 ]
