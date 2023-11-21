@@ -125,6 +125,7 @@ function askQuestion(){
         
             if (res.statusCode == 0){
                 $('#AskQuestionTextAreaId').val('');
+                showSuccessMessage('Question add')
             }
         })
 
