@@ -150,7 +150,7 @@ class CourseRating(models.Model):
         db_table = 'courserating'
 
 
-class question(models.Model):
+class Question(models.Model):
     id = models.AutoField(primary_key=True)
     registrationid = models.IntegerField(null=True)
     courseid = models.IntegerField(null=True)

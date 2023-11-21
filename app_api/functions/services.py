@@ -1,7 +1,7 @@
 from rest_framework.authtoken.models import Token
 from vgyanportal.metadata import getConfig
 from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB, saveAskQuestionDb
-from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia , question
+from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia , Question
 
 
 def authentication_service(dataObjs):
@@ -243,7 +243,7 @@ def getAskQuestion(dataObjs):
 
         getcourseid = userCourseDetails.courseid
 
-        getQuestions = question.objects.filter(registrationid = userCourseDetails.registrationid,courseid = getcourseid)
+        getQuestions = Question.objects.filter(registrationid = userCourseDetails.registrationid,courseid = getcourseid)
 
         for ques in getQuestions:
             if ques.answer:

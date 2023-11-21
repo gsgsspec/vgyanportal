@@ -4,7 +4,7 @@ import secrets
 import string
 import razorpay
 from vgyanportal import settings
-from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration, question
+from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration, Question
 from datetime import datetime
 from  .mailing import sendRegistrainMail
 from vgyanportal.settings import RAZOR_KEY_ID, RAZOR_KEY_SECRET
@@ -159,7 +159,7 @@ def saveAskQuestionDb(dataObjs):
         
         getQuestion = dataObjs['question']
         
-        saveQuestion = question(
+        saveQuestion = Question(
             registrationid = 1,
             courseid = courseId if courseId != "" else 0,
             lessonid = lessonId if lessonId != "" else 0,
