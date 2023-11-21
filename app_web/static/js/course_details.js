@@ -36,7 +36,7 @@ document.getElementById('courseDetailsData').onclick=function(){
     dataObj = {
         'courseId'  : 1,
         'moduleId'  : 2,
-        'lessionId' : 2,
+        'lessionId' : 6,
     }
     localStorage.setItem('dataObj', JSON.stringify(dataObj));
 

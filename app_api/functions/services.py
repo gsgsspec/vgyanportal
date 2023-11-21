@@ -192,7 +192,7 @@ def getModuleLessonService(dataObjs):
             courseId = getModeulesDetails.courseid
             moduleId = getModeulesDetails.id
 
-            getModulesLesson = CourseLesson.objects.filter(courseid = courseId, moduleid = moduleId)
+            getModulesLesson = CourseLesson.objects.filter(courseid = courseId, moduleid = getModuleId)
             
             for lesson in getModulesLesson:
                 

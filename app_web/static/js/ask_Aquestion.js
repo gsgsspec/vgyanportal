@@ -8,6 +8,20 @@ $(document).ready(function(){
     var lessionId =  courseData['lessionId']
 
     getModuleLesson(courseId,moduleId,lessionId)
+    // console.log('++++++++++++++++++++++++++++++++')
+    // console.log(courseId,moduleId,lessionId)
+    // console.log('++++++++++++++++++++++++++++++++')
+})
+
+$('#moduleId').change(function(){
+
+    console.log( $('#moduleId').val() )
+
+    var courseId  =  1 
+    var moduleId  =  $('#moduleId').val()
+    var lessionId =  0
+
+    getModuleLesson(courseId,moduleId,lessionId)
 })
 
 
@@ -31,6 +45,9 @@ function getModuleLesson(courseId,moduleId,lessionId){
     
         if (res.statusCode == 0){
 
+            $('#moduleId').html('')
+            $('#lessonId').html('')
+
             for (var modul = 0 ; modul < getModulesDataList.length; modul ++){
 
                 var moduleName = getModulesDataList[modul]['moduleName']
@@ -39,7 +56,7 @@ function getModuleLesson(courseId,moduleId,lessionId){
                 if (getModulesDataList[modul]['selected'] === "YES"){
 
                     $('#moduleId').append(
-                        '<option selected value="'+ moduleId +'" id="'+ moduleName +'_'+ moduleId  +'"> ' + moduleName + '   </option>'
+                        '<option  value="'+ moduleId +'" id="'+ moduleName +'_'+ moduleId  +' " selected> ' + moduleName + '   </option>'
                     )
 
                 }
@@ -59,7 +76,7 @@ function getModuleLesson(courseId,moduleId,lessionId){
                 if (getLessonsDataList[lesson]['defaultLesson'] === "YES"){
 
                     $('#lessonId').append(
-                        '<option selected value="'+ lessonId +'" id="'+ lessonName+ '_' + lessonId +'" > ' + lessonName + ' </option>'
+                        '<option value="'+ lessonId +'" id="'+ lessonName+ '_' + lessonId + '"  selected > ' + lessonName + ' </option>'
                     )
 
                 }
