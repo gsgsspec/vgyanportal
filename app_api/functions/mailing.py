@@ -15,7 +15,7 @@ SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
 
 def sendRegistrainMail():
     try:
-        email_config = getConfig()['MEDIA']['']
+        email_config = getConfig()['SEND_EMAIL_CONFIG']
         creds = email_config['creds']
         token = email_config['token']
         template_file_path =  email_config['registration_template']

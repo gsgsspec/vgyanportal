@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from app_api.functions.masterdata import user_not_active,auth_user
 from app_api.functions.services import getMyCourses, getUserProfile, getCourseDetails
+from app_api.models import CourseRegistration, Registration
+
 
 def loginPage(request):
     try:
@@ -70,11 +72,19 @@ def courseDetailsPage(request,cid):
         return user_not_active(request, after_login_redirect_to=str(request.META["PATH_INFO"]))
     
     try:
+        reg_id = Registration.objects.get(email=request.user).id
+        user_courses = CourseRegistration.objects.filter(registrationid=reg_id)
 
-        course_details = getCourseDetails(cid)
-        print('course_details',course_details)
+        if user_courses.filter(courseid=cid).exists():
+            
+            course_details = getCourseDetails(request,cid)
 
-        return render(request, 'index.html',{'template_name':'course_details.html','course_details':course_details})
+            print('course_details',course_details)
+
+            return render(request, 'index.html',{'template_name':'course_details.html','course_details':course_details})
+        
+        else:
+            return render (request,'index.html',{'template_name':'404.html'})
     
     except Exception as e:
         raise
