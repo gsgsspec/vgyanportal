@@ -2,36 +2,71 @@
 import os
 import secrets
 import string
+import razorpay
 from vgyanportal import settings
-from app_api.models import Registration, User_data
+from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration
 from datetime import datetime
 from  .mailing import sendRegistrainMail
+from vgyanportal.settings import RAZOR_KEY_ID, RAZOR_KEY_SECRET
 
 
 def addUserDB(dataObjs):
     try:
 
-        user_email = dataObjs['email']
+        razorpay_client = razorpay.Client(auth=(RAZOR_KEY_ID,RAZOR_KEY_SECRET))
 
-        user_check = Registration.objects.filter(email=user_email)
+        params_dict = {
+            'razorpay_order_id': dataObjs['order_id'],
+            'razorpay_payment_id': dataObjs['payment_id'],
+            'razorpay_signature': dataObjs['signature']
+		}
+        
+        verification =  razorpay_client.utility.verify_payment_signature(params_dict)
 
-        if user_check :
-            print('abc')
-        else:
+        if verification == True:
+
+            payment_details = razorpay_client.payment.fetch(dataObjs['payment_id'])
             
-            random_password = generate_random_password()
-            
-            registration = Registration(
-                firstname = dataObjs['first_name'],
-                lastname = dataObjs['last_name'],
-                email = dataObjs['email'],
-                password = random_password,
-                dateregistered = datetime.now(),
-                status = 'A'
+            user_email = dataObjs['email']
+            user_check = Registration.objects.filter(email=user_email)
+
+            if user_check :
+
+                registration = Registration.objects.get(email=user_email)
+            else:
+                
+                random_password = generate_random_password()
+                
+                registration = Registration(
+                    firstname = dataObjs['first_name'],
+                    lastname = dataObjs['last_name'],
+                    email = dataObjs['email'],
+                    password = random_password,
+                    profilepicurl = "user_profile/default.png",
+                    dateregistered = datetime.now(),
+                    status = 'A'
+                )
+
+                registration.save()
+
+            course_payment = Payment(
+                registrationid = registration.id,
+                courseid = dataObjs["course_id"],
+                amount = payment_details["amount"] / 100,
+                paymod = payment_details["method"],
+                paydate = datetime.now()
             )
 
-            registration.save()
+            course_payment.save()
 
+            course_registration = CourseRegistration(
+                registrationid = registration.id,
+                courseid = dataObjs["course_id"],
+                status = "A"
+            )
+
+            course_registration.save()
+            
             sendRegistrainMail()
 
     except Exception as e:
@@ -81,6 +116,35 @@ def saveProfileDetailsDB(dataObjs, fileObjs):
         user_auth = User_data.objects.get(usr_email=dataObjs['email'])
         user_auth.usr_password = dataObjs['password']
         user_auth.save()
+
+    except Exception as e:
+        raise
+
+
+def saveCourseRatingDB(dataObjs,user):
+    try:
+
+        user_id = Registration.objects.get(email=user).id
+        instructor_id = Course.objects.get(id=dataObjs["course_id"]).instructorid
+
+        try:
+            course_rating = CourseRating.objects.get(courseid=dataObjs["course_id"],registrationid=user_id)
+            course_rating.rating = dataObjs["rating"]
+            course_rating.comments = dataObjs["comments"]
+            course_rating.save()
+
+        except:
+            course_rating = CourseRating(
+                courseid = dataObjs["course_id"],
+                registrationid=user_id,
+                rating = dataObjs["rating"],
+                comments = dataObjs["comments"],
+                instructorid  = instructor_id,
+                dateofrating = datetime.now()
+            )
+            course_rating.save()
+
+        return course_rating.rating
 
     except Exception as e:
         raise

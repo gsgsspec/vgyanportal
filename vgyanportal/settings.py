@@ -87,9 +87,9 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-       	'NAME': 'vgyan_portial',
+       	'NAME': 'swaragyan',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'pass123',
         'HOST': 'localhost',
         'PORT': 3306
     }
@@ -160,3 +160,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, '\app_web\static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+RAZOR_KEY_ID = 'rzp_test_F2TGvt3oInBajc'
+RAZOR_KEY_SECRET ='BCYfSp3W6n6QYv7FvQEAYrTW'

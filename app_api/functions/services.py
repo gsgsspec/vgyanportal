@@ -1,6 +1,6 @@
 from rest_framework.authtoken.models import Token
 from vgyanportal.metadata import getConfig
-from .database import addUserDB, saveProfileDetailsDB
+from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB
 from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia
 
 
@@ -99,16 +99,17 @@ def saveProfileDetails(dataObjs, fileObjs):
         raise
 
 
-def getCourseDetails(cid):
+def getCourseDetails(request,cid):
     try:
 
         course = Course.objects.get(id=cid)
+        user_id = Registration.objects.get(email=request.user).id
 
         course_details = {
             'courseid':course.id,
             'title':course.title,
             'module': None,
-            # 'instructor_details':None,
+            'rating':None,
         }
 
         c_module = CourseModule.objects.filter(courseid=cid,status='A').order_by('sequence')
@@ -128,30 +129,24 @@ def getCourseDetails(cid):
 
             module_details.append({
                 'module_name':module.name,
+                'assesment':module.assesment,
                 'lesson_title': lesson_title
             })
 
-
-        # instructor = Instructor.objects.get(id=course.instructorid,status='A')
-        # instructor_rating = CourseRating.objects.filter(instructorid=instructor.id).aggregate(avg_rating=Avg('rating'))
-        # instructor_courses = Course.objects.filter(instructorid=instructor.id).count()
-
-        # instructor_details = {
-        #     'name': instructor.name,
-        #     'rating':instructor_rating['avg_rating'],
-        #     'courses': instructor_courses,
-        #     'about':instructor.about,
-        #     'experience':instructor.experience
-        # }
-
         course_details["module"] = module_details
-        # course_details["instructor_details"] = instructor_details
+
+        try:
+            course_rating = CourseRating.objects.get(registrationid=user_id,courseid=cid).rating
+            course_details["rating"] = course_rating
+        except:
+            course_details["rating"] = None
 
         return course_details
 
 
     except Exception as e:
         raise
+
 
 def getModuleLessonService(dataObjs):
     try:
@@ -215,6 +210,15 @@ def getModuleLessonService(dataObjs):
             moduleAndLessonsData['lesson']  = lessonsList
 
         return moduleAndLessonsData
+    
+    except Exception as e:
+        raise
             
+
+
+def saveCourseRating(dataObjs,user):
+    try:
+        course_rating =  saveCourseRatingDB(dataObjs,user)
+        return course_rating
     except Exception as e:
         raise

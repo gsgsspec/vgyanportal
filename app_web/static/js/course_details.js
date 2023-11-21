@@ -15,12 +15,18 @@ document.getElementById('save_rating').onclick=function(){
         }
 
         $.post(CONFIG['domain'] + "/api/save-rating", final_data, function (res) {
-            console.log('res',res);
         
             if (res.statusCode == 0){
-                if (res.token == 'token_generated'){
-                    window.location.href = '/courses';
-                }
+                rating = res.data
+
+                showSuccessMessage('Thanks for your feedback')
+                $('#rating_button').hide();
+                $('#user-rating').append('<p style="font-size:1.125rem">Rating : ' + rating + ' <i class="fas fa-star" style="color: #f46a24;"></i></p>');
+                $('#user-rating').removeAttr('hidden');
+                $('#rating_popup').modal('hide');
+            }
+            else {
+                showFailureMessage('Error in saving course rating. Please try again after some time')
             }
         })
     })

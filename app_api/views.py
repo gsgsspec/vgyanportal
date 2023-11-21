@@ -4,9 +4,10 @@ from rest_framework.decorators import api_view,authentication_classes,permission
 from allauth.account.utils import perform_login
 from allauth.account import app_settings as allauth_settings
 from app_api.functions.masterdata import auth_user
-from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService
+from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService, saveCourseRating
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
+
 
 @api_view(['POST'])
 @authentication_classes([])
@@ -85,7 +86,7 @@ def saveProfile(request):
             fileObjs = request.FILES
             dataObjs = json.loads(request.POST.get('data'))
             saveProfileDetails(dataObjs, fileObjs)
-            response['data'] = "Profile dDetails Saved Sucessfully"
+            response['data'] = "Profile Details Saved Sucessfully"
             response['statusCode'] = 0
      
     except Exception as e:
@@ -97,6 +98,28 @@ def saveProfile(request):
 
 
 @api_view(['POST'])
+def saveRating(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+    try:
+        if request.method == "POST":
+            dataObjs = json.loads(request.POST.get('data'))
+            user = request.user
+            course_rating = saveCourseRating(dataObjs,user)
+            response['data'] = course_rating
+            response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saving Course rating'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)
+    
+
+@api_view(['POST'])
 def getModuleLesson(request):
     response = {
         'data': None,
@@ -106,9 +129,7 @@ def getModuleLesson(request):
     try:
         if request.method == "POST":
             dataObjs = json.loads(request.POST.get('data'))
-
             getModulesLessons = getModuleLessonService(dataObjs)
-
             response['data'] = getModulesLessons
             response['statusCode'] = 0
 

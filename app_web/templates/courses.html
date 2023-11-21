@@ -126,7 +126,6 @@
               <h5 class="pb-1 mb-4">My Courses</h5>
                 <div class="row" id="CourseCardContainer">
                   {% for course in getCoursesList %}
-
                   <div class="col-12 col-md-12 col-lg-6 d-none courses-card-class" onclick="window.location.href='/course-details/{{course.id}}'" id="CourseCard_{{ course.id }}" >
                     <div class="card mb-3">
                       <div class="my-course-card">
