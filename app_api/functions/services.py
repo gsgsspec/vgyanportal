@@ -233,38 +233,46 @@ def saveAskQuestion(dataObjs):
 
 def getAskQuestion(dataObjs):
     try:
-        questionList = []
-        unansweredQuestion = []
-        sendQuestions = {}
-        userCourseId = int(dataObjs['getQuestionData']['courseId'])
-        registeredUerId   = int(dataObjs['getQuestionData']['userId'])
+        questionList     = []
+        overAllQuestions = []
+        sendQuestions    = {}
+        userCourseId     = int(dataObjs['getQuestionData']['courseId'])
+        registeredUerId  = int(dataObjs['getQuestionData']['userId'])
 
         userCourseDetails = CourseRegistration.objects.filter(courseid = userCourseId ,registrationid = registeredUerId).last()
 
         getcourseid = userCourseDetails.courseid
 
-        getQuestions = Question.objects.filter(registrationid = userCourseDetails.registrationid,courseid = getcourseid)
+        getQuestions = Question.objects.filter(courseid = getcourseid)
 
-        for ques in getQuestions:
-            if ques.answer:
+        for allQuestion in getQuestions:
+            
+            questionId     = allQuestion.id
+            question       = allQuestion.question 
+            questionAnswer = allQuestion.answer
+            userRegisterId = allQuestion.registrationid
+
+            if userRegisterId == registeredUerId:
                 questions = {
-                    'id'   : ques.id,
-                    'ques' : ques.question,
-                    'ans'  : ques.answer
+                    'id'   : questionId,
+                  'userId' : userRegisterId,
+                    'ques' : question,
+                    'ans'  : "Answer not available. Check back later." if questionAnswer == None else questionAnswer
                 }
-
                 questionList.append(questions)
 
-            else:
-                unquestions = {
-                    'id'   : ques.id,
-                    'ques' : ques.question 
+            allQuestionsData = {
+                    'id'   : questionId,
+                  'userId' : userRegisterId,
+                    'ques' : question,
+                    'ans'  : "Answer not available. Check back later." if questionAnswer == None else questionAnswer
                 }
-                unansweredQuestion.append(unquestions
-                )
-        
+            overAllQuestions.append(allQuestionsData)
+
+        questionList.reverse()
+        overAllQuestions.reverse()
         sendQuestions['questionList'] = questionList
-        sendQuestions['unansweredQuestion'] = unansweredQuestion
+        sendQuestions['overAllQuestions'] = overAllQuestions
 
         return sendQuestions
 

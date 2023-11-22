@@ -1,18 +1,19 @@
+var receivedData = localStorage.getItem('dataObj');
+var courseData = JSON.parse(receivedData)
+
+var courseId  =  courseData['courseId']
+var moduleId  =  courseData['moduleId']
+var lessionId =  courseData['lessionId']
+
+var getQuestionData = {
+    'courseId' : 1,
+    'userId'   : 1
+    }
+
 $(document).ready(function(){
-
-    var receivedData = localStorage.getItem('dataObj');
-    var courseData = JSON.parse(receivedData)
-
-    var courseId  =  courseData['courseId']
-    var moduleId  =  courseData['moduleId']
-    var lessionId =  courseData['lessionId']
-
     getModuleLesson(courseId,moduleId,lessionId)
 
-    var getQuestionData = {
-        'courseId' : 1,
-        'userId'   : 1
-        }
+   
 
     getQuestionsList(getQuestionData)
 })
@@ -126,51 +127,117 @@ function askQuestion(){
             if (res.statusCode == 0){
                 $('#AskQuestionTextAreaId').val('');
                 showSuccessMessage('Question add')
+                getQuestionsList(getQuestionData)
             }
         })
 
     }) 
 }
 
+// function getQuestionsList(getQuestionData) {
+//     dataObj = {
+//         'getQuestionData': getQuestionData
+//     }
+
+//     var final_data = {
+//         'data': JSON.stringify(dataObj),
+//         csrfmiddlewaretoken: CSRF_TOKEN,
+//     }
+
+//     $.post(CONFIG['domain'] + "/api/get-questions", final_data, function (res) {
+
+//         var answeredQuestion = res.data.questionList;
+//         var unansweredQuestion = res.data.unansweredQuestion;
+
+//         if (res.statusCode == 0) {
+
+//             for (var ans = 0; ans < answeredQuestion.length; ans++) {
+
+//                 var question = answeredQuestion[ans]['ques'];
+//                 var questionId = answeredQuestion[ans]['id'];
+//                 var questionAnswer = answeredQuestion[ans]['ans'];
+
+//                 // console.log('question ::: ', question);
+
+//                 $('#questionsId').append(
+//                     '<div class="card accordion-item">' +
+//                     '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
+//                     '<button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
+//                     question + ' </button>' +
+//                     '</h2>' +
+//                     '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
+//                     '<div class="accordion-body"> ' + questionAnswer + ' </div>' +
+//                     '</div>' +
+//                     '</div>'
+//                 );
+//             }
+//         }
+//     });
+// }
+
+
+
 function getQuestionsList(getQuestionData) {
-    dataObj = {
-        'getQuestionData': getQuestionData
-    }
-
-    var final_data = {
-        'data': JSON.stringify(dataObj),
-        csrfmiddlewaretoken: CSRF_TOKEN,
-    }
-
-    $.post(CONFIG['domain'] + "/api/get-questions", final_data, function (res) {
-
-        // console.log('res', res);
-
-        var answeredQuestion = res.data.questionList;
-        var unansweredQuestion = res.data.unansweredQuestion;
-
-        if (res.statusCode == 0) {
-
-            for (var ans = 0; ans < answeredQuestion.length; ans++) {
-
-                var question = answeredQuestion[ans]['ques'];
-                var questionId = answeredQuestion[ans]['id'];
-                var questionAnswer = answeredQuestion[ans]['ans'];
-
-                // console.log('question ::: ', question);
-
-                $('#questionsId').append(
-                    '<div class="card accordion-item">' +
-                    '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
-                    '<button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
-                    question + ' </button>' +
-                    '</h2>' +
-                    '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
-                    '<div class="accordion-body"> ' + questionAnswer + ' </div>' +
-                    '</div>' +
-                    '</div>'
-                );
-            }
+        dataObj = {
+            'getQuestionData': getQuestionData
         }
-    });
-}
+    
+        var final_data = {
+            'data': JSON.stringify(dataObj),
+            csrfmiddlewaretoken: CSRF_TOKEN,
+        }
+    
+        $.post(CONFIG['domain'] + "/api/get-questions", final_data, function (res) {
+    
+            var answeredQuestion = res.data.questionList;
+            var overAllQuestions = res.data.overAllQuestions;
+
+            console.log('overAllQuestions :: ',overAllQuestions)
+    
+            if (res.statusCode == 0) {
+
+                $('#vertical-example').html('')
+                $('#over-all-question').html('')
+
+    
+                for (var ans = 0; ans < overAllQuestions.length; ans++) {
+    
+                    var question = overAllQuestions[ans]['ques'];
+                    var questionId = overAllQuestions[ans]['id'];
+                    var questionAnswer = overAllQuestions[ans]['ans'];
+                    var userRegisterationId = overAllQuestions[ans]['userId'];
+
+                    if (parseInt(userRegisterationId) === getQuestionData.userId){
+
+                        $('#vertical-example').append(
+                            '<div class="accordion-item">' +
+                            '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
+                            '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
+                            question + ' </button>' +
+                            '</h2>' +
+                            '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
+                            '<div class="accordion-body"> ' + questionAnswer + ' </div>' +
+                            '</div>' +
+                            '</div>'
+                        );
+
+                    }
+
+                    $('#over-all-question').append(
+                        '<div class="accordion-item">' +
+                        '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
+                        '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
+                        question + ' </button>' +
+                        '</h2>' +
+                        '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
+                        '<div class="accordion-body"> ' + questionAnswer + ' </div>' +
+                        '</div>' +
+                        '</div>'
+                    );
+
+    
+                    
+                }
+            }
+        });
+    }

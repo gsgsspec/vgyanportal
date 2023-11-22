@@ -29,6 +29,16 @@
   width: 5rem !important;
 }
 
+#vertical-example {
+  overflow-y: auto;
+  max-height: 350px;
+}
+
+#over-all-question {
+  overflow-y: auto;
+  max-height: 350px;
+}
+
 
 @media (min-width: 300px) {
   .my-courses-images{
