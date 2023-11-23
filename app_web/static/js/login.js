@@ -21,7 +21,11 @@ document.getElementById('login').onclick=function(){
                 if (res.token == 'token_generated'){
                     window.location.href = '/courses';
                 }
+                else{
+                    $('#invalid_cred').removeAttr('hidden');
+                }
             }
+
         })
     })
 

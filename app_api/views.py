@@ -55,7 +55,7 @@ def loginView(request):
                 perform_login(request._request, usr, allauth_settings.EMAIL_VERIFICATION, signup=False,
                               redirect_url=None, signal_kwargs=None)
                 user = auth_user(usr)
-                print('user',user)
+                
                 response['token'] = 'token_generated'
                 response['data'] = 'Successfully logged-in'
                 response['login_type'] = auth_token[1]

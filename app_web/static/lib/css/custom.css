@@ -40,6 +40,98 @@
 }
 
 
+.stars {
+  width: fit-content;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.star {
+  color: #f46a24 !important;
+}
+.rate {
+  height: 50px;
+  margin-left: -5px;
+  padding: 5px;
+  font-size: 25px;
+  position: relative;
+  cursor: pointer;
+}
+.rate input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,0%);
+  pointer-events: none;
+}
+.star-over::after {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: 16px;
+  content: "\f005";
+  display: inline-block;
+  color: #f46a24;
+  z-index: 1;
+  position: absolute;
+  top: 17px;
+  left: 10px;
+}
+
+.rate:nth-child(1) .face::after {
+  content: "\f119"; /* ☹ */
+}
+.rate:nth-child(2) .face::after {
+  content: "\f11a"; /* 😐 */
+}
+.rate:nth-child(3) .face::after {
+  content: "\f118"; /* 🙂 */
+}
+.rate:nth-child(4) .face::after {
+  content: "\f580"; /* 😊 */
+}
+.rate:nth-child(5) .face::after {
+  content: "\f59a"; /* 😄 */
+}
+.face {
+  opacity: 0;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background: #f46a24;
+  border-radius: 5px;
+  top: -30px;
+  left: 2px;
+  transition: 0.2s;
+  pointer-events: none;
+}
+
+.face::before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: "\f0dd";
+  display: inline-block;
+  color: #f46a24;
+  z-index: 1;
+  position: absolute;
+  left: 9px;
+  bottom: -15px;
+}
+
+.face::after {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  display: inline-block;
+  color: #fff;
+  z-index: 1;
+  position: absolute;
+  left: 5px;
+  top: -1px;
+}
+
+.rate:hover .face {
+  opacity: 1;
+}
+
 @media (min-width: 300px) {
   .my-courses-images{
     width: 120px;
@@ -82,6 +174,7 @@
   .ask-question-input-feld{
     margin-bottom: 1rem !important;
   }
+
 }
 
 
@@ -89,6 +182,10 @@
 
   .my-courses-alert{
     width: 97% !important;
+  }
+
+  .authentication-wrapper.authentication-basic .authentication-inner{
+    margin-top: -5em;
   }
 
 }

@@ -23,9 +23,9 @@ def coursesPage(request):
         userId = user_data.id
 
         getCoursesList = getMyCourses(userId)
+        user_details = getUserProfile(user_mail)
 
-        return render(request,'index.html',{'template_name':'courses.html',
-        'getCoursesList' : getCoursesList})
+        return render(request,'index.html',{'template_name':'courses.html','getCoursesList':getCoursesList,'user_details':user_details})
     
     except Exception as e:
         raise
@@ -52,7 +52,8 @@ def askQuestionPage(request):
         user_mail = request.user
         user_data = getUserProfile(user_mail)
 
-        return render(request,'index.html',{'template_name':'ask_question.html','user_data':user_data})
+
+        return render(request,'index.html',{'template_name':'ask_question.html','user_details':user_data})
     except Exception as e:
         raise
 
@@ -76,10 +77,12 @@ def courseDetailsPage(request,cid):
         user_courses = CourseRegistration.objects.filter(registrationid=reg_id)
 
         if user_courses.filter(courseid=cid).exists():
+
+            user_data = getUserProfile(request.user)
             
             course_details = getCourseDetails(request,cid)
 
-            return render(request, 'index.html',{'template_name':'course_details.html','course_details':course_details})
+            return render(request, 'index.html',{'template_name':'course_details.html','course_details':course_details,'user_data':user_data})
         
         else:
             return render (request,'index.html',{'template_name':'404.html'})

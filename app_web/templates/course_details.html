@@ -11,56 +11,47 @@
                 </div>
 
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                    <div class="navbar-nav align-items-center">
-                    <div class="nav-item d-flex align-items-center">
-                        <i class="bx bx-search fs-4 lh-0"></i>
-                        <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..."/>
-                    </div>
-                    </div>
                 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
-                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                        <div class="avatar avatar-online">
-                            <img src="{% static '/lib/img/user.png' %}" alt class="w-px-40 h-auto rounded-circle" />
-                        </div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="#">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                <div class="avatar avatar-online">
-                                    <img src="{% static '/lib/img/user.png' %}" alt class="w-px-40 h-auto rounded-circle" />
-                                </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                <span class="fw-semibold d-block">John Doe</span>
-                                <small class="text-muted">Admin</small>
-                                </div>
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                          <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                            <div class="avatar avatar-online">
+                              <img src="{{user_data.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                            <i class="bx bx-user me-2"></i>
-                            <span class="align-middle">My Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="/">
-                            <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">Log Out</span>
-                            </a>
-                        </li>
-                        </ul>
-                    </li>
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                              <a class="dropdown-item" href="/profile">
+                                <div class="d-flex">
+                                  <div class="flex-shrink-0 me-3">
+                                    <div class="avatar avatar-online">
+                                      <img src="{{user_data.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
+                                    </div>
+                                  </div>
+                                  <div class="flex-grow-1 d-flex flex-column flex-md-row align-items-md-center">
+                                    <span class="fw-semibold d-block">{{user_data.first_name}}</span>
+                                  </div>
+                                </div>
+                              </a>
+                            </li>
+                            <li>
+                              <div class="dropdown-divider"></div>
+                            </li>
+                            <li>
+                              <a class="dropdown-item" href="/profile">
+                                <i class="bx bx-user me-2"></i>
+                                <span class="align-middle">My Profile</span>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="dropdown-item" href="/">
+                                <i class="bx bx-power-off me-2"></i>
+                                <span class="align-middle">Log Out</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </li>  
                     </ul>
                 </div>
             </nav>
@@ -152,7 +143,7 @@
                                                 <div class="face"></div>
                                                 <i class="far fa-star star five-star"></i>
                                             </label>
-                                        </div>
+                                        </div><br>
                                         <div>
                                             <textarea type="textarea" rows="3" id="rating_comment" class="form-control" placeholder="Message (optional)"></textarea>
                                         </div>   
@@ -173,94 +164,6 @@
 <script src="{% static 'js/course_details.js' %}"></script>
 
 <style>
-    .stars {
-        width: fit-content;
-        margin: 0 auto;
-        cursor: pointer;
-    }
-    .star {
-        color: #f46a24 !important;
-    }
-    .rate {
-        height: 50px;
-        margin-left: -5px;
-        padding: 5px;
-        font-size: 25px;
-        position: relative;
-        cursor: pointer;
-    }
-    .rate input[type="radio"] {
-        opacity: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,0%);
-        pointer-events: none;
-    }
-    .star-over::after {
-        font-family: 'Font Awesome 5 Free';
-        font-weight: 900;
-        font-size: 16px;
-        content: "\f005";
-        display: inline-block;
-        color: #f46a24;
-        z-index: 1;
-        position: absolute;
-        top: 17px;
-        left: 10px;
-    }
     
-    .rate:nth-child(1) .face::after {
-        content: "\f119"; /* ☹ */
-    }
-    .rate:nth-child(2) .face::after {
-        content: "\f11a"; /* 😐 */
-    }
-    .rate:nth-child(3) .face::after {
-        content: "\f118"; /* 🙂 */
-    }
-    .rate:nth-child(4) .face::after {
-        content: "\f580"; /* 😊 */
-    }
-    .rate:nth-child(5) .face::after {
-        content: "\f59a"; /* 😄 */
-    }
-    .face {
-        opacity: 0;
-        position: absolute;
-        width: 35px;
-        height: 35px;
-        background: #f46a24;
-        border-radius: 5px;
-        top: -30px;
-        left: 2px;
-        transition: 0.2s;
-        pointer-events: none;
-    }
-    .face::before {
-        font-family: 'Font Awesome 5 Free';
-      font-weight: 900;
-        content: "\f0dd";
-        display: inline-block;
-        color: #f46a24;
-        z-index: 1;
-        position: absolute;
-        left: 9px;
-        bottom: -15px;
-    }
-    .face::after {
-        font-family: 'Font Awesome 5 Free';
-      font-weight: 900;
-        display: inline-block;
-        color: #fff;
-        z-index: 1;
-        position: absolute;
-        left: 5px;
-        top: -1px;
-    }
-    
-    .rate:hover .face {
-        opacity: 1;
-    }
     
 </style>

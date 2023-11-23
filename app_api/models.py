@@ -157,6 +157,7 @@ class Question(models.Model):
     question = models.CharField(max_length=100, null=True)
     answer = models.CharField(max_length=100, null=True)
     lessonid = models.IntegerField(null=True)
+    moduleid = models.IntegerField(null=True)
     status = models.CharField(max_length=1, null=True) # Y - Display, N - Not to Display
 
     class Meta:
