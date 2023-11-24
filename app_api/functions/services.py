@@ -47,6 +47,8 @@ def getMyCourses(userId):
             courseId = getcourse['courseid']
             if courseId:
                 getCourseDetails = Course.objects.filter(id = courseId).last()
+                img_url = CourseMedia.objects.get(courseid=courseId, type='T').mediaurl
+                web_domain = getConfig()['MEDIA']['web_domain']
 
                 courseDetails = {
                     "id"           : getCourseDetails.id,
@@ -65,6 +67,7 @@ def getMyCourses(userId):
                     "objectives"   : getCourseDetails.objectives,
                     "eligibility"  : getCourseDetails.eligibility,
                     "status"       : getCourseDetails.status,
+                    'course_img'   : f"{web_domain}{img_url}",
                 }
                 
                 courseList.append(courseDetails)
