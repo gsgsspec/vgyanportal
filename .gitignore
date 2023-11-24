@@ -2,3 +2,4 @@
 app_web/migrations/
 app_api/migrations/
 vgyanportal/__pycache__/
+app_api/functions/__pycache__/
