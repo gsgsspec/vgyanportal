@@ -156,11 +156,14 @@ def saveAskQuestionDb(dataObjs):
         courseId = dataObjs['courseId']
         lessonId = dataObjs['lessonId']
         dataObjs['moduleId']
+
+        userEmail = dataObjs['userId']
+        getUserRegisterId = Registration.objects.filter(email = userEmail).last()
         
         getQuestion = dataObjs['question']
         
         saveQuestion = Question(
-            registrationid = 1,
+            registrationid = getUserRegisterId.id,
             courseid = courseId if courseId != "" else 0,
             lessonid = lessonId if lessonId != "" else 0,
             question = getQuestion if getQuestion != '' else "",

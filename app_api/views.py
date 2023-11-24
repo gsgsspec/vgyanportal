@@ -152,6 +152,7 @@ def saveQuestion(request):
         if request.method == "POST":
             dataObjs = json.loads(request.POST.get('data'))
 
+            dataObjs['userId'] = request.user
             saveAskQuestion(dataObjs)
 
             response['data'] = 'Question Saved'
@@ -176,7 +177,9 @@ def getQuestion(request):
         if request.method == "POST":
             dataObjs = json.loads(request.POST.get('data'))
 
-            getquestionsList = getAskQuestion(dataObjs)
+            userId = request.user
+            
+            getquestionsList = getAskQuestion(dataObjs,userId)
 
             response['data'] = getquestionsList
             response['statusCode'] = 0

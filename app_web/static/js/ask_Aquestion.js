@@ -2,41 +2,38 @@ var receivedData = localStorage.getItem('dataObj');
 var courseData = JSON.parse(receivedData)
 
 var courseId  =  courseData['courseId']
-var moduleId  =  courseData['moduleId']
-var lessionId =  courseData['lessionId']
 
 var getQuestionData = {
-    'courseId' : 1,
-    'userId'   : 1
+    'courseId' : courseId,
+    'userId'   : '' //user getting in backend request.user
     }
 
-$(document).ready(function(){
-    getModuleLesson(courseId,moduleId,lessionId)
+var getModulesList = {
+    'courseId' : courseId,
+    'moduleId' : 0,
+}
 
-   
+$(document).ready(function(){
+    
+    getModuleLesson(getModulesList)
 
     getQuestionsList(getQuestionData)
 })
 
 $('#moduleId').change(function(){
 
-    // console.log( $('#moduleId').val() )
+    var getModulesList = {
+        'courseId' : courseId,
+        'moduleId' : $('#moduleId').val(),
+    }
 
-    var courseId  =  1 
-    var moduleId  =  $('#moduleId').val()
-    var lessionId =  0
-
-    getModuleLesson(courseId,moduleId,lessionId)
+    getModuleLesson(getModulesList)
 })
 
 
-function getModuleLesson(courseId,moduleId,lessionId){
+function getModuleLesson(getModulesList){
 
-    var dataobj = {
-        'courseId'  : courseId,
-        'moduleId'  : moduleId,
-        'lessionId' : lessionId
-    }
+    var dataobj = getModulesList
 
     var final_data = {
         'data': JSON.stringify(dataobj),
@@ -47,11 +44,32 @@ function getModuleLesson(courseId,moduleId,lessionId){
 
         var getModulesDataList = res.data.Modules;
         var getLessonsDataList = res.data.lesson;
-    
+
         if (res.statusCode == 0){
 
             $('#moduleId').html('')
             $('#lessonId').html('')
+
+            if (getModulesDataList.length == 0){
+                $('#moduleId').prop('disabled', true);
+                $('#moduleId').append(
+                    '<option  value="" id=""> ' + " No Modules " + ' </option>'
+                )
+            }
+            else{
+                $('#moduleId').prop('disabled', false);
+            }
+
+            if (getLessonsDataList.length == 0){
+                $('#lessonId').prop('disabled', true);
+                $('#lessonId').append(
+                    '<option  value="" id=""> ' + " No Lessons " + ' </option>'
+                )
+            }
+            else{
+                $('#lessonId').prop('disabled', false);
+            }
+            
 
             for (var modul = 0 ; modul < getModulesDataList.length; modul ++){
 
@@ -104,7 +122,7 @@ function askQuestion(){
     $('#askQuestionForm').unbind('submit').bind('submit',function(event){
         event.preventDefault();
 
-        var courseId = $('#courseId').attr('data-course-id');
+        // var courseId = $('#courseId').attr('data-course-id');
         var moduleId = $('#moduleId').val();
         var lessonId = $('#lessonId').val();
         var question = $('#AskQuestionTextAreaId').val();
@@ -113,8 +131,9 @@ function askQuestion(){
             'courseId':  courseId,
             'moduleId':  moduleId,
             'lessonId':  lessonId,
-            'question':  question
+            'question':  question,
         }
+        console.log('dataObj :: ',dataObj)
 
         var final_data = {
             'data': JSON.stringify(dataObj),
@@ -134,48 +153,6 @@ function askQuestion(){
     }) 
 }
 
-// function getQuestionsList(getQuestionData) {
-//     dataObj = {
-//         'getQuestionData': getQuestionData
-//     }
-
-//     var final_data = {
-//         'data': JSON.stringify(dataObj),
-//         csrfmiddlewaretoken: CSRF_TOKEN,
-//     }
-
-//     $.post(CONFIG['domain'] + "/api/get-questions", final_data, function (res) {
-
-//         var answeredQuestion = res.data.questionList;
-//         var unansweredQuestion = res.data.unansweredQuestion;
-
-//         if (res.statusCode == 0) {
-
-//             for (var ans = 0; ans < answeredQuestion.length; ans++) {
-
-//                 var question = answeredQuestion[ans]['ques'];
-//                 var questionId = answeredQuestion[ans]['id'];
-//                 var questionAnswer = answeredQuestion[ans]['ans'];
-
-//                 // console.log('question ::: ', question);
-
-//                 $('#questionsId').append(
-//                     '<div class="card accordion-item">' +
-//                     '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
-//                     '<button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
-//                     question + ' </button>' +
-//                     '</h2>' +
-//                     '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
-//                     '<div class="accordion-body"> ' + questionAnswer + ' </div>' +
-//                     '</div>' +
-//                     '</div>'
-//                 );
-//             }
-//         }
-//     });
-// }
-
-
 
 function getQuestionsList(getQuestionData) {
         dataObj = {
@@ -191,9 +168,9 @@ function getQuestionsList(getQuestionData) {
     
             var answeredQuestion = res.data.questionList;
             var overAllQuestions = res.data.overAllQuestions;
+            console.log('res.data :: ',res.data.sendUserId)
+            var userRegIdentityId = res.data.sendUserId
 
-            console.log('overAllQuestions :: ',overAllQuestions)
-    
             if (res.statusCode == 0) {
 
                 $('#vertical-example').html('')
@@ -207,7 +184,7 @@ function getQuestionsList(getQuestionData) {
                     var questionAnswer = overAllQuestions[ans]['ans'];
                     var userRegisterationId = overAllQuestions[ans]['userId'];
 
-                    if (parseInt(userRegisterationId) === getQuestionData.userId){
+                    if (parseInt(userRegIdentityId) === userRegisterationId){
 
                         $('#vertical-example').append(
                             '<div class="accordion-item">' +
@@ -235,8 +212,6 @@ function getQuestionsList(getQuestionData) {
                         '</div>'
                     );
 
-    
-                    
                 }
             }
         });

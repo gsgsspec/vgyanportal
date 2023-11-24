@@ -151,9 +151,7 @@ def getCourseDetails(request,cid):
 def getModuleLessonService(dataObjs):
     try:
         getCourseId = dataObjs['courseId']
-        getModuleId = dataObjs['moduleId']
-        getLessonId = dataObjs['lessionId']
-
+        getModuleId   = dataObjs['moduleId']
         moduleAndLessonsData = {}
 
         modulesList = [] 
@@ -165,50 +163,54 @@ def getModuleLessonService(dataObjs):
             
             getCourseModuleIdDb = CourseModule.objects.filter(courseid = getCourseIdDb.id)
 
-            for module in getCourseModuleIdDb:
+            if getCourseModuleIdDb:
+                for module in getCourseModuleIdDb:
 
-                default = "NO"
+                    default = "NO"
 
-                if int(getModuleId) == module.id:
+                    if module.id == int(getModuleId):
 
-                    default = "YES"
+                        default = "YES"
 
-                modulesData = {
-                    'selected' : default,
-                    'moduleId' : module.id,
-                    'moduleName' : module.name,
-                    'moduleSequence' : module.sequence
-                }
+                    modulesData = {
+                        'selected' : default,
+                        'moduleId' : module.id,
+                        'moduleName' : module.name,
+                        'moduleSequence' : module.sequence
+                    }
 
-                modulesList.append(modulesData)
-            
-            getModeulesDetails = getCourseModuleIdDb.first()
-
-            courseId = getModeulesDetails.courseid
-            moduleId = getModeulesDetails.id
-
-            getModulesLesson = CourseLesson.objects.filter(courseid = courseId, moduleid = getModuleId)
-            
-            for lesson in getModulesLesson:
+                    modulesList.append(modulesData)
                 
-                defaultLesson = 'NO'
+                getModeulesDetails = getCourseModuleIdDb.first()
 
-                if lesson.id == getLessonId:
+                courseLessonId = getModeulesDetails.courseid
+                moduleId = getModeulesDetails.id
 
-                    defaultLesson = 'YES'
-                
-                lessonData = {
-                    'defaultLesson' : defaultLesson,
-                    'lessonid' : lesson.id,
-                    'title'    : lesson.title,
-                }
+                if module.id:
+                    getModulesLesson = CourseLesson.objects.filter(courseid = courseLessonId,moduleid = moduleId if getModuleId == 0 else getModuleId)
 
-                lessonsList.append(lessonData)
+                    if getModulesLesson:
+                    
+                        for lesson in getModulesLesson:
+                            
+                            defaultLesson = 'NO'
 
-        
+                            if lesson.id:
+
+                                defaultLesson = 'YES'
+                            
+                            lessonData = {
+                                'defaultLesson' : defaultLesson,
+                                'lessonid' : lesson.id,
+                                'title'    : lesson.title,
+                            }
+
+                            lessonsList.append(lessonData)
+            
             moduleAndLessonsData['Modules'] = modulesList
             moduleAndLessonsData['lesson']  = lessonsList
-
+        
+        
         return moduleAndLessonsData
     
     except Exception as e:
@@ -231,13 +233,20 @@ def saveAskQuestion(dataObjs):
         raise
 
 
-def getAskQuestion(dataObjs):
+def getAskQuestion(dataObjs,userId):
     try:
         questionList     = []
         overAllQuestions = []
+        sendUserId       = []
+
         sendQuestions    = {}
         userCourseId     = int(dataObjs['getQuestionData']['courseId'])
-        registeredUerId  = int(dataObjs['getQuestionData']['userId'])
+        registeredUerId  = userId
+        
+
+        getUserId = Registration.objects.filter(email = registeredUerId).last()
+
+        registeredUerId = int(getUserId.id)
 
         userCourseDetails = CourseRegistration.objects.filter(courseid = userCourseId ,registrationid = registeredUerId).last()
 
@@ -271,6 +280,8 @@ def getAskQuestion(dataObjs):
 
         questionList.reverse()
         overAllQuestions.reverse()
+        
+        sendQuestions['sendUserId']   = registeredUerId
         sendQuestions['questionList'] = questionList
         sendQuestions['overAllQuestions'] = overAllQuestions
 

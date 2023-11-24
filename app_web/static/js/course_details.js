@@ -40,15 +40,18 @@ localStorage.removeItem('dataObj');
 document.getElementById('courseDetailsData').onclick=function(){
 
     dataObj = {
-        'courseId'  : 1,
-        'moduleId'  : 2,
-        'lessionId' : 6,
+        'courseId'  : getUserCourseId,
     }
     localStorage.setItem('dataObj', JSON.stringify(dataObj));
 
     window.location.href = '/ask-question';
 }
 
+$('#startAssessment').click( function(){
+
+    console.log('Start Assessment :: ',dataObj)
+
+} )
 
 
 
