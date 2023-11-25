@@ -11,4 +11,5 @@ urlpatterns = [
     path('get-module-lessons',views.getModuleLesson),
     path('save-question',views.saveQuestion),
     path('get-questions',views.getQuestion),
+    path('course-assessment',views.getAssessmentDetails)
 ]

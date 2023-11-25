@@ -47,11 +47,34 @@ document.getElementById('courseDetailsData').onclick=function(){
     window.location.href = '/ask-question';
 }
 
-$('#startAssessment').click( function(){
 
-    console.log('Start Assessment :: ',dataObj)
 
-} )
+function startAssessment(mid){
+     
+    dataObj = {
+        'course_id': getUserCourseId,
+        'module_id':mid,
+        'first_name': first_name,
+        'last_name': last_name,
+        'email': email,
+    }
+
+
+    var final_data = {
+        'data': JSON.stringify(dataObj),
+        csrfmiddlewaretoken: CSRF_TOKEN,
+    }
+
+    $.post(CONFIG['acert'] + "/api/vgyanportal-user-registeration", final_data, function (res) {
+
+
+
+
+    })
+    
+}
+
+
 
 
 

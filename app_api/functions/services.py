@@ -131,6 +131,7 @@ def getCourseDetails(request,cid):
                 })
 
             module_details.append({
+                'module_id': module.id,
                 'module_name':module.name,
                 'assesment':module.assesment,
                 'lesson_title': lesson_title
@@ -292,3 +293,18 @@ def getAskQuestion(dataObjs,userId):
 
     except Exception as e:
         raise
+
+
+
+def assessmentDetailsService(dataObjs,user):
+
+    try:
+        
+        course_assessment = {
+            
+        }
+
+
+    except Exception as e:
+        raise
+

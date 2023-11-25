@@ -4,7 +4,8 @@ from rest_framework.decorators import api_view,authentication_classes,permission
 from allauth.account.utils import perform_login
 from allauth.account import app_settings as allauth_settings
 from app_api.functions.masterdata import auth_user
-from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService, saveCourseRating, saveAskQuestion, getAskQuestion
+from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService, saveCourseRating, saveAskQuestion, getAskQuestion, \
+        assessmentDetailsService
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
 
@@ -189,3 +190,29 @@ def getQuestion(request):
         response['error'] = str(e)
         raise
     return JsonResponse(response)
+
+
+
+@api_view(['POST'])
+def getAssessmentDetails(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+    try:
+        if request.method == "POST":
+            dataObjs = json.loads(request.POST.get('data'))
+            user= request.user
+            
+            getAssessmentDetails = assessmentDetailsService(dataObjs,user)
+
+            response['data'] = "getquestionsList"
+            response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saveQuestion'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)
+

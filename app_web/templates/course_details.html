@@ -97,7 +97,7 @@
                                     </ul>
                                     {% if module.assesment == 'Y' %}
                                         <div class='p-3 justify-content-end d-flex'>
-                                            <button type="button" class="btn btn-primary" id="startAssessment">
+                                            <button type="button" class="btn btn-primary" onclick="startAssessment({{module.module_id}})">
                                                 <i class="fas fa-clipboard-list" style="color:#fff"></i>&nbsp; Start Assessment
                                             </button>
                                         </div>
@@ -164,6 +164,10 @@
 <script>
     var getUserCourseId = '{{ course_details.courseid }}'
     var getUserId = ''
+    var first_name = '{{ user_data.first_name }}'
+    var last_name = '{{ user_data.last_name }}'
+    var email = '{{ user_data.email }}'
+   
 </script>
 <script src="{% static 'js/course_details.js' %}"></script>
 
