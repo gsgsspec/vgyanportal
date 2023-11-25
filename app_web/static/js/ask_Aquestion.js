@@ -133,7 +133,7 @@ function askQuestion(){
             'lessonId':  lessonId,
             'question':  question,
         }
-        console.log('dataObj :: ',dataObj)
+        // console.log('dataObj :: ',dataObj)
 
         var final_data = {
             'data': JSON.stringify(dataObj),
@@ -168,7 +168,7 @@ function getQuestionsList(getQuestionData) {
     
             var answeredQuestion = res.data.questionList;
             var overAllQuestions = res.data.overAllQuestions;
-            console.log('res.data :: ',res.data.sendUserId)
+            // console.log('res.data :: ',res.data.sendUserId)
             var userRegIdentityId = res.data.sendUserId
 
             if (res.statusCode == 0) {
