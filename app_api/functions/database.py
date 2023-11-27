@@ -67,7 +67,10 @@ def addUserDB(dataObjs):
 
             course_registration.save()
             
-            sendRegistrainMail()
+
+            mail_data = {'email':user_email,'password':registration.password,'url':'http://localhost:8001'}
+
+            sendRegistrainMail(mail_data)
 
     except Exception as e:
         print(str(e))

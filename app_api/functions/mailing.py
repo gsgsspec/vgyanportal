@@ -13,7 +13,7 @@ from email.mime.multipart import MIMEMultipart
 SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
 
 
-def sendRegistrainMail():
+def sendRegistrainMail(mail_data):
     try:
         email_config = getConfig()['SEND_EMAIL_CONFIG']
         creds = email_config['creds']
@@ -24,7 +24,10 @@ def sendRegistrainMail():
         with open(template_file_path, 'r') as template_file:
             email_template = template_file.read()
 
-        email_body = email_template
+        email_body =  (email_template.replace('{url}',mail_data['url'])
+                      .replace('{email}',mail_data['email'])
+                      .replace('{password}',mail_data['password'])
+                      )
 
         creds = None
 
@@ -45,9 +48,9 @@ def sendRegistrainMail():
         service = build('gmail', 'v1', credentials=creds)
 
         message = MIMEMultipart("mixed")
-        message['To'] = 'srikanth@gsspec.com'
+        message['To'] = mail_data['email']
         message['From'] = f"Swara Bharathi <{email_config['sender']}>"
-        message['Subject'] = 'Registration'
+        message['Subject'] = 'Course Registration'
         emailbody = MIMEText(email_body, "html")
         message.attach(emailbody)
 
