@@ -35,7 +35,7 @@ document.getElementById('save').onclick=function(){
             cache: false,
             timeout: 600000,
             success: function (res) {
-                if(res.statusCode == 0){
+                if(res.statusCode == 0){                  
 
                   showSuccessMessage('Profile details saved successfully')
 

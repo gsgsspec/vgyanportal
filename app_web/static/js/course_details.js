@@ -68,8 +68,14 @@ function startAssessment(mid){
 
     $.post(CONFIG['acert'] + "/api/vgyanportal-user-registeration", final_data, function (res) {
 
+        if (res.statusCode == 0){
 
+            showSuccessMessage('Please check your mail for the assessment details')
+        }
 
+        else {
+            showFailureMessage('Error in getting the assesment data. Please try after sometime')
+        }
 
     })
     
