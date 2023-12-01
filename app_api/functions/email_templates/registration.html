@@ -4,10 +4,12 @@
 
     <style>
         .img {
-            width: 130px;
+            max-width: 450px;
+            max-height: 250px;
         }
 
         body {
+            
             background-color: #f6f6f6;
             font-family: sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -66,9 +68,9 @@
         }
 
         .border {
+            background-image: url(http://134.122.25.72:8101/static/lib/img/confirmation.gif);
             /* position: relative; */
-            border: 1px solid #f46a24;
-            border-bottom: 0px;
+            border: 5px solid #f46a24;
             min-height: 300px;
             width: -webkit-fill-available;
             text-align: left;
@@ -127,36 +129,6 @@
             text-decoration: none !important;
         }
 
-        .social-icons {
-            padding: 10px;
-            margin: auto;
-        }
-
-        /* SOCIAL ICONS */
-
-        .whatsapp {
-            width: 40px;
-        }
-
-        .facebook {
-            width: 40px;
-        }
-
-        .twitter {
-            width: 40px;
-        }
-
-        .instagram {
-            width: 40px;
-        }
-
-        .youtube {
-            width: 40px;
-        }
-
-        .socialimage {
-            width: 35px;
-        }
 
         .btn {
             box-sizing: border-box;
@@ -204,7 +176,7 @@
         }
 
         .body-width {
-            width: 70%;
+            width: 80%;
             margin-bottom: 25px;
         }
 
@@ -222,33 +194,35 @@
 </head>
 
 <body>
-    <p>Portal URL : {url}</p>
-    <p>Email      : {email}</p>
-    <p>Password   : {password}</p>
-    <!-- <div class="body-width" style="margin: auto; text-align: center;">
-        <img class="img" src="https://exams.swarabharathi.com/static/images/exam-papers-img/Logo.png" />
+    <div class="body-width" style="margin: auto; text-align: center;">
         <div class="header">
-            <span class="heading"><span>Contact Us Form</span></span>
+            <span class="heading"><span>Confirmation</span></span>
         </div>
         <div class="border">
             <div class="mail_body">
+                <div style="text-align: center;">
+                    <h1>{course}</h1>
+                    <img class="img" src="http://134.122.25.72:8100/media/uploads/vocal.jpg">
+                </div>
+               
                 <br>
                 
-                <span class="sub-text"><b>Name : </b>{name}</span><br>
-                <span class="sub-text"><b>Email : </b>{email}</span><br>
-                <span class="sub-text"><b>Mobile : </b>{mobile}</span><br>
-                <span class="sub-text"><b>Subject : </b>{subject}</span><br><br>
-                <span class="sub-text"><b>Message : </b><br></span><br>
-                <span class="sub-text">{message}</span><br>
-                <br>
+                <h2>Congratulations!!!</h2>
+                <p class="sub-text">Dear {name},</p>
+                <p class="sub-text">Your registration for the course {course} is complete, now you can access the course material by
+                    logging into student portal using any of your preferred devices (laptop, desktop, tablet or mobile
+                    phone).
+                </p>
+                <p class="sub-text">Student Portal URL : {url}</p>
+                <p class="sub-text">Email      : {email}</p>
+                <p class="sub-text">Password   : {password}</p>
+                <p class="sub-text">In case of any difficulty, please write to us at courses@swarabharathi.com</p>
+                    <br>
+                <p>- Team Swara Bharathi</p>
             </div>
             <br>
-            <br>
         </div>
-        <div class="footer">
-            </div>
-        </div>
-    </div> -->
+    </div>
 </body>
 
 

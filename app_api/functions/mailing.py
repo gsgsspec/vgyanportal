@@ -27,6 +27,8 @@ def sendRegistrainMail(mail_data):
         email_body =  (email_template.replace('{url}',mail_data['url'])
                       .replace('{email}',mail_data['email'])
                       .replace('{password}',mail_data['password'])
+                      .replace('{name}',mail_data['name'])
+                      .replace('{course}',mail_data['course'])
                       )
 
         creds = None

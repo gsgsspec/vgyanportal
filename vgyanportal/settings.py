@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-r+kp!0ugfmas9i7w5fd^7g%f=rjey$_lhm^0^hm)qwu+^#9*o=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.102','localhost']
 
 
 # Application definition
@@ -156,7 +156,7 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '\app_web\static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'app_web','static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -164,3 +164,9 @@ MEDIA_URL = '/media/'
 
 RAZOR_KEY_ID = 'rzp_test_F2TGvt3oInBajc'
 RAZOR_KEY_SECRET ='BCYfSp3W6n6QYv7FvQEAYrTW'
+
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+    'http://localhost:8001',
+]

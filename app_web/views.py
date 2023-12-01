@@ -76,6 +76,8 @@ def courseDetailsPage(request,cid):
         reg_id = Registration.objects.get(email=request.user).id
         user_courses = CourseRegistration.objects.filter(registrationid=reg_id)
 
+        
+
         if user_courses.filter(courseid=cid).exists():
 
             user_data = getUserProfile(request.user)

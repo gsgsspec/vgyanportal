@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static  %}
 
-<html lang="en">
+<html lang="en" class="light-style layout-menu-fixed">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
@@ -48,8 +48,52 @@
   </head>
 
   <body>
-    
-    {% include template_name %}
+
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+            
+            <span href="index.html" class="app-brand-link">
+              <span style="display:inline-flex; align-items:center">
+                <span class="app-brand-logo demo">
+                  <img style="max-width:7%;float:left" src="{% static 'lib/img/logo-new.png' %}">
+                <span class="brand-text">Swara Bharathi</span>
+              </span>
+            </span>
+
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+              <i class="bx bx-chevron-left bx-sm align-middle clr-p"></i>
+            </a>
+          </div>
+
+          <div class="menu-inner-shadow"></div>
+
+          <ul class="menu-inner py-1">
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Menu</span>
+            </li>
+            <li class="menu-item">
+              <a href="/profile" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user me-2"></i>
+                <div data-i18n="Analytics">Profile</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="/courses" class="menu-link">
+                <i class="menu-icon fas fa-play-circle"></i>
+                <div data-i18n="Analytics">Courses</div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+
+        <div class="layout-page">
+          {% include template_name %}
+        </div>
+      </div>
+    </div>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{% static 'lib/assets/vendor/libs/jquery/jquery.js' %}"></script>

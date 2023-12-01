@@ -136,6 +136,21 @@
   opacity: 1;
 }
 
+.brand-text {
+  display: inline-block;
+  margin-left: 20px !important;
+  vertical-align: middle;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #f46a24;
+  font-weight: 600;
+}
+
+
+
+/* Media queries starts from here  */
+
+
 @media (min-width: 300px) {
   .my-courses-images{
     width: 120px;
@@ -192,4 +207,22 @@
     margin-top: -5em;
   }
 
+}
+
+
+@media (min-width: 1200px) {
+  .layout-menu-fixed .layout-menu,
+  .layout-menu-fixed-offcanvas .layout-menu {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .layout-menu-fixed:not(.layout-menu-collapsed) .layout-page,
+  .layout-menu-fixed-offcanvas:not(.layout-menu-collapsed) .layout-page {
+    padding-left: 16.25rem;
+  }
 }

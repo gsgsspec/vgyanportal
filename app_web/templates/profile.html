@@ -1,138 +1,134 @@
 {% load static %}
 
-<div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
-      <div class="layout-page">
-        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
-          <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-              <i class="bx bx-menu bx-sm"></i>
-            </a>
-          </div>
 
-          <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-          
-            <ul class="navbar-nav flex-row align-items-center ms-auto">
-              <!-- User -->
-              <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                  <div class="avatar avatar-online">
-                    <img src="{{user_data.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
-                  </div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a class="dropdown-item" href="/profile">
-                      <div class="d-flex">
-                        <div class="flex-shrink-0 me-3">
-                          <div class="avatar avatar-online">
-                            <img src="{{user_data.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
-                          </div>
-                        </div>
-                        <div class="flex-grow-1 d-flex flex-column flex-md-row align-items-md-center">
-                          <span class="fw-semibold d-block">{{user_data.first_name}}</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <div class="dropdown-divider"></div>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="/profile">
-                      <i class="bx bx-user me-2"></i>
-                      <span class="align-middle">My Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="/">
-                      <i class="bx bx-power-off me-2"></i>
-                      <span class="align-middle">Log Out</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <!--/ User -->
-            </ul>
-          </div>
-        </nav>
+<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+<div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+  <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+    <i class="bx bx-menu bx-sm"></i>
+  </a>
+</div>
 
-        <div class="content-wrapper">
-          <div class="container-xxl flex-grow-1 container-p-y">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card mb-4">
-                  <h5 class="card-header">Profile Details</h5>
-                  <form id="profile_form">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="{{user_data.profile_img}}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="user_image"/>
-                        <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input type="file" id="upload" class="account-file-input" accept="image/png, image/jpeg" hidden/>
-                          </label>
-                          <p class="text-muted mb-0">Allowed JPG,JPEG and PNG.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <hr class="my-0" />
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input class="form-control" type="text" id="firstname" value="{{user_data.first_name}}"/>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input class="form-control" type="text" id="lastname" value="{{user_data.last_name}}" />
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input class="form-control" type="text" id="email" value="{{user_data.email}}" disabled/>
-                        </div>
-                        <div class="mb-3  col-md-6 form-password-toggle">
-                            <label for="password" class="form-label">Password</label>
-                            <div class="input-group input-group-merge">
-                              <input type="password" id="password" value="{{user_data.password}}" class="form-control" placeholder="Password">
-                              {% comment %} <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> {% endcomment %}
-                            </div>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                        <label class="form-label" for="phoneNumber">Mobile Number</label>
-                        <div class="input-group input-group-merge">
-                            {% comment %} <span class="input-group-text">IND (+91)</span> {% endcomment %}
-                            <input type="text" id="mbl_number" placeholder="Mobile number" class="form-control"/>
-                        </div>
-                        </div>
-                          <div class="mb-3 col-md-6">
-                          <label for="address" class="form-label">Address</label>
-                          <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
-                        </div>
-                        <div class="mb-3 col-md-6">
-                          <label for="state" class="form-label">State</label>
-                          <input class="form-control" placeholder="State" type="text" id="state">
-                        </div>
-                        <div class="mb-3 col-md-6">
-                          <label for="country" class="form-label">Country</label>
-                          <input class="form-control" type="text" value="{{user_data.country}}" id="country">
-                        </div>
-                      </div>
-                      <div class="mt-2">
-                        <button type="submit" id="save" class="btn btn-primary me-2">Save changes</button>
-                        <button type="reset" class="btn btn-outline-secondary">Cancel</button>
-                      </div> 
-                    </div>
-                  </form>
+<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+
+  <ul class="navbar-nav flex-row align-items-center ms-auto">
+    <!-- User -->
+    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+      <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+        <div class="avatar avatar-online">
+          <img src="{{user_data.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
+        </div>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+          <a class="dropdown-item" href="/profile">
+            <div class="d-flex">
+              <div class="flex-shrink-0 me-3">
+                <div class="avatar avatar-online">
+                  <img src="{{user_data.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
+                </div>
+              </div>
+              <div class="flex-grow-1 d-flex flex-column flex-md-row align-items-md-center">
+                <span class="fw-semibold d-block">{{user_data.first_name}}</span>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <div class="dropdown-divider"></div>
+        </li>
+        <li>
+          <a class="dropdown-item" href="/profile">
+            <i class="bx bx-user me-2"></i>
+            <span class="align-middle">My Profile</span>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="/">
+            <i class="bx bx-power-off me-2"></i>
+            <span class="align-middle">Log Out</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!--/ User -->
+  </ul>
+</div>
+</nav>
+
+<div class="content-wrapper">
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <h5 class="card-header">Profile Details</h5>
+          <form id="profile_form">
+            <div class="card-body">
+              <div class="d-flex align-items-start align-items-sm-center gap-4">
+                <img src="{{user_data.profile_img}}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="user_image"/>
+                <div class="button-wrapper">
+                  <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                    <span class="d-none d-sm-block">Upload new photo</span>
+                    <i class="bx bx-upload d-block d-sm-none"></i>
+                    <input type="file" id="upload" class="account-file-input" accept="image/png, image/jpeg" hidden/>
+                  </label>
+                  <p class="text-muted mb-0">Allowed JPG,JPEG and PNG.</p>
                 </div>
               </div>
             </div>
-          </div>
+            <hr class="my-0" />
+            <div class="card-body">
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input class="form-control" type="text" id="firstname" value="{{user_data.first_name}}"/>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input class="form-control" type="text" id="lastname" value="{{user_data.last_name}}" />
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input class="form-control" type="text" id="email" value="{{user_data.email}}" disabled/>
+                </div>
+                <div class="mb-3  col-md-6 form-password-toggle">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group input-group-merge">
+                      <input type="password" id="password" value="{{user_data.password}}" class="form-control" placeholder="Password">
+                      {% comment %} <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> {% endcomment %}
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                <label class="form-label" for="phoneNumber">Mobile Number</label>
+                <div class="input-group input-group-merge">
+                    {% comment %} <span class="input-group-text">IND (+91)</span> {% endcomment %}
+                    <input type="text" id="mbl_number" placeholder="Mobile number" class="form-control"/>
+                </div>
+                </div>
+                  <div class="mb-3 col-md-6">
+                  <label for="address" class="form-label">Address</label>
+                  <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label for="state" class="form-label">State</label>
+                  <input class="form-control" placeholder="State" type="text" id="state">
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label for="country" class="form-label">Country</label>
+                  <input class="form-control" type="text" value="{{user_data.country}}" id="country">
+                </div>
+              </div>
+              <div class="mt-2">
+                <button type="submit" id="save" class="btn btn-primary me-2">Save changes</button>
+                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+              </div> 
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 <script src="{% static 'js/profile.js' %}"></script>
 
 

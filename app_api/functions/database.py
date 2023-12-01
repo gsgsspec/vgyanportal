@@ -4,10 +4,11 @@ import secrets
 import string
 import razorpay
 from vgyanportal import settings
-from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration, Question
+from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration, Question, CourseMedia
 from datetime import datetime
 from  .mailing import sendRegistrainMail
 from vgyanportal.settings import RAZOR_KEY_ID, RAZOR_KEY_SECRET
+from vgyanportal.metadata import getConfig
 
 
 def addUserDB(dataObjs):
@@ -67,8 +68,12 @@ def addUserDB(dataObjs):
 
             course_registration.save()
             
+            course_title = Course.objects.get(id=dataObjs["course_id"]).title
+            web_domain = getConfig()['MEDIA']['web_domain']
+            portal_domain = getConfig()['MEDIA']['domain']
+            img_url = CourseMedia.objects.get(courseid=dataObjs["course_id"], type='T').mediaurl
 
-            mail_data = {'email':user_email,'password':registration.password,'url':'http://localhost:8001'}
+            mail_data = {'email':user_email,'password':registration.password,'url':portal_domain,'name':registration.firstname,'course':course_title,'img_url':f"{web_domain}{img_url}"}
 
             sendRegistrainMail(mail_data)
 

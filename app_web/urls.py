@@ -6,7 +6,7 @@ urlpatterns = [
     path('',views.loginPage),
     path('courses',views.coursesPage),
     path('profile',views.profilePage),
-    path('ask-question',views.askQuestionPage),
+    path('course/question',views.askQuestionPage),
     path('rating',views.ratingPage),
     path('course-details/<int:cid>',views.courseDetailsPage),
 ]

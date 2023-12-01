@@ -44,7 +44,7 @@ document.getElementById('courseDetailsData').onclick=function(){
     }
     localStorage.setItem('dataObj', JSON.stringify(dataObj));
 
-    window.location.href = '/ask-question';
+    window.location.href = '/course/question';
 }
 
 

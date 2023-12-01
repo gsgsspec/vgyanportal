@@ -1,137 +1,108 @@
 {% load static  %}
 
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        <!-- Menu -->
 
-        <!-- / Menu -->
+<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+  <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+      <i class="bx bx-menu bx-sm"></i>
+    </a>
+  </div>
 
-        <!-- Layout container -->
-        <div class="layout-page">
-          <!-- Navbar -->
+  <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-              </a>
-            </div>
+    <ul class="navbar-nav flex-row align-items-center ms-auto">
+      <!-- User -->
+      <li class="nav-item navbar-dropdown dropdown-user dropdown">
+        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+          <div class="avatar avatar-online">
+            <img src="{{user_details.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
+          </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li>
+            <a class="dropdown-item" href="/profile">
+              <div class="d-flex">
+                <div class="flex-shrink-0 me-3">
+                  <div class="avatar avatar-online">
+                    <img src="{{user_details.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
 
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="{{user_details.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="/profile">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="{{user_details.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1 d-flex flex-column flex-md-row align-items-md-center">
-                            <span class="fw-semibold d-block">{{user_details.first_name}}</span>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="/profile">
-                        <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="/">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ User -->
-              </ul>
-            </div>
-          </nav>
-
-          <!-- / Navbar -->
-
-          
-
-          <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-
-            <div class="container-xxl flex-grow-1 container-p-y">
-
-              <h5 class="pb-1 mb-4">My Courses</h5>
-                <div class="row" id="CourseCardContainer"> {{ getCoursesList.assessments }}
-                  {% for course in getCoursesList %}
-                  <div class="col-12 col-md-12 col-lg-6 d-none courses-card-class" onclick="window.location.href='/course-details/{{course.id}}'" id="CourseCard_{{ course.id }}" >
-                    <div class="card mb-3">
-                      <div class="my-course-card">
-                        <div class="m-3 col-md-4 my-courses-images">
-                          <img class="card-img card-img-left rounded  my-courses-images" src="{{course.course_img}}" alt="Card image" />
-                        </div>
-                        <div class="col-md-8 my-course-card-body">
-                          <div class="card-body m-0 p-0">
-                            <h5 class="card-title">{{ course.title }}</h5>
-                            <p> <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 38%;background-color: #f46a24;"> </div> </div> </p>
-                             <p> <i class="fas fa-hourglass-half p-clr" style="font-size: 20px;"></i> &nbsp; <span>  38%</span> &nbsp;&nbsp; <i class="fas fa-clock p-clr" style="font-size: 20px;"></i> &nbsp; <span> {{ course.duration.totalduration }}</span> &nbsp;&nbsp;   {% if course.assessments.totalAssessments != 0 %} <!--Assessments <i class="fas fa-clipboard-list p-clr" style="font-size:20px;"></i> -->  <i class="fas fa-clipboard-check p-clr" style="font-size:20px;"></i> &nbsp; <span >{{ course.assessments.pendding }}/{{ course.assessments.totalAssessments }} {% else %} {% endif %}  </span> <!-- <i class="fas fa-clipboard-list" style="color:#f46a24; font-size:19px;"></i> 0/5 --></p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-
-                  {% endfor %}
                 </div>
-
-                <div class="row justify-content-end" style="float: right;">
-                  <a class="text-decoration-underline mr-3" id="showMoreId" onclick="showMore(event)" href="">Show More</a>
+                <div class="flex-grow-1 d-flex flex-column flex-md-row align-items-md-center">
+                  <span class="fw-semibold d-block">{{user_details.first_name}}</span>
                 </div>
-              
-                <div class="row" style="margin-top: 2.3rem !important;">
+              </div>
+            </a>
+          </li>
+          <li>
+            <div class="dropdown-divider"></div>
+          </li>
+          <li>
+            <a class="dropdown-item" href="/profile">
+              <i class="bx bx-user me-2"></i>
+              <span class="align-middle">My Profile</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="/">
+              <i class="bx bx-power-off me-2"></i>
+              <span class="align-middle">Log Out</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-                  <!-- <div class="alert alert-primary alert-dismissible m-3 mt-0 mb-3 col-11 col-md-11 col-lg-11 pl-5 my-courses-alert" role="alert"  style="width: 98%;">
-                    <button type="button" class="btn-close float-left" data-bs-dismiss="alert" aria-label="Close"></button>
-                    This is a primary dismissible alert — check it out!
-                  </div> -->
-
-                  <div class="col-12 col-md-12 col-lg-12 mt-1" >
-                    <div class="card">
-                      <div class="my-course-card">
-                        <div class="col-md-12 col-12 col-lg-12 ">
-                          <div class="card-body m-0 p-0"> 
-                            <div class="p-3 col-12">
-                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, eaque. Dolore voluptates quia nam velit vitae deleniti.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
+<div class="content-wrapper">
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <h5 class="pb-1 mb-4">My Courses</h5>
+    <div class="row" id="CourseCardContainer">
+      {% for course in getCoursesList %}
+      <div class="col-12 col-md-12 col-lg-6 d-none courses-card-class" onclick="window.location.href='/course-details/{{course.id}}'" id="CourseCard_{{ course.id }}" >
+        <div class="card mb-3">
+          <div class="my-course-card">
+            <div class="m-3 col-md-4 my-courses-images">
+              <img class="card-img card-img-left rounded  my-courses-images" src="{{course.course_img}}" alt="Card image" />
+            </div>
+            <div class="col-md-8 my-course-card-body">
+              <div class="card-body m-0 p-0">
+                <h5 class="card-title">{{ course.title }}</h5>
+                <p> <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%;background-color: #f46a24;"> </div> </div> </p>
+                <p>  Progress 0%  </p>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+        {% endfor %}
+    </div>
+
+    <div class="row justify-content-end" style="float: right;">
+      <a class="text-decoration-underline mr-3" id="showMoreId" onclick="showMore(event)" href="">Show More</a>
+    </div>
+    
+    <div class="row" style="margin-top: 2.3rem !important;">
+
+      <div class="col-12 col-md-12 col-lg-12 mt-1" >
+        <div class="card">
+          <div class="my-course-card">
+            <div class="col-md-12 col-12 col-lg-12 ">
+              <div class="card-body m-0 p-0"> 
+                <div class="p-3 col-12">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, eaque. Dolore voluptates quia nam velit vitae deleniti, facilis asperiores dolores. Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur sunt iusto ipsum soluta eum doloribus odit dicta incidunt porro! Assumenda.  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-    <script src="{% static 'js/mycourses.js' %}"></script>
+<script src="{% static 'js/mycourses.js' %}"></script>
    
