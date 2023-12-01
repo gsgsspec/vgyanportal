@@ -41,17 +41,23 @@ def addUserService(dataObjs):
 
 def getMyCourses(userId):
     courseList = []
+    courseDetails = {}
+    
     getCourse = CourseRegistration.objects.filter(registrationid = userId).values()
     for getcourse in getCourse:
         if getcourse['status'] == "A":
             courseId = getcourse['courseid']
             if courseId:
                 getCourseDetails = Course.objects.filter(id = courseId).last()
+                couerseId = getCourseDetails.id
+
+                getAssessmentCount = CourseModule.objects.filter( courseid = couerseId ,assesment = "Y").count()
+
                 img_url = CourseMedia.objects.get(courseid=courseId, type='T').mediaurl
                 web_domain = getConfig()['MEDIA']['web_domain']
 
                 courseDetails = {
-                    "id"           : getCourseDetails.id,
+                    "id"           : couerseId,
                     "title"        : getCourseDetails.title,
                     "subjectid"    : getCourseDetails.subjectid,
                     "about"        : getCourseDetails.about,
@@ -60,7 +66,6 @@ def getMyCourses(userId):
                     "instructorid" : getCourseDetails.instructorid,
                     "agegroup"     : getCourseDetails.agegroup,
                     "language"     : getCourseDetails.language,
-                    "duration"     : getCourseDetails.duration,
                     "timeframe"    : getCourseDetails.timeframe,
                     "certificate"  : getCourseDetails.certificate,
                     "price"        : getCourseDetails.price,
@@ -71,6 +76,9 @@ def getMyCourses(userId):
                 }
                 
                 courseList.append(courseDetails)
+
+    courseDetails['assessments'] = { 'pendding' : 0, 'totalAssessments' : getAssessmentCount}      
+    courseDetails['duration'] = { 'totalduration' : getCourseDetails.duration}        
     return courseList
 
 
