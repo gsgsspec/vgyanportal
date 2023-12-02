@@ -31,6 +31,92 @@ $('#moduleId').change(function(){
 })
 
 
+// function getModuleLesson(getModulesList){
+
+//     var dataobj = getModulesList
+
+//     var final_data = {
+//         'data': JSON.stringify(dataobj),
+//         csrfmiddlewaretoken: CSRF_TOKEN,
+//     }
+
+//     $.post(CONFIG['domain'] + "/api/get-module-lessons", final_data, function (res) {
+        
+//         var getModulesDataList = res.data.Modules;
+//         var getLessonsDataList = res.data.lesson;
+
+//         if (res.statusCode == 0){
+
+//             $('#moduleId').html('')
+//             $('#lessonId').html('')
+
+//             if (getModulesDataList.length == 0){
+//                 $('#moduleId').prop('disabled', true);
+//                 $('#moduleId').append(
+//                     '<option  value="" id=""> ' + " No Modules " + ' </option>'
+//                 )
+//             }
+//             else{
+//                 $('#moduleId').prop('disabled', false);
+//             }
+
+//             if (getLessonsDataList.length == 0){
+//                 $('#lessonId').prop('disabled', true);
+//                 $('#lessonId').append(
+//                     '<option  value="" id=""> ' + " No Lessons " + ' </option>'
+//                 )
+//             }
+//             else{
+//                 $('#lessonId').prop('disabled', false);
+//             }
+            
+
+//             for (var modul = 0 ; modul < getModulesDataList.length; modul ++){
+
+//                 var moduleName = getModulesDataList[modul]['moduleName']
+//                 var moduleId = getModulesDataList[modul]['moduleId']
+
+//                 if (getModulesDataList[modul]['selected'] === "YES"){
+
+//                     $('#moduleId').append(
+//                         '<option  value="'+ moduleId +'" id="'+ moduleName +'_'+ moduleId  +' " selected> ' + moduleName + '   </option>'
+//                     )
+
+//                 }
+//                 else{
+//                     $('#moduleId').append(
+//                         '<option value="'+ moduleId +'" id="'+ moduleName +'_'+ moduleId  +'"> ' + moduleName + '   </option>'
+//                     )
+//                 }
+
+//             }
+
+//             for (var lesson = 0 ; lesson < getLessonsDataList.length; lesson ++){
+                
+//                 var lessonName = getLessonsDataList[lesson]['title'];
+//                 var lessonId = getLessonsDataList[lesson]['lessonid']; 
+
+//                 if (getLessonsDataList[lesson]['defaultLesson'] === "YES"){
+
+//                     $('#lessonId').append(
+//                         '<option value="'+ lessonId +'" id="'+ lessonName+ '_' + lessonId + '"  selected > ' + lessonName + ' </option>'
+//                     )
+
+//                 }
+//                 else{
+//                     $('#lessonId').append(
+//                         '<option value=" '+ lessonId +' " id=" '+ lessonName+ '_' + lessonId +' "> ' + lessonName + ' </option>'
+//                     )
+//                 }
+
+//             }
+
+//         }
+//     })
+
+// }
+
+
 function getModuleLesson(getModulesList){
 
     var dataobj = getModulesList
@@ -41,75 +127,24 @@ function getModuleLesson(getModulesList){
     }
 
     $.post(CONFIG['domain'] + "/api/get-module-lessons", final_data, function (res) {
+        
+        console.log('res :: ',res.data.courseName)
+        console.log('res :: ',res.data.courseModuleName)
+        console.log('res :: ',res.data.courseLessonName)
 
-        var getModulesDataList = res.data.Modules;
-        var getLessonsDataList = res.data.lesson;
+        var getCourseName  = res.data.courseName
+        var getModuleName  = res.data.courseModuleName;
+        var getLessonsName = res.data.courseLessonName;
 
         if (res.statusCode == 0){
 
-            $('#moduleId').html('')
-            $('#lessonId').html('')
+            $('#courseId').text(getCourseName)
 
-            if (getModulesDataList.length == 0){
-                $('#moduleId').prop('disabled', true);
-                $('#moduleId').append(
-                    '<option  value="" id=""> ' + " No Modules " + ' </option>'
-                )
-            }
-            else{
-                $('#moduleId').prop('disabled', false);
-            }
+            $('#moduleContainer').html('')
+            $('#moduleContainer').text(getModuleName)
 
-            if (getLessonsDataList.length == 0){
-                $('#lessonId').prop('disabled', true);
-                $('#lessonId').append(
-                    '<option  value="" id=""> ' + " No Lessons " + ' </option>'
-                )
-            }
-            else{
-                $('#lessonId').prop('disabled', false);
-            }
-            
-
-            for (var modul = 0 ; modul < getModulesDataList.length; modul ++){
-
-                var moduleName = getModulesDataList[modul]['moduleName']
-                var moduleId = getModulesDataList[modul]['moduleId']
-
-                if (getModulesDataList[modul]['selected'] === "YES"){
-
-                    $('#moduleId').append(
-                        '<option  value="'+ moduleId +'" id="'+ moduleName +'_'+ moduleId  +' " selected> ' + moduleName + '   </option>'
-                    )
-
-                }
-                else{
-                    $('#moduleId').append(
-                        '<option value="'+ moduleId +'" id="'+ moduleName +'_'+ moduleId  +'"> ' + moduleName + '   </option>'
-                    )
-                }
-
-            }
-
-            for (var lesson = 0 ; lesson < getLessonsDataList.length; lesson ++){
-                
-                var lessonName = getLessonsDataList[lesson]['title'];
-                var lessonId = getLessonsDataList[lesson]['lessonid']; 
-
-                if (getLessonsDataList[lesson]['defaultLesson'] === "YES"){
-
-                    $('#lessonId').append(
-                        '<option value="'+ lessonId +'" id="'+ lessonName+ '_' + lessonId + '"  selected > ' + lessonName + ' </option>'
-                    )
-
-                }
-                else{
-                    $('#lessonId').append(
-                        '<option value=" '+ lessonId +' " id=" '+ lessonName+ '_' + lessonId +' "> ' + lessonName + ' </option>'
-                    )
-                }
-
-            }
+            $('#lessonContainer').html('')
+            $('#lessonContainer').text(getLessonsName)
 
         }
     })
@@ -187,7 +222,7 @@ function getQuestionsList(getQuestionData) {
                     if (parseInt(userRegIdentityId) === userRegisterationId){
 
                         $('#vertical-example').append(
-                            '<div class="accordion-item">' +
+                            '<div class="accordion-item card m-2">' +
                             '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
                             '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
                             question + ' </button>' +
@@ -201,12 +236,12 @@ function getQuestionsList(getQuestionData) {
                     }
 
                     $('#over-all-question').append(
-                        '<div class="accordion-item">' +
-                        '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
-                        '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
+                        '<div class="accordion-item card m-2">' +
+                        '<h2 class="accordion-header " id="headingOne' + questionId + '">' +
+                        '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne2' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
                         question + ' </button>' +
                         '</h2>' +
-                        '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
+                        '<div id="accordionOne2' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
                         '<div class="accordion-body"> ' + questionAnswer + ' </div>' +
                         '</div>' +
                         '</div>'

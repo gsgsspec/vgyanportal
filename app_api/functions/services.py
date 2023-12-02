@@ -160,74 +160,108 @@ def getCourseDetails(request,cid):
         raise
 
 
+# def getModuleLessonService(dataObjs):
+#     try:
+#         getCourseId = dataObjs['courseId']
+#         getModuleId   = dataObjs['moduleId']
+#         moduleAndLessonsData = {}
+
+#         modulesList = [] 
+#         lessonsList = []
+
+#         getCourseIdDb = Course.objects.filter(id  = getCourseId).last()
+        
+#         if getCourseIdDb.id:
+            
+#             getCourseModuleIdDb = CourseModule.objects.filter(courseid = getCourseIdDb.id)
+
+#             if getCourseModuleIdDb:
+#                 for module in getCourseModuleIdDb:
+
+#                     default = "NO"
+
+#                     if module.id == int(getModuleId):
+
+#                         default = "YES"
+
+#                     modulesData = {
+#                         'selected' : default,
+#                         'moduleId' : module.id,
+#                         'moduleName' : module.name,
+#                         'moduleSequence' : module.sequence
+#                     }
+
+#                     modulesList.append(modulesData)
+                
+#                 getModeulesDetails = getCourseModuleIdDb.first()
+
+#                 courseLessonId = getModeulesDetails.courseid
+#                 moduleId = getModeulesDetails.id
+
+#                 if module.id:
+#                     getModulesLesson = CourseLesson.objects.filter(courseid = courseLessonId,moduleid = moduleId if getModuleId == 0 else getModuleId)
+
+#                     if getModulesLesson:
+                    
+#                         for lesson in getModulesLesson:
+                            
+#                             defaultLesson = 'NO'
+
+#                             if lesson.id:
+
+#                                 defaultLesson = 'YES'
+                            
+#                             lessonData = {
+#                                 'defaultLesson' : defaultLesson,
+#                                 'lessonid' : lesson.id,
+#                                 'title'    : lesson.title,
+#                             }
+
+#                             lessonsList.append(lessonData)
+            
+#             moduleAndLessonsData['Modules'] = modulesList
+#             moduleAndLessonsData['lesson']  = lessonsList
+        
+        
+#         return moduleAndLessonsData
+    
+#     except Exception as e:
+#         raise
+
+
 def getModuleLessonService(dataObjs):
     try:
-        getCourseId = dataObjs['courseId']
-        getModuleId   = dataObjs['moduleId']
+        getCourseId   = 1
+        getModuleId   = 1
+        getLessionId  = 1
         moduleAndLessonsData = {}
 
-        modulesList = [] 
-        lessonsList = []
+        getCourseIdDetails = Course.objects.filter(id  = getCourseId).last()
+        getCourseModuleDetails = CourseModule.objects.filter(id = getModuleId , courseid = getCourseId).last()
+        getCourseModuleLessonDetails = CourseLesson.objects.filter(id = getLessionId , moduleid = getModuleId , courseid = getCourseId).last()
 
-        getCourseIdDb = Course.objects.filter(id  = getCourseId).last()
+        getCourseTitle = ''
+        if getCourseIdDetails:
+            getCourseTitle = getCourseIdDetails.title
         
-        if getCourseIdDb.id:
-            
-            getCourseModuleIdDb = CourseModule.objects.filter(courseid = getCourseIdDb.id)
+        getCourseModuleName = ''
+        if getCourseModuleDetails:
+            getCourseModuleName = getCourseModuleDetails.name
+        
+        getCourseLessonName = ''
+        if getCourseModuleLessonDetails:
+            getCourseLessonName = getCourseModuleLessonDetails.title
 
-            if getCourseModuleIdDb:
-                for module in getCourseModuleIdDb:
 
-                    default = "NO"
-
-                    if module.id == int(getModuleId):
-
-                        default = "YES"
-
-                    modulesData = {
-                        'selected' : default,
-                        'moduleId' : module.id,
-                        'moduleName' : module.name,
-                        'moduleSequence' : module.sequence
-                    }
-
-                    modulesList.append(modulesData)
-                
-                getModeulesDetails = getCourseModuleIdDb.first()
-
-                courseLessonId = getModeulesDetails.courseid
-                moduleId = getModeulesDetails.id
-
-                if module.id:
-                    getModulesLesson = CourseLesson.objects.filter(courseid = courseLessonId,moduleid = moduleId if getModuleId == 0 else getModuleId)
-
-                    if getModulesLesson:
-                    
-                        for lesson in getModulesLesson:
-                            
-                            defaultLesson = 'NO'
-
-                            if lesson.id:
-
-                                defaultLesson = 'YES'
-                            
-                            lessonData = {
-                                'defaultLesson' : defaultLesson,
-                                'lessonid' : lesson.id,
-                                'title'    : lesson.title,
-                            }
-
-                            lessonsList.append(lessonData)
-            
-            moduleAndLessonsData['Modules'] = modulesList
-            moduleAndLessonsData['lesson']  = lessonsList
+        moduleAndLessonsData['courseName'] = getCourseTitle
+        moduleAndLessonsData['courseModuleName'] = getCourseModuleName
+        moduleAndLessonsData['courseLessonName']  = getCourseLessonName
         
         
         return moduleAndLessonsData
     
     except Exception as e:
         raise
-            
 
 
 def saveCourseRating(dataObjs,user):
@@ -264,7 +298,7 @@ def getAskQuestion(dataObjs,userId):
 
         getcourseid = userCourseDetails.courseid
 
-        getQuestions = Question.objects.filter(courseid = getcourseid)
+        getQuestions = Question.objects.filter(courseid = getcourseid ,moduleid = 1, lessonid = 1)
 
         for allQuestion in getQuestions:
             

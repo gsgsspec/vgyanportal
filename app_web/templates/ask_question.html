@@ -76,51 +76,95 @@
             </button>
           </li> 
         </ul>
-        <div class="tab-content">
+
+        <div class="tab-content pb-0" style="border-radius: 0%; border-top-right-radius: 10px;">
+          <div class="ask-question-input-feld row col-12 no-wrap">
+            <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Course </label>
+            <div id="courseId" class="col-md-10 col-12 col-lg-8"   style=" font-size: medium; max-width: max-content  !important; width: max-content !important;" > </div>
+          </div>
+  
+          <div class="ask-question-input-feld row col-12 no-wrap">
+            <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Module </label>
+            <div class="col-md-10 col-12 col-lg-8" id="moduleContainer"  style=" font-size: medium; max-width: max-content  !important; width: max-content !important;"> </div>
+          </div>
+  
+          <div class="mb-3 row col-12 no-wrap">
+            <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Lesson</label>
+            <div class="col-md-10 col-12 col-lg-8" id="lessonContainer" style=" font-size: medium; max-width: max-content  !important; width: max-content !important;"> </div>
+          </div>
+        </div>
+
+
+        <div class="tab-content pt-0 pb-0" style="border-radius: 0%;">
+
           <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
               <div class=" overflow-hidden mb-4" style="height: 350px;">
-                <div class="card-body" id="vertical-example">   </div>
+                <div class="card-body" id="vertical-example" style="background-color: #f5f5f9; border-radius: 10px; padding: 0.5rem 0.5rem;">   </div>
               </div>
           </div>
 
           <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
               <div class=" overflow-hidden mb-4" style="height: 350px;">
-                <div class="card-body" id="over-all-question">   </div>
+                <div class="card-body" id="over-all-question" style="background-color: #f5f5f9; border-radius: 10px; padding: 0.5rem 0.5rem;">   </div>
               </div>
           </div> 
+       
         </div>
+
+        <div class="tab-content pt-0" style="border-bottom-left-radius: 10px;">
+          <form action="" id="askQuestionForm">
+
+            <div class="row col-12">
+              <label id="" for="html5-time-input" class="col-md-2 questionLabelSmMargin" style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Question</label>
+              <div class="col-md-12 col-12 col-lg-10">
+                <textarea  id="AskQuestionTextAreaId"  class="form-control" placeholder="" required
+                maxlength="95"  aria-label="Question ?" aria-describedby="Question"></textarea>
+              </div>
+            </div>
+  
+            <div class="row col-12">
+              <label for="html5-time-input" class="col-md-2 col-form-label" style="text-transform: capitalize !important; width: 5rem;"></label>
+              <div class="col-md-12 col-12 col-lg-12" style="display: flex; justify-content: end;">
+                <button type="submit" class="btn btn-primary" onclick="askQuestion(event)">Send</button>
+              </div>
+            </div>
+  
+          </form>  
+        </div>
+
       </div>
     </div>
   </div>
 </div>
 
-<div class="content-wrapper">
-  <div class="container-xxl flex-grow-1 container-p-y">
+<!-- <div class="content-wrapper">
+  <div class="container-xxl flex-grow-1 " style="padding-bottom: 1.625rem !important; padding-top: 0 !important;">
     <div class="row" id="askaQuestionCardContainer" style="justify-content: center;">
       <div class="col-12 col-md-8 col-lg-7">
         <div class="card ">
             <div class="col-md-12 col-lg-12 ">
               <div class="pb-0 card-body m-0">
-                <h5 class="card-title" id="courseId"> Carnatic Vocal </h5>
+                <h5 class="card-title" id="courseId" style="font-size: larger;"> </h5>
                 <form action="" id="askQuestionForm">
-                  <div class="ask-question-input-feld row col-12">
-                    <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 5rem;">Module </label>
-                    <div class="col-md-10 col-12 col-lg-8">
+
+                  <div class="ask-question-input-feld row col-12 no-wrap">
+                    <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: larger;">Module </label>
+                    <div class="col-md-10 col-12 col-lg-8" id="moduleContainer" style="font-size: larger;">
                       <select id="moduleId" class="form-select" required>  </select>
                     </div>
                   </div>
 
-                  <div class="mb-3 row col-12">
-                    <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 5rem;">Lesson</label>
-                    <div class="col-md-10 col-12 col-lg-8">
+                  <div class="mb-3 row col-12 no-wrap">
+                    <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: larger;">Lesson</label>
+                    <div class="col-md-10 col-12 col-lg-8" id="lessonContainer" style="font-size: larger;">
                       <select id="lessonId" class="form-select" required> </select>
                     </div>
                   </div>
 
                   <div class="mb-3 row col-12">
-                    <label for="html5-time-input" class="col-md-2 col-form-label" style="text-transform: capitalize !important; width: 5rem;"></label>
-                    <div class="col-md-10 col-12 col-lg-8">
-                      <textarea  id="AskQuestionTextAreaId"  class="form-control" placeholder="Question ?" required
+                    <label id="" for="html5-time-input" class="col-md-2 questionLabelSmMargin" style="text-transform: capitalize !important; width: 6.5rem; font-size: larger;">Question</label>
+                    <div class="col-md-10 col-11 col-lg-8">
+                      <textarea  id="AskQuestionTextAreaId"  class="form-control" placeholder="" required
                       maxlength="95"  aria-label="Question ?" aria-describedby="Question"></textarea>
                     </div>
                   </div>
@@ -139,7 +183,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
           
 <script src="{% static 'js/ask_Aquestion.js' %}"></script>

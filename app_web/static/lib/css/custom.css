@@ -145,12 +145,26 @@
   color: #f46a24;
   font-weight: 600;
 }
+.no-wrap{
+  flex-wrap: nowrap;
+}
 
 
 
 /* Media queries starts from here  */
 
 
+@media screen and (max-width: 838px) {
+  .no-wrap{
+    /* background-color: #f46a24; */
+    margin-bottom: 1rem !important;
+  }
+}
+@media screen and (max-width: 992px) {
+  .questionLabelSmMargin{
+    margin-bottom: 1rem !important;
+  }
+}
 @media (min-width: 300px) {
   .my-courses-images{
     width: 120px;
@@ -186,7 +200,7 @@
 }
 @media (max-width: 833px) {
   .ask-question-input-feld{
-    margin-bottom: 0rem !important;
+    /* margin-bottom: 0rem !important; */
   }
 }
 @media (min-width: 838px) {
