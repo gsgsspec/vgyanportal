@@ -33,17 +33,10 @@ document.getElementById('save_rating').onclick=function(){
 
 }
 
-localStorage.removeItem('dataObj');
-
 
 
 document.getElementById('courseDetailsData').onclick=function(){
-
-    dataObj = {
-        'courseId'  : getUserCourseId,
-    }
-    localStorage.setItem('dataObj', JSON.stringify(dataObj));
-
+  
     window.location.href = '/course/question';
 }
 
@@ -83,9 +76,49 @@ function startAssessment(mid){
 
 
 
+function getCourseVideo(lid){
+
+    dataObj ={
+        'lesson_id':lid
+    }
+
+    // local storage lession id
+    localStorage.setItem('lessonId',JSON.stringify(dataObj))
+
+    var final_data = {
+        'data': JSON.stringify(dataObj),
+        csrfmiddlewaretoken: CSRF_TOKEN,
+    }
+
+    $.post(CONFIG['domain'] + "/api/get-lesson-video", final_data, function (res) {
+
+        if (res.statusCode == 0){
+
+            video_id = res.data[0]
+            library_id = res.data[1]
+        
+            $('#video_section').html('')
+
+            $('#video_section').append(
+                '<div style="position:relative;padding-top:56.25%;">' +
+                    '<iframe src="https://iframe.mediadelivery.net/embed/'+ library_id +'/'+ video_id +'?autoplay=true&loop=false&muted=false&preload=true" loading="lazy" ' +
+                    'style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe> ' +
+                '</div>'
+            )
+
+        }
 
 
+    })
+}
 
+
+$(document).ready(function(){
+
+    lesson_id = $(".list-group-item:first").attr("id")
+    getCourseVideo(lesson_id)
+
+})
 
 
 

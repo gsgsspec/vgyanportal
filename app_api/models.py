@@ -20,6 +20,7 @@ def create_auth_token_for_customer(sender, instance=None, created=False, **kwarg
 class Subject(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, null=True)
+    imageurl = models.CharField(max_length=100, null=True)
     status = models.CharField(max_length=1, null=True) # A - Active, I - Inactive
 
     class Meta:
@@ -57,7 +58,7 @@ class Course(models.Model):
     subjectid = models.IntegerField(null=True)
     about = models.CharField(max_length=500, null=True)
     outcomes = models.CharField(max_length=500, null=True)
-    level = models.CharField(max_length=1,null=True) # B-  Beginners ,E - Entermediate ,A - Advanced
+    level = models.CharField(max_length=1,null=True) # B-  Beginners ,I - Intermediate ,A - Advanced
     instructorid = models.IntegerField(null=True)
     agegroup = models.CharField(max_length=1, null=True)
     language = models.CharField(max_length=1, null=True) # E - English, T - Telugu, H - Hindi
@@ -76,6 +77,9 @@ class Course(models.Model):
 class CourseMedia(models.Model):
     id = models.AutoField(primary_key=True)
     courseid = models.IntegerField(null=True)
+    moduleid = models.IntegerField(null=True)
+    lessonid = models.IntegerField(null=True)
+    libraryid = models.CharField(max_length=100,null=True)
     type = models.CharField(max_length=1, null=True) # T - Thumbnail Pic, B - Banner Pic, P - Poster Pic
     mediaurl = models.CharField(max_length=100, null=True)
 
@@ -162,3 +166,16 @@ class Question(models.Model):
 
     class Meta:
         db_table = 'question'
+
+
+class Assessment(models.Model):
+    id = models.AutoField(primary_key=True)
+    registrationid = models.IntegerField(null=True)
+    courseid = models.IntegerField(null=True)
+    moduleid = models.IntegerField(null=True)
+    assessmentdate = models.DateTimeField(null=True)
+    remarks = models.CharField(max_length=100, null=True)
+    status = models.CharField(max_length=1, null=True) # P - Pending, R - Reassessment, C - Cleared
+
+    class Meta:
+        db_table = 'assessment'

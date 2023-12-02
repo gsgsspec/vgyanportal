@@ -66,11 +66,8 @@
             <p style="font-size:1.125rem" id="user_rating">Rating : {{course_details.rating}} <i class="fas fa-star" style="color: #f46a24;"></i></p>
             {% endif %}
         </h3>
-        
-        <div style="position:relative;padding-top:56.25%;"><iframe src="https://iframe.mediadelivery.net/embed/178527/b320cd4b-d677-4b3e-96ea-1e87db0caa5a?autoplay=true&loop=false&muted=false&preload=true" loading="lazy" 
-            style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>
-        <div class='ask-question mt-4'>
-            
+        <div id="video_section"></div>    
+        <div class='ask-question'>
             <button type="button" class="btn btn-primary" id="courseDetailsData">
                 <i class="fas fa-question" style="color: #fff;"></i>&nbsp; Ask a Question
             </button>
@@ -86,11 +83,10 @@
                     <div id="accord_{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <ul class="list-group">
                             {% for lesson in module.lesson_title %}
-                            <li class="list-group-item d-flex align-items-center">
-                                <i class="far fa-play-circle" style='color:black'></i>&nbsp; {{lesson.title}}
+                            <li class="list-group-item d-flex align-items-center" id="{{lesson.id}}" onclick="getCourseVideo({{lesson.id}})" style="cursor:pointer">
+                                <i class="far fa-play-circle" style='color:black'></i><p class="lesson-title">&nbsp; {{lesson.title}}</p>
                             </li>
                             {% endfor %}
-                
                         </ul>
                         {% if module.assesment == 'Y' %}
                             <div class='p-3 justify-content-end d-flex'>

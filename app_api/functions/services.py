@@ -135,7 +135,8 @@ def getCourseDetails(request,cid):
 
             for lesson in c_lesson:
                 lesson_title.append({
-                    'title':lesson.title
+                    'title':lesson.title,
+                    'id':lesson.id
                 })
 
             module_details.append({
@@ -350,3 +351,16 @@ def assessmentDetailsService(dataObjs,user):
     except Exception as e:
         raise
 
+
+
+def getlessonVideoService(dataObjs):
+    try:
+
+        course_video = CourseMedia.objects.get(lessonid=dataObjs['lesson_id'])
+        video_id = course_video.mediaurl
+        library_id = course_video.libraryid
+
+        return video_id,library_id
+
+    except Exception as e:
+        raise

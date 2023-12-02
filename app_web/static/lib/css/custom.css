@@ -149,6 +149,9 @@
   flex-wrap: nowrap;
 }
 
+.lesson-title{
+  margin: 0;
+}
 
 
 /* Media queries starts from here  */
