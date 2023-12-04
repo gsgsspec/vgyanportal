@@ -145,12 +145,17 @@
   color: #f46a24;
   font-weight: 600;
 }
+
 .no-wrap{
   flex-wrap: nowrap;
 }
 
 .lesson-title{
   margin: 0;
+}
+
+.lesson-icon{
+  color: black;
 }
 
 
@@ -166,6 +171,13 @@
 @media screen and (max-width: 992px) {
   .questionLabelSmMargin{
     margin-bottom: 1rem !important;
+  }
+  #display_icon{
+    display: none !important;
+  }
+
+  #hide_icon{
+    display: none !important;
   }
 }
 @media (min-width: 300px) {
@@ -200,7 +212,9 @@
     padding: 1rem 0rem;
     padding-right: 2rem;
   }
+
 }
+
 @media (max-width: 833px) {
   .ask-question-input-feld{
     /* margin-bottom: 0rem !important; */

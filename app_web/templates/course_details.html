@@ -7,7 +7,8 @@
             <i class="bx bx-menu bx-sm"></i>
         </a>
     </div>
-    
+    <div id="display_icon" style="display:block;cursor:pointer" onclick='showFullPage()'><i class="bx bx-menu bx-sm"></i></div>
+    <div id="hide_icon" style="display:none;cursor:pointer" onclick='hideFullPage()'><i class="bx bx-menu bx-sm"></i></div>
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
         
         <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -66,39 +67,43 @@
             <p style="font-size:1.125rem" id="user_rating">Rating : {{course_details.rating}} <i class="fas fa-star" style="color: #f46a24;"></i></p>
             {% endif %}
         </h3>
-        <div id="video_section"></div>    
+        <div class="row">
+            <div class="col-md-7 mb-4 mb-md-0">
+                <div id="video_section"></div>    
+            </div>
+            <div class="col-md-5 mb-4 mb-md-0">
+                <small class="text-light fw-semibold">Course Modules</small>
+                <div class="accordion mt-3" id="accordionExample">
+                    {% for module in course_details.module %}
+                    <div class="card accordion-item">
+                        <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                            <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accord_{{ forloop.counter }}" aria-expanded="true" aria-controls="accord_{{ forloop.counter }}">{{module.module_name}}</button>
+                        </h2>
+                        <div id="accord_{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <ul class="list-group">
+                                {% for lesson in module.lesson_title %}
+                                <li class="list-group-item d-flex align-items-center" id="{{lesson.id}}" onclick="getCourseVideo({{lesson.id}})" style="cursor:pointer">
+                                    <i class="far fa-play-circle lesson-icon"></i>&nbsp; <p class="lesson-title">{{lesson.title}}</p>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% if module.assesment == 'Y' %}
+                                <div class='p-3 justify-content-end d-flex'>
+                                    <button type="button" class="btn btn-primary" onclick="startAssessment({{module.module_id}})">
+                                        <i class="fas fa-clipboard-list" style="color:#fff"></i>&nbsp; Start Assessment
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div> 
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         <div class='ask-question'>
             <button type="button" class="btn btn-primary" id="courseDetailsData">
                 <i class="fas fa-question" style="color: #fff;"></i>&nbsp; Ask a Question
             </button>
-        </div>
-        <div class="col-md mb-4 mb-md-0">
-            <small class="text-light fw-semibold">Course Modules</small>
-            <div class="accordion mt-3" id="accordionExample">
-                {% for module in course_details.module %}
-                <div class="card accordion-item">
-                    <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-                        <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accord_{{ forloop.counter }}" aria-expanded="true" aria-controls="accord_{{ forloop.counter }}">{{module.module_name}}</button>
-                    </h2>
-                    <div id="accord_{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <ul class="list-group">
-                            {% for lesson in module.lesson_title %}
-                            <li class="list-group-item d-flex align-items-center" id="{{lesson.id}}" onclick="getCourseVideo({{lesson.id}})" style="cursor:pointer">
-                                <i class="far fa-play-circle" style='color:black'></i><p class="lesson-title">&nbsp; {{lesson.title}}</p>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% if module.assesment == 'Y' %}
-                            <div class='p-3 justify-content-end d-flex'>
-                                <button type="button" class="btn btn-primary" onclick="startAssessment({{module.module_id}})">
-                                    <i class="fas fa-clipboard-list" style="color:#fff"></i>&nbsp; Start Assessment
-                                </button>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div> 
-                {% endfor %}
-            </div>
         </div>
         <p id='courseid' name="{{course_details.courseid}}" hidden>
         <div class="modal fade" id="rating_popup" tabindex="-1" aria-hidden="true">

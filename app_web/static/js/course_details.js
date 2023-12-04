@@ -90,6 +90,16 @@ function getCourseVideo(lid){
         csrfmiddlewaretoken: CSRF_TOKEN,
     }
 
+    $('.lesson-icon').css("color", '');
+    $('.lesson-title').css({"color":'',"text-decoration": "none"});
+
+
+    $("#" + lid + " .lesson-icon").css("color", '#f46a24');
+    $("#" + lid + " .lesson-title").css({
+        "color": '#f46a24',
+        "text-decoration": "underline"
+    });
+
     $.post(CONFIG['domain'] + "/api/get-lesson-video", final_data, function (res) {
 
         if (res.statusCode == 0){
@@ -100,7 +110,7 @@ function getCourseVideo(lid){
             $('#video_section').html('')
 
             $('#video_section').append(
-                '<div style="position:relative;padding-top:56.25%;">' +
+                '<div style="position:relative;padding-top:56.25%">' +
                     '<iframe src="https://iframe.mediadelivery.net/embed/'+ library_id +'/'+ video_id +'?autoplay=true&loop=false&muted=false&preload=true" loading="lazy" ' +
                     'style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe> ' +
                 '</div>'
@@ -118,11 +128,30 @@ $(document).ready(function(){
     lesson_id = $(".list-group-item:first").attr("id")
     getCourseVideo(lesson_id)
 
+    if (window.innerWidth > 900) {
+        $('#layout-menu').css('display', 'none');
+    }
+    $('#web-page').removeClass('layout-menu-fixed')
+
 })
 
 
+function showFullPage(){
+
+    $('#layout-menu').css('display','')
+    $('#web-page').addClass('layout-menu-fixed')
+    $('#display_icon').css('display','none')
+    $('#hide_icon').css('display','block')
+
+}
 
 
+function hideFullPage(){
+    $('#layout-menu').css('display','none')
+    $('#web-page').removeClass('layout-menu-fixed')
+    $('#display_icon').css('display','block')
+    $('#hide_icon').css('display','none')
+}
 
 
 
