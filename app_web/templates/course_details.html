@@ -75,27 +75,46 @@
                 <small class="text-light fw-semibold">Course Modules</small>
                 <div class="accordion mt-3" id="accordionExample">
                     {% for module in course_details.module %}
-                    <div class="card accordion-item">
-                        <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-                            <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accord_{{ forloop.counter }}" aria-expanded="true" aria-controls="accord_{{ forloop.counter }}">{{module.module_name}}</button>
-                        </h2>
-                        <div id="accord_{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                            <ul class="list-group">
-                                {% for lesson in module.lesson_title %}
-                                <li class="list-group-item d-flex align-items-center" id="{{lesson.id}}" onclick="getCourseVideo({{lesson.id}})" style="cursor:pointer">
-                                    <i class="far fa-play-circle lesson-icon"></i>&nbsp; <p class="lesson-title">{{lesson.title}}</p>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            {% if module.assesment == 'Y' %}
-                                <div class='p-3 justify-content-end d-flex'>
-                                    <button type="button" class="btn btn-primary" onclick="startAssessment({{module.module_id}})">
-                                        <i class="fas fa-clipboard-list" style="color:#fff"></i>&nbsp; Start Assessment
-                                    </button>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div> 
+                        <div class="card accordion-item">
+                            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                                <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accord_{{ forloop.counter }}" aria-expanded="true" aria-controls="accord_{{ forloop.counter }}">{{module.module_name}}</button>
+                            </h2>
+                            <div id="accord_{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <ul class="list-group">
+                                    {% for lesson in module.lesson_title %}
+                                        <li class="list-group-item d-flex align-items-center" id="{{lesson.id}}" onclick="getCourseVideo({{lesson.id}})" style="cursor:pointer">
+                                            <i class="far fa-play-circle lesson-icon"></i>&ensp; <p class="lesson-title">{{lesson.title}}</p>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                {% if module.assesment == 'Y' %}
+                                    <div class='p-3 justify-content-end d-flex'>
+                                        <button type="button" class="btn btn-primary" onclick="startAssessment({{module.module_id}})">
+                                            <i class="fas fa-clipboard-list" style="color:#fff"></i>&nbsp; Start Assessment
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div> 
+                    {% endfor %}
+                    {% for locked_module in course_details.locked_modules %}
+                        <div class="card accordion-item">
+                            <h2 class="accordion-header" id="lck_heading{{ forloop.counter }}">
+                                <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#lck_accord_{{ forloop.counter }}" aria-expanded="true" aria-controls="lck_accord_{{ forloop.counter }}"><i class="fas fa-lock p-clr"></i> &emsp;{{locked_module.module_name}} </button>
+                            </h2>
+                            <div id="lck_accord_{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <p class="lesson-title">Please complete the assessment for the above modules to unlock new modules</p>
+                                    </li>
+                                    {% for lesson in locked_module.lesson_title %}
+                                        <li class="list-group-item d-flex align-items-center">
+                                            <i class="far fa-play-circle lesson-icon"></i>&ensp; <p class="lesson-title">{{lesson.title}}</p>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div> 
                     {% endfor %}
                 </div>
             </div>
@@ -106,7 +125,7 @@
             </button> -->
 
             <button  class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBoth" aria-controls="offcanvasBoth">
-              Ask a Question
+                <i class="fas fa-question" style="color: #fff;"> &nbsp;</i>Ask a Question
             </button>
         </div>
 

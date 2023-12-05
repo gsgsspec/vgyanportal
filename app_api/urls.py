@@ -12,5 +12,6 @@ urlpatterns = [
     path('save-question',views.saveQuestion),
     path('get-questions',views.getQuestion),
     path('course-assessment',views.getAssessmentDetails),
-    path('get-lesson-video',views.getlessonVideoDetails)
+    path('get-lesson-video',views.getlessonVideoDetails),
+    path('save-assessment',views.saveAssessmentDetails),
 ]

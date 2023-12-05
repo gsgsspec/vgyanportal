@@ -5,7 +5,7 @@ from allauth.account.utils import perform_login
 from allauth.account import app_settings as allauth_settings
 from app_api.functions.masterdata import auth_user
 from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService, saveCourseRating, saveAskQuestion, getAskQuestion, \
-        assessmentDetailsService,getlessonVideoService
+        assessmentDetailsService,getlessonVideoService, saveAssessmentService
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
 
@@ -238,3 +238,23 @@ def getlessonVideoDetails(request):
         raise
     return JsonResponse(response)
 
+@api_view(['POST'])
+def saveAssessmentDetails(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+    try:
+        if request.method == "POST":
+            dataObjs = json.loads(request.POST.get('data'))
+            user = request.user
+            saveAssessmentService(dataObjs,user)
+            response['data'] = 'Assessment details saved successfully'
+            response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saving Course rating'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)

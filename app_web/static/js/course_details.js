@@ -35,13 +35,6 @@ document.getElementById('save_rating').onclick=function(){
 
 
 
-document.getElementById('courseDetailsData').onclick=function(){
-  
-    window.location.href = '/course/question';
-}
-
-
-
 function startAssessment(mid){
      
     dataObj = {
@@ -59,18 +52,26 @@ function startAssessment(mid){
         csrfmiddlewaretoken: CSRF_TOKEN,
     }
 
-    $.post(CONFIG['acert'] + "/api/vgyanportal-user-registeration", final_data, function (res) {
-
-        if (res.statusCode == 0){
-
-            showSuccessMessage('Please check your mail for the assessment details')
-        }
-
-        else {
-            showFailureMessage('Error in getting the assesment data. Please try after sometime')
-        }
+    $.post(CONFIG['domain'] + "/api/save-assessment", final_data, function (res) {
 
     })
+
+    // $.post(CONFIG['acert'] + "/api/vgyanportal-user-registeration", final_data, function (res) {
+
+    //     if (res.statusCode == 0){
+
+    //         showSuccessMessage('Please check your mail for the assessment details')
+
+    //         $.post(CONFIG['domain'] + "/api/save-assessment", final_data, function (res) {
+
+    //         })
+    //     }
+
+    //     else {
+    //         showFailureMessage('Error in getting the assesment data. Please try after sometime')
+    //     }
+
+    // })
     
 }
 

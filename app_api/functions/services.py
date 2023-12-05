@@ -1,8 +1,8 @@
 from rest_framework.authtoken.models import Token
 from vgyanportal.metadata import getConfig
-from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB, saveAskQuestionDb
-from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia , Question
-
+from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB, saveAskQuestionDb, saveAssessmentData
+from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia , Question , \
+        Assessment
 
 def authentication_service(dataObjs):
     try:
@@ -121,15 +121,24 @@ def getCourseDetails(request,cid):
             'title':course.title,
             'module': None,
             'rating':None,
+            'locked_modules':None
         }
 
         c_module = CourseModule.objects.filter(courseid=cid,status='A').order_by('sequence')
 
         module_details = []
+        locked_modules = []
 
         for module in c_module:
 
             c_lesson = CourseLesson.objects.filter(courseid=cid,moduleid=module.id,status='A').order_by('sequence')
+
+            try:
+                assessment_status = Assessment.objects.get(registrationid=user_id,courseid=cid,moduleid=module.id).status
+                mail_check = 'S'
+            except:
+                assessment_status = 'P'
+                mail_check = 'N'
 
             lesson_title = []
 
@@ -139,14 +148,31 @@ def getCourseDetails(request,cid):
                     'id':lesson.id
                 })
 
-            module_details.append({
-                'module_id': module.id,
-                'module_name':module.name,
-                'assesment':module.assesment,
-                'lesson_title': lesson_title
-            })
+            if module.assesment == 'N' or (module.assesment == 'Y' and assessment_status == 'C') :
+
+                module_details.append({
+                    'module_id': module.id,
+                    'module_name':module.name,
+                    'assesment':module.assesment,
+                    'lesson_title': lesson_title,
+                    'mail_check': mail_check,
+                })
+
+            if module.assesment == 'Y' and assessment_status in ['P', 'R']:
+                locked_modules.append({
+                    'module_id': module.id,
+                    'module_name':module.name,
+                    'assesment':module.assesment,
+                    'lesson_title': lesson_title,
+                    'mail_check': mail_check,
+                })
+
+        if locked_modules:
+            module_details.append(locked_modules[0])
+            locked_modules.remove(locked_modules[0])
 
         course_details["module"] = module_details
+        course_details["locked_modules"] = locked_modules
 
         try:
             course_rating = CourseRating.objects.get(registrationid=user_id,courseid=cid).rating
@@ -367,6 +393,15 @@ def getlessonVideoService(dataObjs):
         library_id = course_video.libraryid
 
         return video_id,library_id
+
+    except Exception as e:
+        raise
+
+    
+def saveAssessmentService(dataObjs,user):
+    try:
+
+        saveAssessmentData(dataObjs,user)
 
     except Exception as e:
         raise

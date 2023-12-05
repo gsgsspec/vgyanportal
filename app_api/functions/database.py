@@ -4,7 +4,8 @@ import secrets
 import string
 import razorpay
 from vgyanportal import settings
-from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration, Question, CourseMedia
+from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration, Question, CourseMedia, \
+    Assessment
 from datetime import datetime
 from  .mailing import sendRegistrainMail
 from vgyanportal.settings import RAZOR_KEY_ID, RAZOR_KEY_SECRET
@@ -178,5 +179,22 @@ def saveAskQuestionDb(dataObjs):
         )
         saveQuestion.save()
 
+    except Exception as e:
+        raise
+
+
+
+def saveAssessmentData(dataObjs,user):
+    try:
+
+        userid = Registration.objects.get(email=user).id
+
+        Assessment(
+            registrationid = userid,
+            courseid = dataObjs["course_id"],
+            moduleid = dataObjs["module_id"],
+            assessmentdate = datetime.now(),
+            status = 'P'
+        ).save()
     except Exception as e:
         raise
