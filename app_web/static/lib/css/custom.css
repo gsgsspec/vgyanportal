@@ -168,27 +168,10 @@
 
 
 
-@media screen and (max-width: 1250px) {
-  
-  .canvas-width{
-    width: 50% !important;
-  }
-}
 
 
-@media screen and (max-width: 995px) {
-  
-  .canvas-width{
-    width: 80% !important;
-  }
-}
 
-@media screen and (max-width: 580px) {
-  
-  .canvas-width{
-    width: 90% !important;
-  }
-}
+
 
 @media screen and (max-width: 450px) {
   
@@ -200,6 +183,25 @@
     font-size: 14px !important;
   }
 }
+
+@media screen and (max-width: 580px) {
+  
+  .canvas-width{
+    width: 90% !important;
+  }
+}
+@media screen and (max-width: 995px) {
+  
+  .canvas-width{
+    width: 80% !important;
+  }
+}
+@media screen and (max-width: 1250px) {
+  .canvas-width{
+    width: 50% !important;
+  }
+}
+
 
 
 
