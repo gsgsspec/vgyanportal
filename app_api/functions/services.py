@@ -1,3 +1,4 @@
+import re
 from rest_framework.authtoken.models import Token
 from vgyanportal.metadata import getConfig
 from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB, saveAskQuestionDb, saveAssessmentData
@@ -405,6 +406,30 @@ def saveAssessmentService(dataObjs,user):
     try:
 
         saveAssessmentData(dataObjs,user)
+
+    except Exception as e:
+        raise
+
+
+
+def updateAssessmentService(dataObjs):
+    
+    try:
+
+        paper_name = dataObjs['paper_name']
+        user_email = dataObjs['user_email']
+
+        paper_data = re.sub('[a-z()]','',paper_name)
+
+        course_id = int(paper_data.split(',')[0])
+        module_id = int(paper_data.split(',')[1])
+
+        registration_id = Registration.objects.get(email=user_email).id
+
+        assessment = Assessment.objects.get(registrationid=registration_id,courseid=course_id,moduleid=module_id)
+        assessment.status = 'C'
+        assessment.save()
+
 
     except Exception as e:
         raise

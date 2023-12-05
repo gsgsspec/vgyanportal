@@ -43,34 +43,43 @@ function startAssessment(mid){
         'first_name': first_name,
         'last_name': last_name,
         'email': email,
-        'paper_title':paper_title+'_%'+mid ,
+        'paper_title':paper_title+','+mid+')',
     }
+
 
     var final_data = {
         'data': JSON.stringify(dataObj),
         csrfmiddlewaretoken: CSRF_TOKEN,
     }
 
-    $.post(CONFIG['domain'] + "/api/save-assessment", final_data, function (res) {
+    $("#assessment_"+mid).css("display", "none !important")
+    
+
+
+    $.post(CONFIG['acert'] + "/api/vgyanportal-user-registeration", final_data, function (res) {
+
+        if (res.statusCode == 0){
+
+            $.post(CONFIG['domain'] + "/api/save-assessment", final_data, function (res) {
+                if (res.statusCode == 0){
+
+                    showSuccessMessage('Assessment requested successfully, please check your email')
+                    
+                }
+
+                else {
+                    showFailureMessage('Error in getting the assesment data. Please try after sometime')
+                }
+
+            })
+
+        }
+
+        else {
+            showFailureMessage('Error in getting the assesment data. Please try after sometime')
+        }
 
     })
-
-    // $.post(CONFIG['acert'] + "/api/vgyanportal-user-registeration", final_data, function (res) {
-
-    //     if (res.statusCode == 0){
-
-    //         showSuccessMessage('Please check your mail for the assessment details')
-
-    //         $.post(CONFIG['domain'] + "/api/save-assessment", final_data, function (res) {
-
-    //         })
-    //     }
-
-    //     else {
-    //         showFailureMessage('Error in getting the assesment data. Please try after sometime')
-    //     }
-
-    // })
     
 }
 
