@@ -132,6 +132,7 @@ def getCourseDetails(request,cid):
         for module in c_module:
 
             c_lesson = CourseLesson.objects.filter(courseid=cid,moduleid=module.id,status='A').order_by('sequence')
+            mail_check=''
 
             try:
                 assessment_status = Assessment.objects.get(registrationid=user_id,courseid=cid,moduleid=module.id).status
@@ -154,8 +155,9 @@ def getCourseDetails(request,cid):
                     'module_id': module.id,
                     'module_name':module.name,
                     'assesment':module.assesment,
-                    'lesson_title': lesson_title,
                     'mail_check': mail_check,
+                    'lesson_title': lesson_title,
+                    
                 })
 
             if module.assesment == 'Y' and assessment_status in ['P', 'R']:
@@ -163,8 +165,9 @@ def getCourseDetails(request,cid):
                     'module_id': module.id,
                     'module_name':module.name,
                     'assesment':module.assesment,
-                    'lesson_title': lesson_title,
                     'mail_check': mail_check,
+                    'lesson_title': lesson_title,
+                    
                 })
 
         if locked_modules:

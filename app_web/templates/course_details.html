@@ -87,7 +87,7 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
-                                {% if module.assesment == 'Y' %}
+                                {% if module.assesment == 'Y' and mail_check == 'N' %}
                                     <div class='p-3 justify-content-end d-flex'>
                                         <button type="button" class="btn btn-primary" onclick="startAssessment({{module.module_id}})">
                                             <i class="fas fa-clipboard-list" style="color:#fff"></i>&nbsp; Start Assessment
@@ -350,6 +350,7 @@
 
 <script>
     var getUserCourseId = '{{ course_details.courseid }}'
+    var paper_title = '{{course_details.title}}_%{{ course_details.courseid }}'
     var getUserId = ''
     var first_name = '{{ user_data.first_name }}'
     var last_name = '{{ user_data.last_name }}'
