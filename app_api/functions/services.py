@@ -77,8 +77,8 @@ def getMyCourses(userId):
                 
                 courseList.append(courseDetails)
 
-    courseDetails['assessments'] = { 'pendding' : 0, 'totalAssessments' : getAssessmentCount}      
-    courseDetails['duration'] = { 'totalduration' : getCourseDetails.duration}        
+                courseDetails['assessments'] = { 'pendding' : 0, 'totalAssessments' : getAssessmentCount}      
+                courseDetails['duration'] = { 'totalduration' : getCourseDetails.duration}        
     return courseList
 
 
