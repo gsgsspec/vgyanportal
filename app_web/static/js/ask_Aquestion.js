@@ -1,7 +1,7 @@
-var receivedData = localStorage.getItem('dataObj');
+var receivedData = localStorage.getItem('lessonId');
 var courseData = JSON.parse(receivedData)
 
-var courseId  =  courseData['courseId']
+var courseId  =  courseData
 
 var getQuestionData = {
     'courseId' : courseId,
@@ -128,10 +128,6 @@ function getModuleLesson(getModulesList){
 
     $.post(CONFIG['domain'] + "/api/get-module-lessons", final_data, function (res) {
         
-        console.log('res :: ',res.data.courseName)
-        console.log('res :: ',res.data.courseModuleName)
-        console.log('res :: ',res.data.courseLessonName)
-
         var getCourseName  = res.data.courseName
         var getModuleName  = res.data.courseModuleName;
         var getLessonsName = res.data.courseLessonName;
@@ -157,7 +153,6 @@ function askQuestion(){
     $('#askQuestionForm').unbind('submit').bind('submit',function(event){
         event.preventDefault();
 
-        // var courseId = $('#courseId').attr('data-course-id');
         var moduleId = $('#moduleId').val();
         var lessonId = $('#lessonId').val();
         var question = $('#AskQuestionTextAreaId').val();
@@ -168,7 +163,6 @@ function askQuestion(){
             'lessonId':  lessonId,
             'question':  question,
         }
-        // console.log('dataObj :: ',dataObj)
 
         var final_data = {
             'data': JSON.stringify(dataObj),
@@ -203,7 +197,7 @@ function getQuestionsList(getQuestionData) {
     
             var answeredQuestion = res.data.questionList;
             var overAllQuestions = res.data.overAllQuestions;
-            // console.log('res.data :: ',res.data.sendUserId)
+            
             var userRegIdentityId = res.data.sendUserId
 
             if (res.statusCode == 0) {

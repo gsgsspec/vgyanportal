@@ -100,11 +100,180 @@
                 </div>
             </div>
         </div>
-        <div class='ask-question'>
+        <div class='ask-question m-3'>
             <button type="button" class="btn btn-primary" id="courseDetailsData">
-                <i class="fas fa-question" style="color: #fff;"></i>&nbsp; Ask a Question
+                <i class="fas fa-question" style="color: #fff;"> &nbsp; Ask a Question </i>
             </button>
         </div>
+
+
+
+
+
+
+            <div class="col-lg-4 col-md-6">
+                <!-- <small class="text-light fw-semibold mb-3">Enable Scrolling & Backdrop</small> -->
+                <div class="mt-3">
+                  <button  class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBoth" aria-controls="offcanvasBoth">
+                    Ask a Question
+                  </button>
+                  <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasBoth"
+                    aria-labelledby="offcanvasBothLabel" style="width: 40% !important; background-color: #f5f5f9;">
+                    
+                    <div class="offcanvas-header" style="display: flex; justify-content: start;">
+                      <button type="button"  class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close">  </button>
+                    <h5 class="pt-3 " style="margin-left: 2rem;">Ask a Question</h5>
+                    </div>
+
+                    <p class="" style="margin: 0rem 2rem;">Check Questions list your question doesn't exits add your question</p>
+
+                    <div class="offcanvas-body mx-0 flex-grow-0 mt-3" >
+                        <!-- <div class="row" style="justify-content: center;"> -->
+                            <div class="col-12 col-md-8 col-lg-12" >
+                              
+                      
+                              <div class="nav-align-top mb-4"  style="justify-content: center;">
+                              <ul class="nav nav-tabs" role="tablist">
+
+                                <!-- First Tab Label -->
+                                <li class="nav-item">
+                                  <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                                    data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
+                                    My Questions
+                                  </button>
+                                </li>
+                                <!-- Second Tab Label -->
+                                <li class="nav-item">
+                                  <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                    data-bs-target="#navs-top-profile" aria-controls="navs-top-profile" aria-selected="false">
+                                    Overall Questions
+                                  </button>
+                                </li> 
+
+                                <!-- Third Tab Label Add Question -->
+                              <li class="nav-item">
+                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                  data-bs-target="#navs-top-question" aria-controls="navs-top-question" aria-selected="false">
+                                  Ask a Question
+                                </button>
+                              </li> 
+
+                              </ul>
+                              
+                            
+
+                              <!-- Label Container Start -->
+                              <div class="tab-content pb-0" style="border-radius: 0%; border-top-right-radius: 10px;">
+
+                                <div class="ask-question-input-feld row col-12 no-wrap">
+                                  <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Course </label>
+                                  <div id="courseId" class="col-md-10 col-12 col-lg-8"   style=" font-size: medium; max-width: max-content  !important; width: max-content !important;" > Carnatic Vocal Grade - I </div>
+                                </div>
+                        
+                                <div class="ask-question-input-feld row col-12 no-wrap">
+                                  <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Module </label>
+                                  <div class="col-md-10 col-12 col-lg-8" id="moduleContainer"  style=" font-size: medium; max-width: max-content  !important; width: max-content !important;"> Carnatic Vocal Module - 1 </div>
+                                </div>
+                        
+                                <div class="mb-3 row col-12 no-wrap">
+                                  <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Lesson</label>
+                                  <div class="col-md-10 col-12 col-lg-8" id="lessonContainer" style=" font-size: medium; max-width: max-content  !important; width: max-content !important;"> Carnatic Vocal lesson - 1 </div>
+                                </div>
+                              </div>
+                               <!-- Label Container End -->
+                      
+                              <div class="tab-content pt-0 pb-0" style="border-radius: 0%;">
+
+                                <!-- First Tab Container -->
+                                <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+                                    <div class=" overflow-hidden mb-4" style="height: 355px;">
+                                      <div class="card-body" id="vertical-example" style="background-color: #f5f5f9; border-radius: 10px; padding: 0.5rem 0.5rem;"> 
+
+                                        <div class="col-md mb-4 mb-md-0">
+
+                                            <div class="card accordion-item mt-2">
+                                                <h2 class="accordion-header" id="headingThree">
+                                                  <button
+                                                    type="button"
+                                                    class="accordion-button collapsed"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#accordionThree"
+                                                    aria-expanded="false"
+                                                    aria-controls="accordionThree"
+                                                  >
+                                                    Accordion Item 3
+                                                  </button>
+                                                </h2>
+                                                <div
+                                                  id="accordionThree"
+                                                  class="accordion-collapse collapse"
+                                                  aria-labelledby="headingThree"
+                                                  data-bs-parent="#accordionExample"
+                                                >
+                                                  <div class="accordion-body">
+                                                    Oat cake toffee chocolate bar jujubes.
+                                                  </div>
+                                                </div>
+                                              </div>
+
+
+                                          </div>
+
+                                      </div>
+                                    </div>
+                                </div>
+
+                                <!-- Second Tab Container-->
+                                <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
+                                    <div class=" overflow-hidden mb-4" style="height: 355px;">
+                                      <div class="card-body" id="over-all-question" style="background-color: #f5f5f9; border-radius: 10px; padding: 0.5rem 0.5rem;">   </div>
+                                    </div>
+                                </div> 
+
+                                <!-- third tab -->
+                                <div class="tab-pane fade" id="navs-top-question" role="tabpanel" style="height: 379px;">
+                                    <div class="" style="border-bottom-left-radius: 10px;">
+                                <form action="" id="askQuestionForm">
+                      
+                                  <div class="row col-12">
+                                    <label id="" for="html5-time-input" class="col-md-2 mb-3 questionLabelSmMargin" style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Question</label>
+                                    <div class="col-md-12 col-12 col-lg-12">
+                                      <textarea required  id="AskQuestionTextAreaId"  class="form-control" placeholder=""
+                                        maxlength="95"  aria-label="Question ?" aria-describedby="Question" style="height: 200px;">
+
+                                      </textarea>
+                                    </div>
+                                  </div>
+                        
+                                  <div class="row col-12">
+                                    <label for="html5-time-input" class="col-md-2 col-form-label" style="text-transform: capitalize !important; width: 5rem;"></label>
+                                    <div class="col-md-12 col-12 col-lg-12" style="display: flex; justify-content: end;">
+                                      <button type="submit" class="btn btn-primary" onclick="askQuestion(event)">Send</button>
+                                    </div>
+                                  </div>
+                        
+                                </form>  
+                              </div>
+                                </div> 
+                             
+                              </div>
+
+
+                            
+                      
+                            </div>
+                          </div>
+                        <!-- </div> -->
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+        </div>
+
+
+
         <p id='courseid' name="{{course_details.courseid}}" hidden>
         <div class="modal fade" id="rating_popup" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog" role="document">

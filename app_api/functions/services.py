@@ -282,12 +282,14 @@ def saveAskQuestion(dataObjs):
 
 def getAskQuestion(dataObjs,userId):
     try:
+        print('+++++++++++++++++++++++++')
+
         questionList     = []
         overAllQuestions = []
         sendUserId       = []
 
         sendQuestions    = {}
-        userCourseId     = int(dataObjs['getQuestionData']['courseId'])
+        userCourseId     = dataObjs['getQuestionData']['courseId']['lesson_id']
         registeredUerId  = userId
         
 
@@ -295,11 +297,15 @@ def getAskQuestion(dataObjs,userId):
 
         registeredUerId = int(getUserId.id)
 
-        userCourseDetails = CourseRegistration.objects.filter(courseid = userCourseId ,registrationid = registeredUerId).last()
+        print('registeredUerId :: ',registeredUerId)
+
+        userCourseDetails = CourseLesson.objects.filter(id = userCourseId ).last()
 
         getcourseid = userCourseDetails.courseid
+        getModuleId = userCourseDetails.moduleid
+        getLessonId = userCourseDetails.id
 
-        getQuestions = Question.objects.filter(courseid = getcourseid ,moduleid = 1, lessonid = 1)
+        getQuestions = Question.objects.filter(courseid = getcourseid ,moduleid = getModuleId, lessonid = getLessonId ,registrationid = registeredUerId)
 
         for allQuestion in getQuestions:
             
