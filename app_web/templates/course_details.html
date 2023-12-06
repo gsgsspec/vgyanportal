@@ -124,7 +124,7 @@
                 <i class="fas fa-question" style="color: #fff;"> &nbsp; Ask a Question </i>
             </button> -->
 
-            <button  class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBoth" aria-controls="offcanvasBoth">
+            <button id="askQuestionId"  class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBoth" aria-controls="offcanvasBoth">
                 <i class="fas fa-question" style="color: #fff;"> &nbsp;</i>Ask a Question
             </button>
         </div>
@@ -141,14 +141,14 @@
                   <div class="offcanvas offcanvas-end canvas-width" data-bs-scroll="true" tabindex="-1" id="offcanvasBoth"
                     aria-labelledby="offcanvasBothLabel" >
                     
-                    <div class="offcanvas-header pt-0 pb-0" style="display: flex; justify-content: start;">
-                      <button type="button"  class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close">  </button>
+                    <div class="offcanvas-header ask-question-canvas-header pt-0 pb-0" style="display: flex; justify-content: start;">
+                      <button type="button"  class="btn-close text-reset rm-sm-btn-pad" data-bs-dismiss="offcanvas" aria-label="Close">  </button>
                     <h5 class="pt-3 " style="margin-left: 2rem;">Ask a Question</h5>
                     </div>
 
-                    <p class="" style="margin: 0rem 2rem;">Check Questions list your question doesn't exits add your question</p>
+                    <p class="notice-text-para" style="margin: 0rem 2rem;">Check Questions list your question doesn't exits add your question</p>
 
-                    <div class="offcanvas-body mx-0 flex-grow-0 mt-3 pt-0" style="overflow-y:hidden;">
+                    <div class="offcanvas-body remove-padding-sm-cls mx-0 flex-grow-0 mt-3 pt-0" style="overflow-y:hidden;">
                         <!-- <div class="row" style="justify-content: center;"> -->
                             <div class="col-12 col-md-12 col-lg-12" >
                               
@@ -160,83 +160,74 @@
                                 <li class="nav-item ">
                                   <button type="button" class="nav-link nav-padding active" role="tab" data-bs-toggle="tab"
                                     data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
-                                    My Questions
+                                    All Questions
                                   </button>
                                 </li>
+
+                                   <!-- Third Tab Label Add Question -->
+                              <li class="nav-item ">
+                                <button type="button" class="nav-link nav-padding" role="tab" data-bs-toggle="tab"
+                                  data-bs-target="#navs-top-question" aria-controls="navs-top-question" aria-selected="false">
+                                  Add Question
+                                </button>
+                              </li> 
+
                                 <!-- Second Tab Label -->
                                 <li class="nav-item ">
                                   <button type="button" class="nav-link nav-padding" role="tab" data-bs-toggle="tab"
                                     data-bs-target="#navs-top-profile" aria-controls="navs-top-profile" aria-selected="false">
-                                    All Questions
+                                    My Questions
                                   </button>
                                 </li> 
 
-                                <!-- Third Tab Label Add Question -->
-                              <li class="nav-item ">
-                                <button type="button" class="nav-link nav-padding" role="tab" data-bs-toggle="tab"
-                                  data-bs-target="#navs-top-question" aria-controls="navs-top-question" aria-selected="false">
-                                  Ask a Question
-                                </button>
-                              </li> 
+                             
 
                               </ul>
                               
                             
 
                               <!-- Label Container Start -->
-                              <div class="tab-content pb-0" style="border-radius: 0%; border-top-right-radius: 10px;">
+                              <div class="tab-content pb-0 rm-sm-padding-cls" style="border-radius: 0%; border-top-right-radius: 10px;">
 
                                 <div class="ask-question-input-feld row col-12 no-wrap">
-                                  <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Course </label>
-                                  <div id="courseId" class="col-md-10 col-12 col-lg-8"   style=" font-size: medium; max-width: max-content  !important; width: max-content !important;" > Carnatic Vocal Grade - I </div>
+                                  <label for="html5-time-input" class="col-md-2 font-size-media" style="text-transform: capitalize !important; width: 6.5rem;">Course </label>
+                                  <div id="courseId" class="col-md-10 col-12 col-lg-8 font-size-media"  style=" max-width: max-content  !important; width: max-content !important;" > Carnatic Vocal Grade - I </div>
                                 </div>
                         
                                 <div class="ask-question-input-feld row col-12 no-wrap">
-                                  <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Module </label>
-                                  <div class="col-md-10 col-12 col-lg-8" id="moduleContainer"  style=" font-size: medium; max-width: max-content  !important; width: max-content !important;"> Carnatic Vocal Module - 1 </div>
+                                  <label for="html5-time-input" class="col-md-2 font-size-media" style="text-transform: capitalize !important; width: 6.5rem;">Module </label>
+                                  <div id="moduleId"  class="col-md-10 col-12 col-lg-8 font-size-media"  style=" max-width: max-content  !important; width: max-content !important;"> </div>
                                 </div>
                         
                                 <div class="mb-3 row col-12 no-wrap">
-                                  <label for="html5-time-input" class="col-md-2 " style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Lesson</label>
-                                  <div class="col-md-10 col-12 col-lg-8" id="lessonContainer" style=" font-size: medium; max-width: max-content  !important; width: max-content !important;"> Carnatic Vocal lesson - 1 </div>
+                                  <label for="html5-time-input" class="col-md-2 font-size-media" style="text-transform: capitalize !important; width: 6.5rem;">Lesson</label>
+                                  <div id="lessonId" class="col-md-10 col-12 col-lg-8 font-size-media" style=" max-width: max-content  !important; width: max-content !important;">  </div>
                                 </div>
                               </div>
                                <!-- Label Container End -->
                       
-                              <div class="tab-content pt-0 pb-0" style="border-radius: 0%;">
+                              <div class="tab-content rm-sm-padding-cls pt-0 pb-0" style="border-radius: 0%;  border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
 
                                 <!-- First Tab Container -->
                                 <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
                                     <div class=" overflow-hidden mb-4" style="height: 355px;">
-                                      <div class="card-body" id="vertical-example" style="background-color: #f5f5f9; border-radius: 10px; padding: 0.5rem 0.5rem;"> 
+                                      <div id="over-all-question" class="card-body rm-sm-card-padding-cls"  style="background-color: #f5f5f9; border-radius: 10px; padding: 0.5rem 0.5rem;"> 
 
-                                        <div class="col-md mb-4 mb-md-0">
+                                        <div class="col-md mb-md-0">
 
                                             <div class="card accordion-item mt-2">
                                                 <h2 class="accordion-header" id="headingThree">
-                                                  <button
-                                                    type="button"
-                                                    class="accordion-button collapsed"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#accordionThree"
-                                                    aria-expanded="false"
-                                                    aria-controls="accordionThree"
-                                                  >
-                                                    Accordion Item 3
+                                                  <button type="button" class="accordion-button rm-sm-accordion-padding collapsed" data-bs-toggle="collapse"
+                                                    data-bs-target="#accordionThree" aria-expanded="false" aria-controls="accordionThree">
+                                                  Who composed the famous kriti " Endaro Mahanubhavulu andariki Vandanamulu"
                                                   </button>
                                                 </h2>
-                                                <div
-                                                  id="accordionThree"
-                                                  class="accordion-collapse collapse"
-                                                  aria-labelledby="headingThree"
-                                                  data-bs-parent="#accordionExample"
-                                                >
+                                                <div id="accordionThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample" >
                                                   <div class="accordion-body">
-                                                    Oat cake toffee chocolate bar jujubes.
+                                                    The famous kriti "Endaro Mahanubhavulu andariki Vandanamulu" was composed by Shri Thyagaraja.
                                                   </div>
                                                 </div>
                                               </div>
-
 
                                           </div>
 
@@ -244,38 +235,38 @@
                                     </div>
                                 </div>
 
+                                 <!-- third tab -->
+                                 <div class="tab-pane fade" id="navs-top-question" role="tabpanel" style="height: 379px;">
+                                  <div class="" style="border-bottom-left-radius: 10px;">
+                              <form action="" id="askQuestionForm">
+                    
+                                <div class="row col-12">
+                                  <label id="" for="html5-time-input" class="col-md-2 mb-3 questionLabelSmMargin" style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Question</label>
+                                  <div class="col-md-12 col-12 col-lg-12">
+                                    <textarea required  id="AskQuestionTextAreaId"  class="form-control" maxlength="95"  aria-label="Question ?"
+                                     aria-describedby="Question" style="height: 200px;"> </textarea>
+                                  </div>
+                                </div>
+                      
+                                <div class="row col-12">
+                                  <label for="html5-time-input" class="col-md-2 col-form-label" style="text-transform: capitalize !important; width: 5rem;"></label>
+                                  <div class="col-md-12 col-12 col-lg-12" style="display: flex; justify-content: end;">
+                                    <button type="submit" class="btn btn-primary" onclick="askQuestion(event)">Send</button>
+                                  </div>
+                                </div>
+                      
+                              </form>  
+                            </div>
+                              </div> 
+
                                 <!-- Second Tab Container-->
                                 <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
                                     <div class=" overflow-hidden mb-4" style="height: 355px;">
-                                      <div class="card-body" id="over-all-question" style="background-color: #f5f5f9; border-radius: 10px; padding: 0.5rem 0.5rem;">   </div>
+                                      <div id="vertical-example" class="card-body"  style="background-color: #f5f5f9; border-radius: 10px; padding: 0.5rem 0.5rem;">   </div>
                                     </div>
                                 </div> 
 
-                                <!-- third tab -->
-                                <div class="tab-pane fade" id="navs-top-question" role="tabpanel" style="height: 379px;">
-                                    <div class="" style="border-bottom-left-radius: 10px;">
-                                <form action="" id="askQuestionForm">
-                      
-                                  <div class="row col-12">
-                                    <label id="" for="html5-time-input" class="col-md-2 mb-3 questionLabelSmMargin" style="text-transform: capitalize !important; width: 6.5rem; font-size: medium;">Question</label>
-                                    <div class="col-md-12 col-12 col-lg-12">
-                                      <textarea required  id="AskQuestionTextAreaId"  class="form-control" placeholder=""
-                                        maxlength="95"  aria-label="Question ?" aria-describedby="Question" style="height: 200px;">
-
-                                      </textarea>
-                                    </div>
-                                  </div>
-                        
-                                  <div class="row col-12">
-                                    <label for="html5-time-input" class="col-md-2 col-form-label" style="text-transform: capitalize !important; width: 5rem;"></label>
-                                    <div class="col-md-12 col-12 col-lg-12" style="display: flex; justify-content: end;">
-                                      <button type="submit" class="btn btn-primary" onclick="askQuestion(event)">Send</button>
-                                    </div>
-                                  </div>
-                        
-                                </form>  
-                              </div>
-                                </div> 
+                               
                              
                               </div>
 
@@ -358,6 +349,12 @@
    
 </script>
 <script src="{% static 'js/course_details.js' %}"></script>
+
+<script>
+//   document.addEventListener('DOMContentLoaded', function() {
+//     document.getElementById('askQuestionId').click()
+// });
+</script>
 
 <style>
     

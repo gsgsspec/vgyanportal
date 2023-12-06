@@ -211,3 +211,237 @@ $(document).on('click', '.rate', function() {
     }
 });
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$('#askQuestionId').click(function (){
+    getAllQuestions()
+})
+
+function getAllQuestions(){
+    var receivedData = localStorage.getItem('lessonId');
+    var courseData = JSON.parse(receivedData)
+
+    var lessonId  =  courseData
+    
+    dataObj = {
+        'getQuestionData': lessonId
+    }
+
+    var final_data = {
+        'data': JSON.stringify(dataObj),
+        csrfmiddlewaretoken: CSRF_TOKEN,
+    }
+
+    $.post(CONFIG['domain'] + "/api/get-questions", final_data, function (res) {
+
+        $('#courseId').text(res.data.courseDetails.courseGetName)
+        $('#moduleId').text(res.data.courseDetails.courseModuleName)
+        $('#lessonId').text(res.data.courseDetails.courseLessonName)
+
+        var answeredQuestion = res.data.questionList;
+        var overAllQuestions = res.data.overAllQuestions;
+        
+        var userRegIdentityId = res.data.sendUserId
+
+        if (res.statusCode == 0) {
+
+            $('#vertical-example').html('')
+            $('#over-all-question').html('')
+
+
+            for (var ans = 0; ans < overAllQuestions.length; ans++) {
+
+                var question = overAllQuestions[ans]['ques'];
+                var questionId = overAllQuestions[ans]['id'];
+                var questionAnswer = overAllQuestions[ans]['ans'];
+                var userRegisterationId = overAllQuestions[ans]['userId'];
+
+                if (parseInt(userRegIdentityId) === userRegisterationId){
+
+                    if (questionAnswer === 'N'){
+                        var questionAnswerRes = "Not Answered"
+                    }
+                    else{
+                        questionAnswerRes = questionAnswer
+                    }
+
+                    $('#vertical-example').append(
+                        '<div class="accordion-item card m-2">' +
+                        '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
+                        '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
+                        question + ' </button>' +
+                        '</h2>' +
+                        '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
+                        '<div class="accordion-body"> ' + questionAnswerRes + ' </div>' +
+                        '</div>' +
+                        '</div>'
+                    );
+
+                }
+
+                if (questionAnswer !== "N"){
+                    $('#over-all-question').append(
+                        '<div class="accordion-item card m-2">' +
+                        '<h2 class="accordion-header " id="headingOne' + questionId + '">' +
+                        '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne2' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
+                        question + ' </button>' +
+                        '</h2>' +
+                        '<div id="accordionOne2' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
+                        '<div class="accordion-body"> ' + questionAnswer + ' </div>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                }
+
+                
+
+            }
+        }
+    });
+}
+
+
+
+function askQuestion(){
+
+    $('#askQuestionForm').unbind('submit').bind('submit',function(event){
+        event.preventDefault();
+
+        var receivedData = localStorage.getItem('lessonId');
+        var courseData = JSON.parse(receivedData)
+
+        var lessonId  = courseData
+
+        var question = $('#AskQuestionTextAreaId').val();
+
+        dataObj = {
+            'lessonId':  lessonId,
+            'question':  question,
+        }
+
+        var final_data = {
+            'data': JSON.stringify(dataObj),
+            csrfmiddlewaretoken: CSRF_TOKEN,
+        }
+
+        $.post(CONFIG['domain'] + "/api/save-question", final_data, function (res) {
+        
+            if (res.statusCode == 0){
+                showSuccessMessage('Question add') //success message
+
+                $('#AskQuestionTextAreaId').val('');
+                getAllQuestions()
+            }
+        })
+
+    }) 
+}

@@ -312,61 +312,70 @@ def saveAskQuestion(dataObjs):
 
 def getAskQuestion(dataObjs,userId):
     try:
-        print('+++++++++++++++++++++++++')
-
         questionList     = []
         overAllQuestions = []
         sendUserId       = []
 
         sendQuestions    = {}
-        userCourseId     = dataObjs['getQuestionData']['courseId']['lesson_id']
+        userCourseId     = dataObjs['getQuestionData']['lesson_id']
         registeredUerId  = userId
         
 
         getUserId = Registration.objects.filter(email = registeredUerId).last()
-
-        registeredUerId = int(getUserId.id)
-
-        print('registeredUerId :: ',registeredUerId)
-
         userCourseDetails = CourseLesson.objects.filter(id = userCourseId ).last()
 
+        registeredUerId = getUserId.id
         getcourseid = userCourseDetails.courseid
         getModuleId = userCourseDetails.moduleid
         getLessonId = userCourseDetails.id
 
+        courseName = Course.objects.filter(id = getcourseid).last()
+        courseModule = CourseModule.objects.filter(id = getModuleId).last()
+
+        courseGetName    = courseName.title
+        courseModuleName = courseModule.name
+        courseLessonName = userCourseDetails.title
+
         getQuestions = Question.objects.filter(courseid = getcourseid ,moduleid = getModuleId, lessonid = getLessonId ,registrationid = registeredUerId)
 
-        for allQuestion in getQuestions:
+        if getQuestions:
+
+            for allQuestion in getQuestions:
+                
+                questionId     = allQuestion.id
+                question       = allQuestion.question 
+                questionAnswer = allQuestion.answer
+                userRegisterId = allQuestion.registrationid
+
+                if userRegisterId == registeredUerId:
+                    questions = {
+                        'id'   : questionId,
+                      'userId' : userRegisterId,
+                        'ques' : question,
+                        'ans'  : "N" if questionAnswer == None else questionAnswer
+                    }
+                    questionList.append(questions)
+
+                allQuestionsData = {
+                        'id'   : questionId,
+                      'userId' : userRegisterId,
+                        'ques' : question,
+                        'ans'  : "N" if questionAnswer == None else questionAnswer
+                    }
+                overAllQuestions.append(allQuestionsData)
+
+            questionList.reverse()
+            overAllQuestions.reverse()
             
-            questionId     = allQuestion.id
-            question       = allQuestion.question 
-            questionAnswer = allQuestion.answer
-            userRegisterId = allQuestion.registrationid
+            sendQuestions['sendUserId']   = registeredUerId
+            sendQuestions['questionList'] = questionList
+            sendQuestions['overAllQuestions'] = overAllQuestions
 
-            if userRegisterId == registeredUerId:
-                questions = {
-                    'id'   : questionId,
-                  'userId' : userRegisterId,
-                    'ques' : question,
-                    'ans'  : "Answer not available. Check back later." if questionAnswer == None else questionAnswer
-                }
-                questionList.append(questions)
-
-            allQuestionsData = {
-                    'id'   : questionId,
-                  'userId' : userRegisterId,
-                    'ques' : question,
-                    'ans'  : "Answer not available. Check back later." if questionAnswer == None else questionAnswer
-                }
-            overAllQuestions.append(allQuestionsData)
-
-        questionList.reverse()
-        overAllQuestions.reverse()
+            sendQuestions['courseDetails'] = {'courseGetName':courseGetName,'courseModuleName':courseModuleName,'courseLessonName':courseLessonName}
         
-        sendQuestions['sendUserId']   = registeredUerId
-        sendQuestions['questionList'] = questionList
-        sendQuestions['overAllQuestions'] = overAllQuestions
+        else:
+            sendQuestions = ''
+            return sendQuestions
 
         return sendQuestions
 

@@ -5,7 +5,7 @@ import string
 import razorpay
 from vgyanportal import settings
 from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration, Question, CourseMedia, \
-    Assessment
+    Assessment,CourseLesson
 from datetime import datetime
 from  .mailing import sendRegistrainMail
 from vgyanportal.settings import RAZOR_KEY_ID, RAZOR_KEY_SECRET
@@ -161,10 +161,13 @@ def saveCourseRatingDB(dataObjs,user):
 
 def saveAskQuestionDb(dataObjs):
     try:
+        lessonId = dataObjs['lessonId']['lesson_id']
+        
+        courseLessonDetails = CourseLesson.objects.filter(id = lessonId).last()
 
-        courseId = dataObjs['courseId']
-        lessonId = dataObjs['lessonId']
-        dataObjs['moduleId']
+        getcourseid = courseLessonDetails.courseid
+        courseModuleId =  courseLessonDetails.moduleid
+        courseLessonId =  courseLessonDetails.id
 
         userEmail = dataObjs['userId']
         getUserRegisterId = Registration.objects.filter(email = userEmail).last()
@@ -173,12 +176,13 @@ def saveAskQuestionDb(dataObjs):
         
         saveQuestion = Question(
             registrationid = getUserRegisterId.id,
-            courseid = courseId if courseId != "" else 0,
-            lessonid = lessonId if lessonId != "" else 0,
+            courseid = getcourseid if getcourseid != "" else 0,
+            moduleid = courseModuleId if courseModuleId != "" else 0,
+            lessonid = courseLessonId if courseLessonId != "" else 0,
             question = getQuestion if getQuestion != '' else "",
         )
         saveQuestion.save()
-
+        
     except Exception as e:
         raise
 
