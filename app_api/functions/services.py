@@ -48,15 +48,12 @@ def getMyCourses(userId):
     for getcourse in getCourse:
         if getcourse['status'] == "A":
             courseId = getcourse['courseid']
-            if courseId:
-                getCourseDetails = Course.objects.filter(id = courseId).last()
+            getCourseDetails = Course.objects.filter(id = courseId,status='A').last()
+
+            if getCourseDetails:
                 couerseId = getCourseDetails.id
-
                 getAssessmentCount = CourseModule.objects.filter( courseid = couerseId ,assesment = "Y").count()
-
                 assessmentCount = Assessment.objects.filter(registrationid = userId, courseid = couerseId , status = 'C').count()
-
-                
 
                 if assessmentCount:
                     completedAssessments = assessmentCount
