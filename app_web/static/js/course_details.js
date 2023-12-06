@@ -234,6 +234,10 @@ function getAllQuestions(){
 
     $.post(CONFIG['domain'] + "/api/get-questions", final_data, function (res) {
 
+        $('#courseId').html('')
+        $('#moduleId').html('')
+        $('#lessonId').html('')
+
         $('#courseId').text(res.data.courseDetails.courseGetName)
         $('#moduleId').text(res.data.courseDetails.courseModuleName)
         $('#lessonId').text(res.data.courseDetails.courseLessonName)

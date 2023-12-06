@@ -54,6 +54,15 @@ def getMyCourses(userId):
 
                 getAssessmentCount = CourseModule.objects.filter( courseid = couerseId ,assesment = "Y").count()
 
+                assessmentCount = Assessment.objects.filter(registrationid = userId, courseid = couerseId , status = 'C').count()
+
+                
+
+                if assessmentCount:
+                    completedAssessments = assessmentCount
+                else:
+                    completedAssessments = 0
+
                 img_url = CourseMedia.objects.get(courseid=courseId, type='T').mediaurl
                 web_domain = getConfig()['MEDIA']['web_domain']
 
@@ -78,7 +87,7 @@ def getMyCourses(userId):
                 
                 courseList.append(courseDetails)
 
-                courseDetails['assessments'] = { 'pendding' : 0, 'totalAssessments' : getAssessmentCount}      
+                courseDetails['assessments'] = { 'completedAssessmentsCount' : completedAssessments, 'totalAssessments' : getAssessmentCount}      
                 courseDetails['duration'] = { 'totalduration' : getCourseDetails.duration}        
     return courseList
 
@@ -338,6 +347,8 @@ def getAskQuestion(dataObjs,userId):
 
         getQuestions = Question.objects.filter(courseid = getcourseid ,moduleid = getModuleId, lessonid = getLessonId ,registrationid = registeredUerId)
 
+        # if getQuestions:
+
         for allQuestion in getQuestions:
             
             questionId     = allQuestion.id
@@ -370,6 +381,10 @@ def getAskQuestion(dataObjs,userId):
         sendQuestions['overAllQuestions'] = overAllQuestions
 
         sendQuestions['courseDetails'] = {'courseGetName':courseGetName,'courseModuleName':courseModuleName,'courseLessonName':courseLessonName}
+        
+        # else:
+        #     sendQuestions = ''
+        #     return sendQuestions
 
         return sendQuestions
 
