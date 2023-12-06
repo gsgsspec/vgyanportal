@@ -181,6 +181,7 @@ def getQuestion(request):
             userId = request.user
             
             getquestionsList = getAskQuestion(dataObjs,userId)
+            print('getquestionsList',getquestionsList)
 
             response['data'] = getquestionsList
             response['statusCode'] = 0
@@ -262,6 +263,8 @@ def saveAssessmentDetails(request):
 
 
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
 def updateAssessmentDetails(request):
     response = {
         'data': None,
@@ -270,7 +273,8 @@ def updateAssessmentDetails(request):
     }
     try:
         if request.method == "POST":
-            dataObjs = json.loads(request.POST.get('data'))
+            request_data = dict(request.POST)
+            dataObjs = {key: request_data[key][0] if request_data[key] else '' for key in request_data}
             updateAssessmentService(dataObjs)
             response['data'] = 'Assessment details updated successfully'
             response['statusCode'] = 0

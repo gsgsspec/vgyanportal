@@ -52,7 +52,7 @@ function startAssessment(mid){
         csrfmiddlewaretoken: CSRF_TOKEN,
     }
 
-    $("#assessment_"+mid).css("display", "none !important")
+    $("#assessment_"+mid).html('')
     
 
 
@@ -213,115 +213,6 @@ $(document).on('click', '.rate', function() {
     
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $('#askQuestionId').click(function (){
     getAllQuestions()
 })
@@ -331,7 +222,7 @@ function getAllQuestions(){
     var courseData = JSON.parse(receivedData)
 
     var lessonId  =  courseData
-    
+
     dataObj = {
         'getQuestionData': lessonId
     }

@@ -422,7 +422,7 @@ def updateAssessmentService(dataObjs):
         paper_name = dataObjs['paper_name']
         user_email = dataObjs['user_email']
 
-        paper_data = re.sub('[a-z()]','',paper_name)
+        paper_data = re.sub('[a-zA-Z()\s-]','',paper_name)
 
         course_id = int(paper_data.split(',')[0])
         module_id = int(paper_data.split(',')[1])
