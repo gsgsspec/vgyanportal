@@ -338,44 +338,38 @@ def getAskQuestion(dataObjs,userId):
 
         getQuestions = Question.objects.filter(courseid = getcourseid ,moduleid = getModuleId, lessonid = getLessonId ,registrationid = registeredUerId)
 
-        if getQuestions:
-
-            for allQuestion in getQuestions:
-                
-                questionId     = allQuestion.id
-                question       = allQuestion.question 
-                questionAnswer = allQuestion.answer
-                userRegisterId = allQuestion.registrationid
-
-                if userRegisterId == registeredUerId:
-                    questions = {
-                        'id'   : questionId,
-                      'userId' : userRegisterId,
-                        'ques' : question,
-                        'ans'  : "N" if questionAnswer == None else questionAnswer
-                    }
-                    questionList.append(questions)
-
-                allQuestionsData = {
-                        'id'   : questionId,
-                      'userId' : userRegisterId,
-                        'ques' : question,
-                        'ans'  : "N" if questionAnswer == None else questionAnswer
-                    }
-                overAllQuestions.append(allQuestionsData)
-
-            questionList.reverse()
-            overAllQuestions.reverse()
+        for allQuestion in getQuestions:
             
-            sendQuestions['sendUserId']   = registeredUerId
-            sendQuestions['questionList'] = questionList
-            sendQuestions['overAllQuestions'] = overAllQuestions
+            questionId     = allQuestion.id
+            question       = allQuestion.question 
+            questionAnswer = allQuestion.answer
+            userRegisterId = allQuestion.registrationid
 
-            sendQuestions['courseDetails'] = {'courseGetName':courseGetName,'courseModuleName':courseModuleName,'courseLessonName':courseLessonName}
+            if userRegisterId == registeredUerId:
+                questions = {
+                    'id'   : questionId,
+                    'userId' : userRegisterId,
+                    'ques' : question,
+                    'ans'  : "N" if questionAnswer == None else questionAnswer
+                }
+                questionList.append(questions)
+
+            allQuestionsData = {
+                    'id'   : questionId,
+                    'userId' : userRegisterId,
+                    'ques' : question,
+                    'ans'  : "N" if questionAnswer == None else questionAnswer
+                }
+            overAllQuestions.append(allQuestionsData)
+
+        questionList.reverse()
+        overAllQuestions.reverse()
         
-        else:
-            sendQuestions = ''
-            return sendQuestions
+        sendQuestions['sendUserId']   = registeredUerId
+        sendQuestions['questionList'] = questionList
+        sendQuestions['overAllQuestions'] = overAllQuestions
+
+        sendQuestions['courseDetails'] = {'courseGetName':courseGetName,'courseModuleName':courseModuleName,'courseLessonName':courseLessonName}
 
         return sendQuestions
 
@@ -422,7 +416,7 @@ def saveAssessmentService(dataObjs,user):
 
 
 def updateAssessmentService(dataObjs):
-    
+
     try:
 
         paper_name = dataObjs['paper_name']
