@@ -14,7 +14,9 @@ SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
 
 
 def sendRegistrainMail(mail_data):
+    
     try:
+
         email_config = getConfig()['SEND_EMAIL_CONFIG']
         creds = email_config['creds']
         token = email_config['token']
@@ -29,6 +31,7 @@ def sendRegistrainMail(mail_data):
                       .replace('{password}',mail_data['password'])
                       .replace('{name}',mail_data['name'])
                       .replace('{course}',mail_data['course'])
+                      .replace('{img_url}',mail_data['img_url'])
                       )
 
         creds = None

@@ -159,6 +159,7 @@ class Question(models.Model):
     registrationid = models.IntegerField(null=True)
     courseid = models.IntegerField(null=True)
     question = models.CharField(max_length=100, null=True)
+    questiondate = models.DateTimeField(null=True)
     answer = models.CharField(max_length=100, null=True)
     lessonid = models.IntegerField(null=True)
     moduleid = models.IntegerField(null=True)
@@ -179,3 +180,18 @@ class Assessment(models.Model):
 
     class Meta:
         db_table = 'assessment'
+
+
+class Activity(models.Model):
+    id = models.AutoField(primary_key=True)
+    registrationid = models.IntegerField(null=True)
+    courseid = models.IntegerField(null=True)
+    moduleid = models.IntegerField(null=True)
+    lessonid = models.IntegerField(null=True)
+    activity = models.CharField(max_length=1, null=True)  # P - Video Play , D - Document Download, Q- Question
+    start = models.DateTimeField(null=True)
+    end = models.DateTimeField(null=True)
+    duration = models.IntegerField(null=True)  # In seconds
+
+    class Meta:
+        db_table = 'activity'

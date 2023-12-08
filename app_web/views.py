@@ -76,14 +76,11 @@ def courseDetailsPage(request,cid):
         reg_id = Registration.objects.get(email=request.user).id
         user_courses = CourseRegistration.objects.filter(registrationid=reg_id)
 
-        
-
         if user_courses.filter(courseid=cid).exists():
 
             user_data = getUserProfile(request.user)
             
             course_details = getCourseDetails(request,cid)
-            print('course_details',course_details['module'])
 
             return render(request, 'index.html',{'template_name':'course_details.html','course_details':course_details,'user_data':user_data})
         

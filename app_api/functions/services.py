@@ -1,9 +1,10 @@
 import re
 from rest_framework.authtoken.models import Token
-from vgyanportal.metadata import getConfig
+from vgyanportal.metadata import getConfig, change_timeformat
 from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB, saveAskQuestionDb, saveAssessmentData
 from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia , Question , \
         Assessment
+
 
 def authentication_service(dataObjs):
     try:
@@ -136,6 +137,8 @@ def getCourseDetails(request,cid):
         module_details = []
         locked_modules = []
 
+        # Unlocked Modules list
+
         for module in c_module:
 
             c_lesson = CourseLesson.objects.filter(courseid=cid,moduleid=module.id,status='A').order_by('sequence')
@@ -151,35 +154,67 @@ def getCourseDetails(request,cid):
             lesson_title = []
 
             for lesson in c_lesson:
+
+                lesson_duration = change_timeformat(lesson.duration,'L')
+                module_duration = change_timeformat(module.duration,'M')
+
                 lesson_title.append({
                     'title':lesson.title,
-                    'id':lesson.id
+                    'id':lesson.id,
+                    'lesson_type':lesson.type,
+                    'lesson_duration':lesson_duration,
                 })
 
-            if module.assesment == 'N' or (module.assesment == 'Y' and assessment_status == 'C') :
 
-                module_details.append({
+            module_details.append({
                     'module_id': module.id,
                     'module_name':module.name,
                     'assesment':module.assesment,
                     'mail_check': mail_check,
                     'lesson_title': lesson_title,
-                    
+                    'lessons_count':c_lesson.count(),
+                    'module_duration':module_duration,     
+                })
+            if module.assesment == 'Y' and (assessment_status == 'P' or assessment_status == 'R') :
+                break
+        
+        # Locked Modules List
+        
+        for lck_module in c_module[len(module_details):]:
+
+            c_lesson = CourseLesson.objects.filter(courseid=cid,moduleid=lck_module.id,status='A').order_by('sequence')
+            mail_check=''
+
+            try:
+                assessment_status = Assessment.objects.get(registrationid=user_id,courseid=cid,moduleid=lck_module.id).status
+                mail_check = 'S'
+            except:
+                assessment_status = 'P'
+                mail_check = 'N'
+
+            lesson_title = []
+
+            for lesson in c_lesson:
+
+                lesson_duration = change_timeformat(lesson.duration,'L')
+                module_duration = change_timeformat(module.duration,'M')
+
+                lesson_title.append({
+                    'title':lesson.title,
+                    'id':lesson.id,
+                    'lesson_type':lesson.type,
+                    'lesson_duration':lesson_duration,
                 })
 
-            if module.assesment == 'Y' and assessment_status in ['P', 'R']:
-                locked_modules.append({
-                    'module_id': module.id,
-                    'module_name':module.name,
-                    'assesment':module.assesment,
+            locked_modules.append({
+                    'module_id': lck_module.id,
+                    'module_name':lck_module.name,
+                    'assesment':lck_module.assesment,
                     'mail_check': mail_check,
                     'lesson_title': lesson_title,
-                    
+                    'lessons_count':c_lesson.count(),
+                    'module_duration':module_duration,         
                 })
-
-        if locked_modules:
-            module_details.append(locked_modules[0])
-            locked_modules.remove(locked_modules[0])
 
         course_details["module"] = module_details
         course_details["locked_modules"] = locked_modules

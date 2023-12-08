@@ -78,13 +78,28 @@
                         <div class="card accordion-item">
                             <h2 class="accordion-header" id="heading{{ forloop.counter }}">
                                 <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accord_{{ forloop.counter }}" aria-expanded="true" aria-controls="accord_{{ forloop.counter }}">{{module.module_name}}</button>
+                                {% comment %} <span style='float:right'> {{ module.lessons_count}} L &#8226; {{module.module_duration}} </span> {% endcomment %}
                             </h2>
                             <div id="accord_{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                 <ul class="list-group">
                                     {% for lesson in module.lesson_title %}
-                                        <li class="list-group-item d-flex align-items-center" id="{{lesson.id}}" onclick="getCourseVideo({{lesson.id}})" style="cursor:pointer">
-                                            <i class="far fa-play-circle lesson-icon"></i>&ensp; <p class="lesson-title">{{lesson.title}}</p>
-                                        </li>
+                                        {% if lesson.lesson_type == 'V' %}
+                                            <li class="list-group-item d-flex align-items-center" id="{{lesson.id}}" onclick="getCourseVideo({{lesson.id}})" style="cursor:pointer">
+                                                <i class="far fa-play-circle lesson-icon"></i>&ensp;
+                                                <p class="lesson-title">{{lesson.title}}</p>
+                                                <span style="margin-left:auto"><i class="fas fa-clock p-clr"></i> &nbsp; {{lesson.lesson_duration}}</span>
+                                            </li>
+                                        {% elif lesson.lesson_type == 'P' %}
+                                            <li class="list-group-item d-flex align-items-center" id="{{lesson.id}}" style="cursor:pointer">
+                                                <i class="fas fa-file lesson-icon"></i>&ensp;
+                                                <p class="lesson-title">{{lesson.title}}</p>
+                                            </li>
+                                        {% elif lesson.lesson_type == 'A' %}
+                                            <li class="list-group-item d-flex align-items-center" id="{{lesson.id}}" style="cursor:pointer">
+                                                <i class="fas fa-volume-up lesson-icon"></i>&ensp;
+                                                <p class="lesson-title">{{lesson.title}}</p>
+                                            </li>
+                                        {% endif %}
                                     {% endfor %}
                                 </ul>
                                 {% if module.assesment == 'Y' and module.mail_check == 'N' %}
@@ -108,9 +123,22 @@
                                         <p class="lesson-title">Please complete the assessment for the above modules to unlock new modules</p>
                                     </li>
                                     {% for lesson in locked_module.lesson_title %}
-                                        <li class="list-group-item d-flex align-items-center">
-                                            <i class="far fa-play-circle lesson-icon"></i>&ensp; <p class="lesson-title">{{lesson.title}}</p>
-                                        </li>
+                                        {% if lesson.lesson_type == 'V' %}
+                                            <li class="list-group-item d-flex align-items-center">
+                                                <i class="far fa-play-circle lesson-icon"></i>&ensp; <p class="lesson-title">{{lesson.title}}</p>
+                                                <span style="margin-left:auto"><i class="fas fa-clock p-clr"></i> &nbsp; {{lesson.lesson_duration}}</span>
+                                            </li>
+                                        {% elif lesson.lesson_type == 'P' %}
+                                            <li class="list-group-item d-flex align-items-center">
+                                                <i class="fas fa-file lesson-icon"></i>&ensp; <p class="lesson-title">{{lesson.title}}</p>
+                                                <span style="margin-left:auto"><i class="fas fa-clock p-clr"></i> &nbsp; {{lesson.lesson_duration}}</span>
+                                            </li>
+                                        {% elif lesson.lesson_type == 'A' %}
+                                            <li class="list-group-item d-flex align-items-center">
+                                                <i class="fas fa-volume-up lesson-icon"></i>&ensp; <p class="lesson-title">{{lesson.title}}</p>
+                                                <span style="margin-left:auto"><i class="fas fa-clock p-clr"></i> &nbsp; {{lesson.lesson_duration}}</span>
+                                            </li>
+                                        {% endif %}
                                     {% endfor %}
                                 </ul>
                             </div>

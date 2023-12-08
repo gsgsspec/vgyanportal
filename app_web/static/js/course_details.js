@@ -129,6 +129,7 @@ function getCourseVideo(lid){
 
 
     })
+    getVideoTime()
 }
 
 
@@ -142,7 +143,19 @@ $(document).ready(function(){
     }
     $('#web-page').removeClass('layout-menu-fixed')
 
+    
+    getVideoTime()
+    
+
 })
+
+function getVideoTime(){
+    console.log('1')
+    video = document.getElementById('main-video');
+    console.log('video-time ' ,video)
+    setTimeout(getVideoTime, 1000);
+
+}
 
 
 function showFullPage(){
@@ -161,8 +174,6 @@ function hideFullPage(){
     $('#display_icon').css('display','block')
     $('#hide_icon').css('display','none')
 }
-
-
 
 
 
