@@ -8,7 +8,7 @@ def getVideoslist():
 
     headers = {
         "accept": "application/json",
-        "AccessKey": "c3d9dd35-a3e4-4324-b134-eed3f2bea886"
+        "AccessKey": "dff41e25-1feb-40ce-b529ea55f1d2-a914-46b2"
     }
 
     response = requests.get(url, headers=headers)
@@ -17,6 +17,7 @@ def getVideoslist():
 
     return response.text
 
+getVideoslist()
 
 # List of libraries 
    
