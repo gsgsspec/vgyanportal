@@ -119,17 +119,15 @@ function getCourseVideo(lid){
             $('#video_section').html('')
 
             $('#video_section').append(
-                '<div style="position:relative;padding-top:56.25%">' +
-                    '<iframe src="https://iframe.mediadelivery.net/embed/'+ library_id +'/'+ video_id +'?autoplay=true&loop=false&muted=false&preload=true" loading="lazy" ' +
-                    'style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe> ' +
-                '</div>'
-            )
 
+                '<iframe src="https://iframe.mediadelivery.net/embed/'+ library_id +'/'+ video_id +'?autoplay=true&loop=false&muted=false&preload=true" loading="lazy" ' +
+                'style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe> ' 
+
+            )
         }
 
-
-    })
-    getVideoTime()
+        
+    })  
 }
 
 
@@ -142,20 +140,10 @@ $(document).ready(function(){
         $('#layout-menu').css('display', 'none');
     }
     $('#web-page').removeClass('layout-menu-fixed')
-
-    
-    getVideoTime()
     
 
 })
 
-function getVideoTime(){
-    console.log('1')
-    video = document.getElementById('main-video');
-    console.log('video-time ' ,video)
-    setTimeout(getVideoTime, 1000);
-
-}
 
 
 function showFullPage(){
