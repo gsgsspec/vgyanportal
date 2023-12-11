@@ -62,7 +62,7 @@
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
         <h3 class="pb-1 mb-3
-         d-flex justify-content-between">{{course_details.title}}
+         d-flex justify-content-between" onclick="getVideoTime()">{{course_details.title}}
             {% if course_details.rating == None %}
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="rating_button" data-bs-target="#rating_popup">
                 <i class="fas fa-star" style="color: #fff;"></i>&nbsp; Rate the Course
@@ -74,8 +74,6 @@
         </h3>
         <div class="row">
             <div class="col-md-7 mb-3 mb-md-0">
-                <!-- <div id="video_section" style="position:relative;padding-top:56.25%"></div>     -->
-
                 <div>
                     <div class="container show-controls">
                         <div class="wrapper">
@@ -87,7 +85,7 @@
                             </div>
                             <ul class="video-controls">
                                 <li class="options left">
-                                    <button class="volume"><i class="fa-solid fa-volume-high"></i></button>
+                                    <button class="volume"><i class="fas fa-volume-up"></i></button>
                                     <input type="range" min="0" max="1" step="any">
                                     <div class="video-timer">
                                         <p class="current-time p-0 m-0">00:00</p>
@@ -116,7 +114,8 @@
                                 </li>
                             </ul>
                         </div>
-                        <video src="https://vz-e3c8e33a-ea3.b-cdn.net/b320cd4b-d677-4b3e-96ea-1e87db0caa5a/play_480p.mp4"></video>
+                        <video id="video-src" src="https://vz-e3c8e33a-ea3.b-cdn.net/b320cd4b-d677-4b3e-96ea-1e87db0caa5a/play_480p.mp4"></video>
+                        
                     </div>
                 </div>
                 
@@ -456,7 +455,7 @@ body, .container, .video-controls, .video-timer, .options{
   justify-content: center;
 }
 .container{
-  width: 98%;
+  width: 100%;
   user-select: none;
   overflow: hidden;
   max-width: 900px;
@@ -469,7 +468,7 @@ body, .container, .video-controls, .video-timer, .options{
 .container.fullscreen{
   max-width: 100%;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   border-radius: 0px;
 }
 .wrapper{
@@ -558,8 +557,8 @@ body, .container, .video-controls, .video-timer, .options{
   border: none;
   cursor: pointer;
   background: none;
-  /* color: #efefef; */
-  color: #f46a24;
+  color: #efefef;
+ /* color: #f46a24; */
   border-radius: 3px;
   transition: all 0.3s ease;
 }
@@ -582,6 +581,7 @@ body, .container, .video-controls, .video-timer, .options{
   margin-left: 3px;
   max-width: 75px;
   accent-color: #f46a24;
+  accent-color: white;
 }
 .options .video-timer{
   color: #efefef;
@@ -636,6 +636,7 @@ body, .container, .video-controls, .video-timer, .options{
 }
 .container video{
   width: 100%;
+  position:absolute;
 }
 
 @media screen and (max-width: 540px) {

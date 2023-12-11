@@ -83,7 +83,13 @@ function startAssessment(mid){
     
 }
 
+function getVideoTime(){
 
+    video = document.getElementById('video-src')
+    video_time = video.currentTime
+    console.log('video_time',video_time)
+
+}
 
 function getCourseVideo(lid){
 
@@ -115,19 +121,69 @@ function getCourseVideo(lid){
 
             video_id = res.data[0]
             library_id = res.data[1]
+            video_time = res.data[2]
+
+            video_src = "https://vz-24b56f7c-441.b-cdn.net/"+video_id+"/play_720p.mp4#t=10"
+            $('#video-src').attr('src',video_src)
         
             $('#video_section').html('')
 
+            // $('#video_section').append(
+            //     '<iframe src="https://iframe.mediadelivery.net/embed/'+ library_id +'/'+ video_id +'?t='+ video_time +'&autoplay=false&loop=false&muted=false&preload=true" loading="lazy" ' +
+            //     'style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;" allowfullscreen="true" referrerpolicy="no-referrer"></iframe> ' 
+            // )
+
             $('#video_section').append(
-
-                '<iframe src="https://iframe.mediadelivery.net/embed/'+ library_id +'/'+ video_id +'?autoplay=true&loop=false&muted=false&preload=true" loading="lazy" ' +
-                'style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe> ' 
-
+                '<video width="100%" src="https://vz-24b56f7c-441.b-cdn.net/'+video_id+'/play_720p.mp4#t=10"></video>'
             )
-        }
 
+            // <video src="https://vz-e3c8e33a-ea3.b-cdn.net/b320cd4b-d677-4b3e-96ea-1e87db0caa5a/play_480p.mp4#t=10"></video>
+
+            // trackVideoDuration(lid,video_time)
+        }
         
     })  
+}
+
+
+let startTime;
+let watchedLessonId = null;
+
+function trackVideoDuration(lid,video_time){
+
+    var currentTime = new Date();
+
+    if (!startTime) {
+
+        startTime = currentTime;
+        watchedLessonId = lid
+        
+    } else {
+        
+        timeDifference = (currentTime - startTime) / 1000;
+        
+        startTime = currentTime;
+
+        dataObj ={
+            'lesson_id':watchedLessonId,
+            'time_duration': timeDifference,
+        }
+
+        var final_data = {
+            'data': JSON.stringify(dataObj),
+            csrfmiddlewaretoken: CSRF_TOKEN,
+        }
+
+        $.post(CONFIG['domain'] + "/api/save-video-activity", final_data, function (res) {
+            if (res.statusCode == 0){
+                watchedLessonId = lid
+            }
+
+        })
+
+        
+    }
+   
 }
 
 
@@ -172,8 +228,13 @@ function hideFullPage(){
 
 
 
-
-
+function showVideoDetails(){
+    var video_player = document.getElementById('playing-video')
+    var time = video_player.currentTime
+    console.log('video_player',video_player)
+    console.log('time',time)
+}
+    
 
 
 

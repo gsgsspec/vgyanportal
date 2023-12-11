@@ -3,7 +3,7 @@ from rest_framework.authtoken.models import Token
 from vgyanportal.metadata import getConfig, change_timeformat
 from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB, saveAskQuestionDb, saveAssessmentData
 from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia , Question , \
-        Assessment
+        Assessment, Activity
 
 
 def authentication_service(dataObjs):
@@ -439,14 +439,23 @@ def assessmentDetailsService(dataObjs,user):
 
 
 
-def getlessonVideoService(dataObjs):
+def getlessonVideoService(dataObjs,user):
     try:
 
+        user_id = Registration.objects.get(email = user).id
         course_video = CourseMedia.objects.get(lessonid=dataObjs['lesson_id'])
+
+        try:
+            user_activity = Activity.objects.get(registrationid=user_id,lessonid= dataObjs["lesson_id"])
+            video_duration = user_activity.duration
+        except:
+            video_duration = 0
+
         video_id = course_video.mediaurl
         library_id = course_video.libraryid
+        video_time = video_duration
 
-        return video_id,library_id
+        return video_id,library_id,video_time
 
     except Exception as e:
         raise
@@ -479,6 +488,36 @@ def updateAssessmentService(dataObjs):
         assessment = Assessment.objects.get(registrationid=registration_id,courseid=course_id,moduleid=module_id)
         assessment.status = 'C'
         assessment.save()
+
+
+    except Exception as e:
+        raise
+
+
+
+def saveVideoActivityService(dataObjs,user):
+    try:
+
+        user_id = Registration.objects.get(email=user).id
+        lesson = CourseLesson.objects.get(id=dataObjs["lesson_id"])
+
+        try:
+            user_activity = Activity.objects.get(registrationid=user_id,lessonid=lesson.id,activity='V')
+            watched_duration = user_activity.duration + dataObjs['time_duration']
+            # user_activity.duration = watched_duration
+            # user_activity.save()
+
+        except:
+            user_activity = Activity(
+                registrationid = user_id,
+                lessonid=lesson.id,
+                activity='V',
+                duration = dataObjs['time_duration'],
+                courseid = lesson.courseid,
+                moduleid = lesson.moduleid
+            )
+            # user_activity.save()
+
 
 
     except Exception as e:
