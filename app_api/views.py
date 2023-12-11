@@ -181,7 +181,6 @@ def getQuestion(request):
             userId = request.user
             
             getquestionsList = getAskQuestion(dataObjs,userId)
-            print('getquestionsList',getquestionsList)
 
             response['data'] = getquestionsList
             response['statusCode'] = 0

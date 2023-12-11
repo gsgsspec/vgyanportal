@@ -161,7 +161,12 @@
   background-color:#f5f5f9;
   width: 50% !important;
 }
-
+.nav-link.nav-padding.active{
+  color: #f46a24 !important;
+}
+.red-accordion {
+  background-color: red; /* Set your desired red color */
+}
 /* Media queries starts from here  */
 
 
@@ -236,7 +241,52 @@
   .ask-question-canvas-header .rm-sm-btn-pad{
     padding: 0px;
   }
+  .sm-red-width{
+    width: 4.5rem !important;
+  }
+  .sm-rm-padding-right{
+    padding-right: 0 !important;
+  }
+}
+@media screen and (max-width: 360px) {
+  .canvas-width{
+    width: 100% !important;
+  }
+  .nav-padding{
+    padding: 12px 10px;
+    font-size: 14px !important;
+  }
+  .font-size-media{
+    font-size: 15px !important;
+  }
+  .remove-padding-sm-cls{
+    padding: 3px;
+  }
+  .rm-sm-padding-cls{
+    padding: 15px;
+  }
+  .rm-sm-accordion-padding{
+    padding: 8px 11px;
+  }
+  .rm-sm-card-padding-cls{
+    padding: 0 !important;
+  }
+  .notice-text-para{
+    margin: 12px !important;
+  }
+  .ask-question-canvas-header{
+    padding: 12px;
+  }
 
+  .ask-question-canvas-header .rm-sm-btn-pad{
+    padding: 0px;
+  }
+  .sm-red-width{
+    width: 4rem !important;
+  }
+  .sm-rm-padding-right{
+    padding-right: 0 !important;
+  }
 }
 
 

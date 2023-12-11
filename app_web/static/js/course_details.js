@@ -272,29 +272,27 @@ function getAllQuestions(){
                         '<div class="accordion-item card m-2">' +
                         '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
                         '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
-                        question + ' </button>' +
+                        '<div style="display: flex; justify-content: center;"> <p class="p-0 m-0" style="font-size: 12px; color: var(--bs-body-color);"> <i class="fas fa-clock" style="color: #f46a24 !important;"></i> 12-56 <br> 07-12-23 </p> <div class="p-1"></div>  <div class="vr" style="background-color: #f46a24; width:2px; "></div> <div class="p-1"></div> </div>' + question + ' </button>' +
                         '</h2>' +
-                        '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
+                        '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" aria-labelledby="headingOne' + questionId + '" data-bs-parent="#vertical-example">' +
                         '<div class="accordion-body"> ' + questionAnswerRes + ' </div>' +
                         '</div>' +
                         '</div>'
                     );
-
+                    
                 }
 
-                if (questionAnswer !== "N"){
-                    $('#over-all-question').append(
-                        '<div class="accordion-item card m-2">' +
-                        '<h2 class="accordion-header " id="headingOne' + questionId + '">' +
-                        '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne2' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
-                        question + ' </button>' +
-                        '</h2>' +
-                        '<div id="accordionOne2' + questionId + '" class="accordion-collapse collapse" data-bs-parent="#accordionExample">' +
-                        '<div class="accordion-body"> ' + questionAnswer + ' </div>' +
-                        '</div>' +
-                        '</div>'
-                    );
-                }
+                $('#over-all-question').append(
+                    '<div class="accordion-item card m-2">' +
+                    '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
+                    '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne2' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
+                    '<div style="display: flex; justify-content: center;"> <p class="p-0 m-0" style="font-size: 12px; color: var(--bs-body-color);"> <i class="fas fa-clock" style="color: #f46a24 !important;"></i> 12-56 <br> 07-12-23 </p> <div class="p-1"></div>  <div class="vr" style="background-color: #f46a24; width:2px; "></div> <div class="p-1"></div> </div>' + question + ' </button> ' +
+                    '</h2>' +
+                    '<div id="accordionOne2' + questionId + '" class="accordion-collapse collapse" aria-labelledby="headingOne' + questionId + '" data-bs-parent="#over-all-question">' +
+                    '<div class="accordion-body"> ' + questionAnswerRes + ' </div>' +
+                    '</div>' +
+                    '</div>'
+                );
 
                 
 
