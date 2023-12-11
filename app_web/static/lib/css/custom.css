@@ -170,7 +170,24 @@
 /* Media queries starts from here  */
 
 
+@media screen and (min-width: 768px) {
+  .ask-question {
+    display: flex;
+    justify-content: center;
+  }
+}
 
+
+@media screen and (min-width: 768px) {
+  .video-right-ask-que-hidde{
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .video-cen-ask-que-hidde{
+    display: none;
+  }
+}
 
 
 
