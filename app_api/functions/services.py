@@ -236,75 +236,6 @@ def getCourseDetails(request,cid):
         raise
 
 
-# def getModuleLessonService(dataObjs):
-#     try:
-#         getCourseId = dataObjs['courseId']
-#         getModuleId   = dataObjs['moduleId']
-#         moduleAndLessonsData = {}
-
-#         modulesList = [] 
-#         lessonsList = []
-
-#         getCourseIdDb = Course.objects.filter(id  = getCourseId).last()
-        
-#         if getCourseIdDb.id:
-            
-#             getCourseModuleIdDb = CourseModule.objects.filter(courseid = getCourseIdDb.id)
-
-#             if getCourseModuleIdDb:
-#                 for module in getCourseModuleIdDb:
-
-#                     default = "NO"
-
-#                     if module.id == int(getModuleId):
-
-#                         default = "YES"
-
-#                     modulesData = {
-#                         'selected' : default,
-#                         'moduleId' : module.id,
-#                         'moduleName' : module.name,
-#                         'moduleSequence' : module.sequence
-#                     }
-
-#                     modulesList.append(modulesData)
-                
-#                 getModeulesDetails = getCourseModuleIdDb.first()
-
-#                 courseLessonId = getModeulesDetails.courseid
-#                 moduleId = getModeulesDetails.id
-
-#                 if module.id:
-#                     getModulesLesson = CourseLesson.objects.filter(courseid = courseLessonId,moduleid = moduleId if getModuleId == 0 else getModuleId)
-
-#                     if getModulesLesson:
-                    
-#                         for lesson in getModulesLesson:
-                            
-#                             defaultLesson = 'NO'
-
-#                             if lesson.id:
-
-#                                 defaultLesson = 'YES'
-                            
-#                             lessonData = {
-#                                 'defaultLesson' : defaultLesson,
-#                                 'lessonid' : lesson.id,
-#                                 'title'    : lesson.title,
-#                             }
-
-#                             lessonsList.append(lessonData)
-            
-#             moduleAndLessonsData['Modules'] = modulesList
-#             moduleAndLessonsData['lesson']  = lessonsList
-        
-        
-#         return moduleAndLessonsData
-    
-#     except Exception as e:
-#         raise
-
-
 def getModuleLessonService(dataObjs):
     try:
         getCourseId   = 1
@@ -383,8 +314,6 @@ def getAskQuestion(dataObjs,userId):
 
         getQuestions = Question.objects.filter(courseid = getcourseid ,moduleid = getModuleId, lessonid = getLessonId ,registrationid = registeredUerId)
 
-        # if getQuestions:
-
         for allQuestion in getQuestions:
             
             questionId     = allQuestion.id
@@ -430,26 +359,8 @@ def getAskQuestion(dataObjs,userId):
         sendQuestions['overAllQuestions'] = overAllQuestions
 
         sendQuestions['courseDetails'] = {'courseGetName':courseGetName,'courseModuleName':courseModuleName,'courseLessonName':courseLessonName}
-        
-        # else:
-        #     sendQuestions = ''
-        #     return sendQuestions
 
         return sendQuestions
-
-    except Exception as e:
-        raise
-
-
-
-def assessmentDetailsService(dataObjs,user):
-
-    try:
-        
-        course_assessment = {
-            
-        }
-
 
     except Exception as e:
         raise

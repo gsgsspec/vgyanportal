@@ -59,7 +59,7 @@ body, .container, .video-controls, .video-timer, .options{
 }
 
 .video-timeline .progress-area{
-  height: 5px;
+  height: 4px;
   position: relative;
   background: rgba(255, 255, 255, 0.6);
 }
@@ -89,7 +89,7 @@ body, .container, .video-controls, .video-timer, .options{
   width: 13px;
   position: absolute;
   border-radius: 50%;
-  background: #f46a24;
+  background: var(--bs-primary);
   transform: translateY(-50%);
 }
 .progress-bar::before, .progress-area span{
@@ -141,7 +141,7 @@ body, .container, .video-controls, .video-timer, .options{
   height: 4px;
   margin-left: 3px;
   max-width: 75px;
-  accent-color: #f46a24;
+  /* accent-color: #f46a24; */
   accent-color: white;
 }
 .options .video-timer{

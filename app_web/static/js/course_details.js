@@ -55,7 +55,6 @@ function startAssessment(mid){
     $("#assessment_"+mid).html('')
     
 
-
     $.post(CONFIG['acert'] + "/api/vgyanportal-user-registeration", final_data, function (res) {
 
         if (res.statusCode == 0){
@@ -81,13 +80,6 @@ function startAssessment(mid){
 
     })
     
-}
-
-function getVideoTime(){
-
-    video = document.getElementById('video-src')
-    video_time = video.currentTime
-    console.log('video_time',video_time)
 }
 
 

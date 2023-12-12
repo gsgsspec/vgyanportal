@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
@@ -61,8 +60,7 @@
 
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h3 class="pb-1 mb-3
-         d-flex justify-content-between" onclick="getVideoTime()">{{course_details.title}}
+        <h3 class="pb-1 mb-3 d-flex justify-content-between">{{course_details.title}}
             {% if course_details.rating == None %}
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="rating_button" data-bs-target="#rating_popup">
                 <i class="fas fa-star" style="color: #fff;"></i>&nbsp; Rate the Course
