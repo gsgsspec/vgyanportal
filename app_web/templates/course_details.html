@@ -209,7 +209,6 @@
             </div>
         </div>
 
-
             <div class="col-lg-4 col-md-6">
                 <div class="mt-3">
                   
@@ -226,8 +225,6 @@
                     <div class="offcanvas-body remove-padding-sm-cls mx-0 flex-grow-0 mt-3 pt-0" style="overflow-y:hidden;">
                         <!-- <div class="row" style="justify-content: center;"> -->
                             <div class="col-12 col-md-12 col-lg-12" >
-                              
-                      
                               <div class="nav-align-top mb-4"  style="justify-content: center;">
                               <ul class="nav nav-tabs" role="tablist">
 
@@ -254,12 +251,7 @@
                                     My Questions
                                   </button>
                                 </li> 
-
-                             
-
                               </ul>
-                              
-                            
 
                               <!-- Label Container Start -->
                               <div class="tab-content pb-0 rm-sm-padding-cls" style="border-radius: 0%; border-top-right-radius: 10px;">
@@ -312,21 +304,13 @@
                               </form>  
                             </div>
                               </div> 
-
                                 <!-- third tab -->
                                 <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
                                     <div class=" overflow-hidden mb-4" style="height: 355px;">
                                       <div id="vertical-example" class="card-body rm-sm-card-padding-cls"  style="background-color: #f5f5f9; border-radius: 10px; padding: 0.5rem 0.5rem;">   </div>
                                     </div>
                                 </div> 
-
-                               
-                             
                               </div>
-
-
-                            
-                      
                             </div>
                           </div>
                         <!-- </div> -->                     
@@ -391,392 +375,15 @@
 
 
 <script>
-    var getUserCourseId = '{{ course_details.courseid }}'
-    var paper_title = '{{course_details.title}}({{ course_details.courseid }}'
-    var getUserId = ''
-    var first_name = '{{ user_data.first_name }}'
-    var last_name = '{{ user_data.last_name }}'
-    var email = '{{ user_data.email }}'
-   
+  var getUserCourseId = '{{ course_details.courseid }}'
+  var paper_title = '{{course_details.title}}({{ course_details.courseid }}'
+  var getUserId = ''
+  var first_name = '{{ user_data.first_name }}'
+  var last_name = '{{ user_data.last_name }}'
+  var email = '{{ user_data.email }}'
 </script>
+
 <script src="{% static 'js/course_details.js' %}"></script>
+<link rel="stylesheet" href="{% static 'lib/css/media_player.css'  %}">
+<script src="{% static 'js/media_player.js' %}"></script>
 
-
- <style>
-  	/* Import Google font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-/* *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-} */
-/* body{
-  min-height: 100vh;
-  background: #E3F2FD;
-} */
-body, .container, .video-controls, .video-timer, .options{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.container{
-  width: 100%;
-  user-select: none;
-  overflow: hidden;
-  max-width: 900px;
-  border-radius: 5px;
-  background: transparent;
-  aspect-ratio: 16 / 9;
-  position: relative;
-  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); */
-}
-.container.fullscreen{
-  max-width: 100%;
-  width: 100%;
-  height: 100%;
-  border-radius: 0px;
-}
-.wrapper{
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  opacity: 0;
-  bottom: -15px;
-  transition: all 0.08s ease;
-}
-.container.show-controls .wrapper{
-  opacity: 1;
-  bottom: 0;
-  transition: all 0.13s ease;
-}
-.wrapper::before{
-  content: "";
-  bottom: 0;
-  width: 100%;
-  z-index: -1;
-  position: absolute;
-  height: calc(100% + 35px);
-  pointer-events: none;
-  /* background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); */
-}
-.video-timeline{
-  height: 7px;
-  width: 100%;
-  cursor: pointer;
-}
-.video-timeline .progress-area{
-  height: 3px;
-  position: relative;
-  background: rgba(255, 255, 255, 0.6);
-}
-.progress-area span{
-  position: absolute;
-  left: 50%;
-  top: -25px;
-  font-size: 13px;
-  color: #fff;
-  pointer-events: none;
-  transform: translateX(-50%);
-}
-.progress-area .progress-bar{
-  width: 0%;
-  height: 100%;
-  position: relative;
-  background: #f46a24;
-}
-.progress-bar::before{
-  content: "";
-  right: 0;
-  top: 50%;
-  height: 13px;
-  width: 13px;
-  position: absolute;
-  border-radius: 50%;
-  background: #f46a24;
-  transform: translateY(-50%);
-}
-.progress-bar::before, .progress-area span{
-  display: none;
-}
-.video-timeline:hover .progress-bar::before,
-.video-timeline:hover .progress-area span{
-  display: block;
-}
-.wrapper .video-controls{
-  padding: 5px 20px 0px;
-}
-.video-controls .options{
-  width: 100%;
-}
-.video-controls .options:first-child{
-  justify-content: flex-start;
-}
-.video-controls .options:last-child{
-  justify-content: flex-end;
-}
-.options button{
-  height: 40px;
-  width: 40px;
-  font-size: 19px;
-  border: none;
-  cursor: pointer;
-  background: none;
-  color: #efefef;
- /* color: #f46a24; */
-  border-radius: 3px;
-  transition: all 0.3s ease;
-}
-.options button :where(i, span) {
-  height: 100%;
-  width: 100%;
-  line-height: 40px;
-}
-.options button:hover :where(i, span){
-  color: #fff;
-}
-.options button:active :where(i, span){
-  transform: scale(0.9);
-}
-.options button span{
-  font-size: 23px;
-}
-.options input{
-  height: 4px;
-  margin-left: 3px;
-  max-width: 75px;
-  accent-color: #f46a24;
-  accent-color: white;
-}
-.options .video-timer{
-  color: #efefef;
-  margin-left: 15px;
-  font-size: 14px;
-}
-.video-timer .separator{
-  margin: 0 5px;
-  font-size: 16px;
-  font-family: "Open sans";
-}
-.playback-content{
-  display: flex;
-  position: relative;
-}
-.playback-content .speed-options{
-  position: absolute;
-  list-style: none;
-  left: -40px;
-  bottom: 40px;
-  width: 95px;
-  overflow: hidden;
-  opacity: 0;
-  border-radius: 4px;
-  pointer-events: none;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: opacity 0.13s ease;
-}
-.playback-content .speed-options.show{
-  opacity: 1;
-  pointer-events: auto;
-}
-.speed-options li{
-  cursor: pointer;
-  color: #000;
-  font-size: 14px;
-  margin: 2px 0;
-  padding: 5px 0 5px 15px;
-  transition: all 0.1s ease;
-}
-.speed-options li:where(:first-child, :last-child){
-  margin: 0px;
-}
-.speed-options li:hover{
-  background: #dfdfdf;
-}
-.speed-options li.active{
-  color: #fff;
-  /* background: #3e97fd; */
-  background: #f46a24;
-}
-.container video{
-  width: 100%;
-  position:absolute;
-}
-
-@media screen and (max-width: 540px) {
-  .wrapper .video-controls{
-    padding: 3px 10px 0px;
-  }
-  .options input, .progress-area span{
-    display: none!important;
-  }
-  .options button{
-    height: 30px;
-    width: 30px;
-    font-size: 17px;
-  }
-  .options .video-timer{
-    margin-left: 5px;
-  }
-  .video-timer .separator{
-    font-size: 14px;
-    margin: 0 2px;
-  }
-  .options button :where(i, span) {
-    line-height: 30px;
-  }
-  .options button span{
-    font-size: 21px;
-  }
-  .options .video-timer, .progress-area span, .speed-options li{
-    font-size: 12px;
-  }
-  .playback-content .speed-options{
-    width: 75px;
-    left: -30px;
-    bottom: 30px;
-  }
-  .speed-options li{
-    margin: 1px 0;
-    padding: 3px 0 3px 10px;
-  }
-  .right .pic-in-pic{
-    display: none;
-  }
-}
-  </style>
-  <script>
-  	const container = document.querySelector(".container"),
-mainVideo = container.querySelector("video"),
-videoTimeline = container.querySelector(".video-timeline"),
-progressBar = container.querySelector(".progress-bar"),
-volumeBtn = container.querySelector(".volume i"),
-volumeSlider = container.querySelector(".left input");
-currentVidTime = container.querySelector(".current-time"),
-videoDuration = container.querySelector(".video-duration"),
-skipBackward = container.querySelector(".skip-backward i"),
-skipForward = container.querySelector(".skip-forward i"),
-playPauseBtn = container.querySelector(".play-pause i"),
-speedBtn = container.querySelector(".playback-speed span"),
-speedOptions = container.querySelector(".speed-options"),
-pipBtn = container.querySelector(".pic-in-pic span"),
-fullScreenBtn = container.querySelector(".fullscreen i");
-let timer;
-
-const hideControls = () => {
-    if(mainVideo.paused) return;
-    timer = setTimeout(() => {
-        container.classList.remove("show-controls");
-    }, 3000);
-}
-hideControls();
-
-container.addEventListener("mousemove", () => {
-    container.classList.add("show-controls");
-    clearTimeout(timer);
-    hideControls();   
-});
-
-const formatTime = time => {
-    let seconds = Math.floor(time % 60),
-    minutes = Math.floor(time / 60) % 60,
-    hours = Math.floor(time / 3600);
-
-    seconds = seconds < 10 ? `0${seconds}` : seconds;
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
-    hours = hours < 10 ? `0${hours}` : hours;
-
-    if(hours == 0) {
-        return `${minutes}:${seconds}`
-    }
-    return `${hours}:${minutes}:${seconds}`;
-}
-
-videoTimeline.addEventListener("mousemove", e => {
-    let timelineWidth = videoTimeline.clientWidth;
-    let offsetX = e.offsetX;
-    let percent = Math.floor((offsetX / timelineWidth) * mainVideo.duration);
-    const progressTime = videoTimeline.querySelector("span");
-    offsetX = offsetX < 20 ? 20 : (offsetX > timelineWidth - 20) ? timelineWidth - 20 : offsetX;
-    progressTime.style.left = `${offsetX}px`;
-    progressTime.innerText = formatTime(percent);
-});
-
-videoTimeline.addEventListener("click", e => {
-    let timelineWidth = videoTimeline.clientWidth;
-    mainVideo.currentTime = (e.offsetX / timelineWidth) * mainVideo.duration;
-});
-
-mainVideo.addEventListener("timeupdate", e => {
-    let {currentTime, duration} = e.target;
-    let percent = (currentTime / duration) * 100;
-    progressBar.style.width = `${percent}%`;
-    currentVidTime.innerText = formatTime(currentTime);
-});
-
-mainVideo.addEventListener("loadeddata", () => {
-    videoDuration.innerText = formatTime(mainVideo.duration);
-});
-
-const draggableProgressBar = e => {
-    let timelineWidth = videoTimeline.clientWidth;
-    progressBar.style.width = `${e.offsetX}px`;
-    mainVideo.currentTime = (e.offsetX / timelineWidth) * mainVideo.duration;
-    currentVidTime.innerText = formatTime(mainVideo.currentTime);
-}
-
-volumeBtn.addEventListener("click", () => {
-    if(!volumeBtn.classList.contains("fa-volume-up")) {
-        mainVideo.volume = 0.5;
-        volumeBtn.classList.replace("fa-volume-mute", "fa-volume-up");
-    } else {
-        mainVideo.volume = 0.0;
-        volumeBtn.classList.replace("fa-volume-up", "fa-volume-mute");
-    }
-    volumeSlider.value = mainVideo.volume;
-});
-
-volumeSlider.addEventListener("input", e => {
-    mainVideo.volume = e.target.value;
-    if(e.target.value == 0) {
-        return volumeBtn.classList.replace("fa-volume-up", "fa-volume-mute");
-    }
-    volumeBtn.classList.replace("fa-volume-mute", "fa-volume-up");
-});
-
-speedOptions.querySelectorAll("li").forEach(option => {
-    option.addEventListener("click", () => {
-        mainVideo.playbackRate = option.dataset.speed;
-        speedOptions.querySelector(".active").classList.remove("active");
-        option.classList.add("active");
-    });
-});
-
-document.addEventListener("click", e => {
-    if(e.target.tagName !== "SPAN" || e.target.className !== "material-symbols-rounded") {
-        speedOptions.classList.remove("show");
-    }
-});
-
-fullScreenBtn.addEventListener("click", () => {
-    container.classList.toggle("fullscreen");
-    if(document.fullscreenElement) {
-        fullScreenBtn.classList.replace("fa-compress", "fa-expand");
-        return document.exitFullscreen();
-    }
-    fullScreenBtn.classList.replace("fa-expand", "fa-compress");
-    container.requestFullscreen();
-});
-
-speedBtn.addEventListener("click", () => speedOptions.classList.toggle("show"));
-pipBtn.addEventListener("click", () => mainVideo.requestPictureInPicture());
-skipBackward.addEventListener("click", () => mainVideo.currentTime -= 5);
-skipForward.addEventListener("click", () => mainVideo.currentTime += 5);
-mainVideo.addEventListener("play", () => playPauseBtn.classList.replace("fa-play", "fa-pause"));
-mainVideo.addEventListener("pause", () => playPauseBtn.classList.replace("fa-pause", "fa-play"));
-playPauseBtn.addEventListener("click", () => mainVideo.paused ? mainVideo.play() : mainVideo.pause());
-videoTimeline.addEventListener("mousedown", () => videoTimeline.addEventListener("mousemove", draggableProgressBar));
-document.addEventListener("mouseup", () => videoTimeline.removeEventListener("mousemove", draggableProgressBar));
-  </script>
