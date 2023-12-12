@@ -75,47 +75,46 @@
         <div class="row">
             <div class="col-md-7 mb-3 mb-md-0">
                 <div>
-                    <div class="container show-controls rounded">
-                        <div class="wrapper">
-                            <div class="video-timeline">
-                                <div class="progress-area">
-                                    <span>00:00</span>
-                                    <div class="progress-bar"></div>
-                                </div>
-                            </div>
-                            <ul class="video-controls">
-                                <li class="options left">
-                                    <button class="volume"><i class="fas fa-volume-up"></i></button>
-                                    <input type="range" min="0" max="1" step="any">
-                                    <div class="video-timer">
-                                        <p class="current-time p-0 m-0">00:00</p>
-                                        <p class="separator p-0 m-0"> / </p>
-                                        <p class="video-duration p-0 m-0">00:00</p>
-                                    </div>
-                                </li>
-                                <li class="options center">
-                                    <button class="skip-backward"><i class="fas fa-backward"></i></button>
-                                    <button class="play-pause"><i class="fas fa-play"></i></button>
-                                    <button class="skip-forward"><i class="fas fa-forward"></i></button>
-                                </li>
-                                <li class="options right">
-                                    <div class="playback-content">
-                                        <button class="playback-speed"><span class="material-symbols-rounded">slow_motion_video</span></button>
-                                        <ul class="speed-options p-0">
-                                            <li data-speed="2">2x</li>
-                                            <li data-speed="1.5">1.5x</li>
-                                            <li data-speed="1" class="active">Normal</li>
-                                            <li data-speed="0.75">0.75x</li>
-                                            <li data-speed="0.5">0.5x</li>
-                                        </ul>
-                                    </div>
-                                    <button class="pic-in-pic"><span class="material-icons">picture_in_picture_alt</span></button>
-                                    <button class="fullscreen"><i class="fas fa-expand"></i></button>
-                                </li>
-                            </ul>
-                        </div>
-                        <video id="video-src" src="https://vz-e3c8e33a-ea3.b-cdn.net/b320cd4b-d677-4b3e-96ea-1e87db0caa5a/play_480p.mp4"></video>
-                        
+                    <div class="container show-controls">
+                      <div class="wrapper">
+                          <div class="video-timeline">
+                              <div class="progress-area">
+                                  <span>00:00</span>
+                                  <div class="progress-bar"></div>
+                              </div>
+                          </div>
+                          <ul class="video-controls">
+                              <li class="options left">
+                                  <button class="volume"><i class="fas fa-volume-up"></i></button>
+                                  <input type="range" min="0" max="1" step="any">
+                                  <div class="video-timer">
+                                      <p class="current-time p-0 m-0">00:00</p>
+                                      <p class="separator p-0 m-0"> / </p>
+                                      <p class="video-duration p-0 m-0">00:00</p>
+                                  </div>
+                              </li>
+                              <li class="options center">
+                                  <button class="skip-backward"><i class="fas fa-backward"></i></button>
+                                  <button class="play-pause"><i class="fas fa-play"></i></button>
+                                  <button class="skip-forward"><i class="fas fa-forward"></i></button>
+                              </li>
+                              <li class="options right">
+                                  <div class="playback-content">
+                                      <button class="playback-speed"><span class="material-symbols-rounded">slow_motion_video</span></button>
+                                      <ul class="speed-options p-0">
+                                          <li data-speed="2">2x</li>
+                                          <li data-speed="1.5">1.5x</li>
+                                          <li data-speed="1" class="active">Normal</li>
+                                          <li data-speed="0.75">0.75x</li>
+                                          <li data-speed="0.5">0.5x</li>
+                                      </ul>
+                                  </div>
+                                  <button class="pic-in-pic"><span class="material-icons">picture_in_picture_alt</span></button>
+                                  <button class="fullscreen"><i class="fas fa-expand"></i></button>
+                              </li>
+                          </ul>
+                      </div>
+                      <video id="video-src" src="https://vz-e3c8e33a-ea3.b-cdn.net/b320cd4b-d677-4b3e-96ea-1e87db0caa5a/play_480p.mp4"></video>
                     </div>
                 </div>
                 
@@ -141,7 +140,6 @@
                         <div class="card accordion-item">
                             <h2 class="accordion-header" id="heading{{ forloop.counter }}">
                                 <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accord_{{ forloop.counter }}" aria-expanded="true" aria-controls="accord_{{ forloop.counter }}">{{module.module_name}}</button>
-                                {% comment %} <span style='float:right'> {{ module.lessons_count}} L &#8226; {{module.module_duration}} </span> {% endcomment %}
                             </h2>
                             <div id="accord_{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                 <ul class="list-group">
@@ -212,39 +210,7 @@
         </div>
 
 
-        
-
-        <!-- <h3 id="demoIdText">hello</h3>
-        <button id="getCureentTimeVideo"  class="btn btn-primary" type="button">
-            call me
-        </button> -->
-<!-- 
-        <script>
-            $('#getCureentTimeVideo').click( function(){
-
-     
-
-                var iframe = document.body.querySelector('iframe');
-                console.log('iframe :: ',iframe)
-
-                var iframeContent = iframe.contentDocument || iframe.contentWindow.document;
-                console.log('iframeContent :: ',iframeContent.orig)
-
-            
-
-
-                // for (var i = 0; i < iframes.length; i++) {
-                //     console.log('i :: ',i)
-                //     console.log('Source of iframe ' , iframes[i].querySelector('#document'));
-                // }
-
-            })
-        </script> -->
-
-
-
             <div class="col-lg-4 col-md-6">
-                <!-- <small class="text-light fw-semibold mb-3">Enable Scrolling & Backdrop</small> -->
                 <div class="mt-3">
                   
                   <div class="offcanvas offcanvas-end canvas-width" data-bs-scroll="true" tabindex="-1" id="offcanvasBoth"
@@ -539,7 +505,7 @@ body, .container, .video-controls, .video-timer, .options{
   display: block;
 }
 .wrapper .video-controls{
-  padding: 5px 20px 10px;
+  padding: 5px 20px 0px;
 }
 .video-controls .options{
   width: 100%;
@@ -641,7 +607,7 @@ body, .container, .video-controls, .video-timer, .options{
 
 @media screen and (max-width: 540px) {
   .wrapper .video-controls{
-    padding: 3px 10px 7px;
+    padding: 3px 10px 0px;
   }
   .options input, .progress-area span{
     display: none!important;
@@ -762,12 +728,12 @@ const draggableProgressBar = e => {
 }
 
 volumeBtn.addEventListener("click", () => {
-    if(!volumeBtn.classList.contains("fa-volume-high")) {
+    if(!volumeBtn.classList.contains("fa-volume-up")) {
         mainVideo.volume = 0.5;
-        volumeBtn.classList.replace("fa-volume-xmark", "fa-volume-high");
+        volumeBtn.classList.replace("fa-volume-mute", "fa-volume-up");
     } else {
         mainVideo.volume = 0.0;
-        volumeBtn.classList.replace("fa-volume-high", "fa-volume-xmark");
+        volumeBtn.classList.replace("fa-volume-up", "fa-volume-mute");
     }
     volumeSlider.value = mainVideo.volume;
 });
@@ -775,9 +741,9 @@ volumeBtn.addEventListener("click", () => {
 volumeSlider.addEventListener("input", e => {
     mainVideo.volume = e.target.value;
     if(e.target.value == 0) {
-        return volumeBtn.classList.replace("fa-volume-high", "fa-volume-xmark");
+        return volumeBtn.classList.replace("fa-volume-up", "fa-volume-mute");
     }
-    volumeBtn.classList.replace("fa-volume-xmark", "fa-volume-high");
+    volumeBtn.classList.replace("fa-volume-mute", "fa-volume-up");
 });
 
 speedOptions.querySelectorAll("li").forEach(option => {

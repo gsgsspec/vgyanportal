@@ -460,7 +460,7 @@ def getlessonVideoService(dataObjs,user):
         course_video = CourseMedia.objects.get(lessonid=dataObjs['lesson_id'])
 
         try:
-            user_activity = Activity.objects.get(registrationid=user_id,lessonid= dataObjs["lesson_id"])
+            user_activity = Activity.objects.get(registrationid=user_id,lessonid= dataObjs["lesson_id"],activity='V')
             video_duration = user_activity.duration
         except:
             video_duration = 0
@@ -515,22 +515,22 @@ def saveVideoActivityService(dataObjs,user):
         user_id = Registration.objects.get(email=user).id
         lesson = CourseLesson.objects.get(id=dataObjs["lesson_id"])
 
+
         try:
             user_activity = Activity.objects.get(registrationid=user_id,lessonid=lesson.id,activity='V')
-            watched_duration = user_activity.duration + dataObjs['time_duration']
-            # user_activity.duration = watched_duration
-            # user_activity.save()
+            user_activity.duration = int(dataObjs['time_duration'])
+            user_activity.save()
 
         except:
             user_activity = Activity(
                 registrationid = user_id,
                 lessonid=lesson.id,
                 activity='V',
-                duration = dataObjs['time_duration'],
+                duration = int(dataObjs['time_duration']),
                 courseid = lesson.courseid,
                 moduleid = lesson.moduleid
             )
-            # user_activity.save()
+            user_activity.save()
 
 
 

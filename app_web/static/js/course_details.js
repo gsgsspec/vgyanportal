@@ -88,8 +88,8 @@ function getVideoTime(){
     video = document.getElementById('video-src')
     video_time = video.currentTime
     console.log('video_time',video_time)
-
 }
+
 
 function getCourseVideo(lid){
 
@@ -115,6 +115,8 @@ function getCourseVideo(lid){
         "text-decoration": "underline"
     });
 
+    saveVideoActivity(lid)
+
     $.post(CONFIG['domain'] + "/api/get-lesson-video", final_data, function (res) {
 
         if (res.statusCode == 0){
@@ -123,52 +125,32 @@ function getCourseVideo(lid){
             library_id = res.data[1]
             video_time = res.data[2]
 
-            video_src = "https://vz-24b56f7c-441.b-cdn.net/"+video_id+"/play_720p.mp4#t=10"
+            video_src = "https://"+ library_id +"/"+video_id+"/play_720p.mp4#t="+ video_time +""
             $('#video-src').attr('src',video_src)
-        
-            $('#video_section').html('')
 
-            // $('#video_section').append(
-            //     '<iframe src="https://iframe.mediadelivery.net/embed/'+ library_id +'/'+ video_id +'?t='+ video_time +'&autoplay=false&loop=false&muted=false&preload=true" loading="lazy" ' +
-            //     'style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;" allowfullscreen="true" referrerpolicy="no-referrer"></iframe> ' 
-            // )
-
-            $('#video_section').append(
-                '<video width="100%" src="https://vz-24b56f7c-441.b-cdn.net/'+video_id+'/play_720p.mp4#t=10"></video>'
-            )
-
-            // <video src="https://vz-e3c8e33a-ea3.b-cdn.net/b320cd4b-d677-4b3e-96ea-1e87db0caa5a/play_480p.mp4#t=10"></video>
-
-            // trackVideoDuration(lid,video_time)
         }
         
     })  
 }
 
+let watched_lesson_id = null;
 
-let startTime;
-let watchedLessonId = null;
+function saveVideoActivity(lid){
 
-function trackVideoDuration(lid,video_time){
+    if(!watched_lesson_id){
+        watched_lesson_id = lid
+    }
 
-    var currentTime = new Date();
+    else{
 
-    if (!startTime) {
-
-        startTime = currentTime;
-        watchedLessonId = lid
-        
-    } else {
-        
-        timeDifference = (currentTime - startTime) / 1000;
-        
-        startTime = currentTime;
+        video = document.getElementById('video-src')
+        video_time = video.currentTime
 
         dataObj ={
-            'lesson_id':watchedLessonId,
-            'time_duration': timeDifference,
+            'lesson_id':watched_lesson_id,
+            'time_duration': video_time,
         }
-
+    
         var final_data = {
             'data': JSON.stringify(dataObj),
             csrfmiddlewaretoken: CSRF_TOKEN,
@@ -176,12 +158,10 @@ function trackVideoDuration(lid,video_time){
 
         $.post(CONFIG['domain'] + "/api/save-video-activity", final_data, function (res) {
             if (res.statusCode == 0){
-                watchedLessonId = lid
+                watched_lesson_id = lid
             }
-
+    
         })
-
-        
     }
    
 }
@@ -233,6 +213,7 @@ function showVideoDetails(){
     var time = video_player.currentTime
     console.log('video_player',video_player)
     console.log('time',time)
+    
 }
     
 
