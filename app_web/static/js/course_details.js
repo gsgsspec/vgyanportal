@@ -360,12 +360,19 @@ function askQuestion(){
         var courseData = JSON.parse(receivedData)
 
         var lessonId  = courseData
+        var videoCurrentVideoTime = document.getElementById('video-src')
 
-        var question = $('#AskQuestionTextAreaId').val();
+        var videotime = videoCurrentVideoTime.currentTime
+        var vidTime =  videotime
+
+        var question = $('#AskQuestionTextAreaId').val();   
+
+        console.log('videoCurrentVideoTime',)
 
         dataObj = {
             'lessonId':  lessonId,
             'question':  question,
+           'videotimecurr':  vidTime 
         }
 
         var final_data = {

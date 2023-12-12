@@ -163,6 +163,7 @@ class Question(models.Model):
     answer = models.CharField(max_length=100, null=True)
     lessonid = models.IntegerField(null=True)
     moduleid = models.IntegerField(null=True)
+    questionvideotime = models.DecimalField(max_digits=10,decimal_places=2,null=True)
     status = models.CharField(max_length=1, null=True) # Y - Display, N - Not to Display
 
     class Meta:
