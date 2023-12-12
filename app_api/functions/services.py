@@ -391,13 +391,16 @@ def getAskQuestion(dataObjs,userId):
             question       = allQuestion.question 
             questionAnswer = allQuestion.answer
             userRegisterId = allQuestion.registrationid
-            questionDate       = allQuestion.questiondate
-
+            quesDate       = allQuestion.questiondate
 
             if userRegisterId == registeredUerId:
 
-                formateQuestionDate = questionDate.strftime("%d-%m-%Y")
-                formateQuestionTime = questionDate.strftime("%H : %M")
+                formateQuestionTime = ''
+                formateQuestionDate = ''
+
+                if quesDate:
+                    formateQuestionDate = quesDate.strftime("%d-%m-%Y")
+                    formateQuestionTime = quesDate.strftime("%H : %M")
 
                 questions = {
                     'id'   : questionId,
