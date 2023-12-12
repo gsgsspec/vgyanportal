@@ -180,6 +180,7 @@ def saveAskQuestionDb(dataObjs):
             moduleid = courseModuleId if courseModuleId != "" else 0,
             lessonid = courseLessonId if courseLessonId != "" else 0,
             question = getQuestion if getQuestion != '' else "",
+            questiondate =datetime.now()
         )
         saveQuestion.save()
         

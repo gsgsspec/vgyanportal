@@ -16,8 +16,6 @@ def getVideoslist():
     print(response.text)
 
     return response.text
-
-
 # List of libraries 
    
 def getLibrarylist():

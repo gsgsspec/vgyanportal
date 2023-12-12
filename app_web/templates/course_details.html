@@ -75,7 +75,7 @@
         <div class="row">
             <div class="col-md-7 mb-3 mb-md-0">
                 <div>
-                    <div class="container show-controls">
+                    <div class="container show-controls rounded">
                         <div class="wrapper">
                             <div class="video-timeline">
                                 <div class="progress-area">
@@ -128,11 +128,11 @@
             </div>
             <div class="col-md-5 mb-4 mb-md-0">
                 
-                <div class='ask-question ' style="display: flex;justify-content: space-between;">
+                <div class='ask-question' style="display: flex;justify-content: space-between;">
                     <small class="text-light fw-semibold" style="display: flex; align-items: center; justify-content: center;  max-height: 100%; ">
                         <span>Course Modules</span>
                     </small>
-                    <button id="askQuestionId "  class="btn btn-primary video-right-ask-que-hidde" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBoth" aria-controls="offcanvasBoth">
+                    <button id="MobileaskQuestionId" onclick="console.log(this.id,this.classList)"  class="btn btn-primary video-right-ask-que-hidde" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBoth" aria-controls="offcanvasBoth">
                         <i class="fas fa-question" style="color: #fff;"> &nbsp;</i>Ask a Question
                     </button>
                 </div>
@@ -460,10 +460,10 @@ body, .container, .video-controls, .video-timer, .options{
   overflow: hidden;
   max-width: 900px;
   border-radius: 5px;
-  background: #000;
+  background: transparent;
   aspect-ratio: 16 / 9;
   position: relative;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); */
 }
 .container.fullscreen{
   max-width: 100%;
@@ -493,7 +493,7 @@ body, .container, .video-controls, .video-timer, .options{
   position: absolute;
   height: calc(100% + 35px);
   pointer-events: none;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  /* background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); */
 }
 .video-timeline{
   height: 7px;

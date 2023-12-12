@@ -277,6 +277,10 @@ $('#askQuestionId').click(function (){
     getAllQuestions()
 })
 
+$('#MobileaskQuestionId').click(function (){
+    getAllQuestions()
+})
+
 function getAllQuestions(){
     var receivedData = localStorage.getItem('lessonId');
     var courseData = JSON.parse(receivedData)
@@ -304,7 +308,7 @@ function getAllQuestions(){
 
         var answeredQuestion = res.data.questionList;
         var overAllQuestions = res.data.overAllQuestions;
-        
+        console.log('overAllQuestions :: ',overAllQuestions)
         var userRegIdentityId = res.data.sendUserId
 
         if (res.statusCode == 0) {
@@ -318,6 +322,8 @@ function getAllQuestions(){
                 var question = overAllQuestions[ans]['ques'];
                 var questionId = overAllQuestions[ans]['id'];
                 var questionAnswer = overAllQuestions[ans]['ans'];
+                var questionDate = overAllQuestions[ans]['queDate']
+                var questionTime = overAllQuestions[ans]['queTime']
                 var userRegisterationId = overAllQuestions[ans]['userId'];
 
                 if (parseInt(userRegIdentityId) === userRegisterationId){
@@ -333,7 +339,7 @@ function getAllQuestions(){
                         '<div class="accordion-item card m-2">' +
                         '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
                         '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
-                        '<div style="display: flex; justify-content: center;"> <p class="p-0 m-0" style="font-size: 12px; color: var(--bs-body-color);"> <i class="fas fa-clock" style="color: #f46a24 !important;"></i> 12-56 <br> 07-12-23 </p> <div class="p-1"></div>  <div class="vr" style="background-color: #f46a24; width:2px; "></div> <div class="p-1"></div> </div>' + question + ' </button>' +
+                        '<div style="display: flex; justify-content: center;"> <p class="p-0 m-0" style="font-size: 12px; color: var(--bs-body-color);"> <i class="fas fa-clock" style="color: #f46a24 !important;"></i> '+ questionTime +' <br> '+ questionDate +' </p> <div class="p-1"></div>  <div class="vr" style="background-color: #f46a24; width:2px; "></div> <div class="p-1"></div> </div>' + question + ' </button>' +
                         '</h2>' +
                         '<div id="accordionOne' + questionId + '" class="accordion-collapse collapse" aria-labelledby="headingOne' + questionId + '" data-bs-parent="#vertical-example">' +
                         '<div class="accordion-body"> ' + questionAnswerRes + ' </div>' +
@@ -346,8 +352,8 @@ function getAllQuestions(){
                 $('#over-all-question').append(
                     '<div class="accordion-item card m-2">' +
                     '<h2 class="accordion-header" id="headingOne' + questionId + '">' +
-                    '<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne2' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
-                    '<div style="display: flex; justify-content: center;"> <p class="p-0 m-0" style="font-size: 12px; color: var(--bs-body-color);"> <i class="fas fa-clock" style="color: #f46a24 !important;"></i> 12-56 <br> 07-12-23 </p> <div class="p-1"></div>  <div class="vr" style="background-color: #f46a24; width:2px; "></div> <div class="p-1"></div> </div>' + question + ' </button> ' +
+                    '<button type="button" class="accordion-button collapsed accordian-cust-sm-cls" data-bs-toggle="collapse" data-bs-target="#accordionOne2' + questionId + '" aria-expanded="false" aria-controls="accordionOne' + questionId + '">' +
+                    '<div style="display: flex; justify-content: center;"> <p class="p-0 m-0 time-container" style="font-size: 12px; color: var(--bs-body-color);width:62px;"> <i class="fas fa-clock clock-icon-cls" style="color: #f46a24 !important;"></i> <span id="hidde-clock-in-mobile">  '+ questionTime +' </span>'  + questionDate +' </p> <div class="vr vr-rm-sm" style="background-color: #f46a24; width:2px; margin: 0rem 0.5rem;"></div></div>' + question + ' </button> ' +
                     '</h2>' +
                     '<div id="accordionOne2' + questionId + '" class="accordion-collapse collapse" aria-labelledby="headingOne' + questionId + '" data-bs-parent="#over-all-question">' +
                     '<div class="accordion-body"> ' + questionAnswerRes + ' </div>' +
@@ -389,7 +395,7 @@ function askQuestion(){
         $.post(CONFIG['domain'] + "/api/save-question", final_data, function (res) {
         
             if (res.statusCode == 0){
-                showSuccessMessage('Question add') //success message
+                showSuccessMessage('Question added') //success message
 
                 $('#AskQuestionTextAreaId').val('');
                 getAllQuestions()

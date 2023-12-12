@@ -155,8 +155,12 @@ def getCourseDetails(request,cid):
 
             for lesson in c_lesson:
 
-                lesson_duration = change_timeformat(lesson.duration,'L')
-                module_duration = change_timeformat(module.duration,'M')
+                lesson_duration = ''
+                module_duration = ''
+                if lesson.duration != None:
+                    lesson_duration = change_timeformat(lesson.duration,'L')
+                elif module_duration != None:
+                    module_duration = change_timeformat(module.duration,'M')
 
                 lesson_title.append({
                     'title':lesson.title,
@@ -387,13 +391,21 @@ def getAskQuestion(dataObjs,userId):
             question       = allQuestion.question 
             questionAnswer = allQuestion.answer
             userRegisterId = allQuestion.registrationid
+            questionDate       = allQuestion.questiondate
+
 
             if userRegisterId == registeredUerId:
+
+                formateQuestionDate = questionDate.strftime("%d-%m-%Y")
+                formateQuestionTime = questionDate.strftime("%H : %M")
+
                 questions = {
                     'id'   : questionId,
                     'userId' : userRegisterId,
                     'ques' : question,
-                    'ans'  : "N" if questionAnswer == None else questionAnswer
+                    'ans'  : "N" if questionAnswer == None else questionAnswer,
+                    'queDate' : formateQuestionDate,
+                    'queTime' : formateQuestionTime,
                 }
                 questionList.append(questions)
 
@@ -401,7 +413,9 @@ def getAskQuestion(dataObjs,userId):
                     'id'   : questionId,
                     'userId' : userRegisterId,
                     'ques' : question,
-                    'ans'  : "N" if questionAnswer == None else questionAnswer
+                    'ans'  : "N" if questionAnswer == None else questionAnswer,
+                    'queDate'  : formateQuestionDate,
+                    'queTime' : formateQuestionTime,
                 }
             overAllQuestions.append(allQuestionsData)
 

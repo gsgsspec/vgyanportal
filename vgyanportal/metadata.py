@@ -19,7 +19,6 @@ def getConfig():
 
 def change_timeformat(time,type):
     try:
-
         if time:
         
             if time <= 3600:

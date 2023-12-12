@@ -170,6 +170,36 @@
 /* Media queries starts from here  */
 
 
+
+@media screen and (max-width: 1050px) {
+  .accordian-cust-sm-cls{
+    display: block;
+  }
+  .vr-rm-sm{
+    display: none;
+  }
+  .rm-break{
+    visibility: hidden;
+  }
+  .time-container{
+    display: flex;
+    width: 100% !important;
+    /* text-decoration: underline; */
+  }
+  #hidde-clock-in-mobile{
+    /* margin-right:10px; */
+    display: none;
+  }
+  .clock-icon-cls{
+    display: flex;
+    color: #f46a24 !important;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+  }
+}
+
+
 @media screen and (min-width: 768px) {
   .ask-question {
     display: flex;
