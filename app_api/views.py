@@ -5,7 +5,7 @@ from allauth.account.utils import perform_login
 from allauth.account import app_settings as allauth_settings
 from app_api.functions.masterdata import auth_user
 from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService, saveCourseRating, saveAskQuestion, getAskQuestion, \
-        assessmentDetailsService,getlessonVideoService, saveAssessmentService, updateAssessmentService, saveVideoActivityService,courseModuleNameService
+        getlessonVideoService, saveAssessmentService, updateAssessmentService, saveVideoActivityService,courseModuleNameService
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
 
