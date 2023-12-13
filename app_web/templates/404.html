@@ -15,4 +15,17 @@
     function goBack() {
         window.history.back();
     }
-    </script>
+
+    function hideFullPage(){
+      $('#layout-menu').css('display','none')
+      $('#web-page').removeClass('layout-menu-fixed')
+      $('#display_icon').css('display','block')
+      $('#hide_icon').css('display','none')
+    }
+
+    $(document).ready(function() {
+      hideFullPage()
+    })
+
+    
+</script>
