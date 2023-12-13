@@ -446,7 +446,25 @@ def saveVideoActivityService(dataObjs,user):
             )
             user_activity.save()
 
+    except Exception as e:
+        raise
 
+
+def courseModuleNameService(courseId,moduleId):
+    try:
+        courseDetails = CourseModule.objects.filter(id = moduleId).last()
+        courseDetails.courseid
+        coursModuleName = courseDetails.name
+
+        courseName = Course.objects.filter(id = courseDetails.id).last()
+        coursName = courseName.title
+
+        courseAndModulename = {
+            'coursename' :  coursName,
+            'coursemodname' : coursModuleName
+        }
+
+        return courseAndModulename
 
     except Exception as e:
         raise

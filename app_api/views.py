@@ -5,7 +5,7 @@ from allauth.account.utils import perform_login
 from allauth.account import app_settings as allauth_settings
 from app_api.functions.masterdata import auth_user
 from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService, saveCourseRating, saveAskQuestion, getAskQuestion, \
-        getlessonVideoService, saveAssessmentService, updateAssessmentService, saveVideoActivityService
+        assessmentDetailsService,getlessonVideoService, saveAssessmentService, updateAssessmentService, saveVideoActivityService,courseModuleNameService
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
 
@@ -275,6 +275,32 @@ def saveVideoActivity(request):
             saveVideoActivityService(dataObjs,user)
             response['data'] = 'Video activity saved successfully'
             response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saving video activity'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)
+
+
+@api_view(['POST'])
+def courseModuleName(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+    try:
+        dataObjs = json.loads(request.POST.get('data'))
+
+        courseId = dataObjs['courseModuleId']['coursid']
+        moduleId = dataObjs['courseModuleId']['modid']
+
+        coursetitels = courseModuleNameService(courseId,moduleId)
+        
+        response['courseTitles'] = coursetitels
+        response['data'] = 'Video activity saved successfully'
+        response['statusCode'] = 0
 
     except Exception as e:
         response['data'] = 'Error in saving video activity'

@@ -14,5 +14,6 @@ urlpatterns = [
     path('get-lesson-video',views.getlessonVideoDetails),
     path('save-assessment',views.saveAssessmentDetails),
     path('update-assessment-status',views.updateAssessmentDetails),
-    path('save-video-activity',views.saveVideoActivity)
+    path('save-video-activity',views.saveVideoActivity),
+    path('vgyan-cors-mod-les-name',views.courseModuleName)
 ]
