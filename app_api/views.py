@@ -284,6 +284,8 @@ def saveVideoActivity(request):
 
 
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
 def courseModuleName(request):
     response = {
         'data': None,
@@ -291,19 +293,21 @@ def courseModuleName(request):
         'statusCode': 1
     }
     try:
-        dataObjs = json.loads(request.POST.get('data'))
+        dataObjs = request.data
+        dataObjs = json.dumps(dataObjs)
 
-        courseId = dataObjs['courseModuleId']['coursid']
-        moduleId = dataObjs['courseModuleId']['modid']
+        data = json.loads(dataObjs)
 
-        coursetitels = courseModuleNameService(courseId,moduleId)
-        
+        course = data['coursid']
+        module = data['modid']
+
+        coursetitels = courseModuleNameService(course, module)
+
         response['courseTitles'] = coursetitels
-        response['data'] = 'Video activity saved successfully'
         response['statusCode'] = 0
 
     except Exception as e:
-        response['data'] = 'Error in saving video activity'
+        response['data'] = 'Error in courseModuleName'
         response['error'] = str(e)
         raise
     return JsonResponse(response)

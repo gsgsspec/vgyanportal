@@ -453,10 +453,9 @@ def saveVideoActivityService(dataObjs,user):
 def courseModuleNameService(courseId,moduleId):
     try:
         courseDetails = CourseModule.objects.filter(id = moduleId).last()
-        courseDetails.courseid
         coursModuleName = courseDetails.name
 
-        courseName = Course.objects.filter(id = courseDetails.id).last()
+        courseName = Course.objects.filter(id = courseDetails.courseid).last()
         coursName = courseName.title
 
         courseAndModulename = {
