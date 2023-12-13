@@ -107,6 +107,8 @@ function getCourseVideo(lid){
         "text-decoration": "underline"
     });
 
+    playing_lesson_id = lid
+
     saveVideoActivity(lid)
 
     $.post(CONFIG['domain'] + "/api/get-lesson-video", final_data, function (res) {
@@ -126,12 +128,14 @@ function getCourseVideo(lid){
 }
 
 let watched_lesson_id = null;
+let playing_lesson_id = null;
 
 function saveVideoActivity(lid){
 
+
     if(!watched_lesson_id){
         watched_lesson_id = lid
-    }
+    }  
 
     else{
 
@@ -168,7 +172,17 @@ $(document).ready(function(){
         $('#layout-menu').css('display', 'none');
     }
     $('#web-page').removeClass('layout-menu-fixed')
-    
+
+
+    playPauseButton = document.querySelector('.play-pause');
+    if (playPauseButton){
+        playPauseButton.addEventListener('click', function() {
+
+            var playing_lesson = playing_lesson_id
+            saveVideoActivity(playing_lesson)
+
+        })
+    }
 
 })
 
