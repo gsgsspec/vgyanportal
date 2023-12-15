@@ -60,6 +60,29 @@ def getMyCourses(userId):
                     completedAssessments = assessmentCount
                 else:
                     completedAssessments = 0
+                
+                courseDuration = Activity.objects.filter(registrationid = getcourse['registrationid'],courseid = getcourse['courseid']).values()
+                
+                watchingTime = 0
+                if courseDuration:
+
+                    for coursedur in courseDuration:
+                        cousDur = coursedur['duration']
+                        watchingTime += int(cousDur)
+
+                courseLessonDetails = CourseLesson.objects.filter(courseid = courseId).values()
+
+                courseTotalDuration = 0
+                for courseLessonDuration in courseLessonDetails:
+                    
+                    if courseLessonDuration['duration'] != None:
+
+                        if int(courseLessonDuration['duration']):
+                            courseTotalDuration += int(courseLessonDuration['duration']) 
+
+                totalPrograss = 0
+                if watchingTime:
+                    totalPrograss = round(( watchingTime / courseTotalDuration) * 100)
 
                 img_url = CourseMedia.objects.get(courseid=courseId, type='T').mediaurl
                 web_domain = getConfig()['MEDIA']['web_domain']
@@ -81,6 +104,7 @@ def getMyCourses(userId):
                     "eligibility"  : getCourseDetails.eligibility,
                     "status"       : getCourseDetails.status,
                     'course_img'   : f"{web_domain}{img_url}",
+                    'totalPrograss': totalPrograss,
                 }
                 
                 courseList.append(courseDetails)
@@ -120,7 +144,6 @@ def saveProfileDetails(dataObjs, fileObjs):
 
 def getCourseDetails(request,cid):
     try:
-
         course = Course.objects.get(id=cid)
         user_id = Registration.objects.get(email=request.user).id
 
@@ -168,7 +191,6 @@ def getCourseDetails(request,cid):
                     'lesson_type':lesson.type,
                     'lesson_duration':lesson_duration,
                 })
-
 
             module_details.append({
                     'module_id': module.id,
@@ -259,11 +281,9 @@ def getModuleLessonService(dataObjs):
         if getCourseModuleLessonDetails:
             getCourseLessonName = getCourseModuleLessonDetails.title
 
-
         moduleAndLessonsData['courseName'] = getCourseTitle
         moduleAndLessonsData['courseModuleName'] = getCourseModuleName
         moduleAndLessonsData['courseLessonName']  = getCourseLessonName
-        
         
         return moduleAndLessonsData
     
@@ -369,7 +389,6 @@ def getAskQuestion(dataObjs,userId):
 
 def getlessonVideoService(dataObjs,user):
     try:
-
         user_id = Registration.objects.get(email = user).id
         course_video = CourseMedia.objects.get(lessonid=dataObjs['lesson_id'])
 
@@ -391,7 +410,6 @@ def getlessonVideoService(dataObjs,user):
     
 def saveAssessmentService(dataObjs,user):
     try:
-
         saveAssessmentData(dataObjs,user)
 
     except Exception as e:
@@ -400,9 +418,7 @@ def saveAssessmentService(dataObjs,user):
 
 
 def updateAssessmentService(dataObjs):
-
     try:
-
         paper_name = dataObjs['paper_name']
         user_email = dataObjs['user_email']
 
@@ -417,7 +433,6 @@ def updateAssessmentService(dataObjs):
         assessment.status = 'C'
         assessment.save()
 
-
     except Exception as e:
         raise
 
@@ -425,11 +440,9 @@ def updateAssessmentService(dataObjs):
 
 def saveVideoActivityService(dataObjs,user):
     try:
-
         user_id = Registration.objects.get(email=user).id
         lesson = CourseLesson.objects.get(id=dataObjs["lesson_id"])
-
-
+        
         try:
             user_activity = Activity.objects.get(registrationid=user_id,lessonid=lesson.id,activity='V')
             user_activity.duration = int(dataObjs['time_duration'])
