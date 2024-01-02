@@ -1,6 +1,8 @@
 import configparser
 from .settings import BASE_DIR
 import os
+from django.http import HttpResponseForbidden
+from urllib.parse import urlsplit
 
 
 def getConfig():
@@ -40,3 +42,26 @@ def change_timeformat(time,type):
 
     except Exception as e:
         raise
+
+
+
+def check_referrer(request):
+
+    try:
+
+        if 'HTTP_REFERER' not in request.META:
+            return False
+        
+        referrer = request.META['HTTP_REFERER']
+        referrer_host = urlsplit(referrer).hostname
+
+        allowed_referrers = ['localhost']
+
+        if referrer_host not in allowed_referrers:
+            return False
+
+        return True
+    
+    except Exception as e:
+        print("Error checking referrer: ", str(e))
+        return False

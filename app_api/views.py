@@ -1,5 +1,5 @@
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 from rest_framework.decorators import api_view,authentication_classes,permission_classes
 from allauth.account.utils import perform_login
 from allauth.account import app_settings as allauth_settings
@@ -8,6 +8,7 @@ from .functions.services import addUserService, authentication_service, saveProf
         getlessonVideoService, saveAssessmentService, updateAssessmentService, saveVideoActivityService,courseModuleNameService
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
+from vgyanportal.metadata import check_referrer
 
 
 @api_view(['POST'])
@@ -83,12 +84,15 @@ def saveProfile(request):
         'statusCode': 1
     }
     try:
-        if request.method == "POST":
+        if request.method == "POST" and check_referrer(request):
             fileObjs = request.FILES
             dataObjs = json.loads(request.POST.get('data'))
             saveProfileDetails(dataObjs, fileObjs)
             response['data'] = "Profile Details Saved Sucessfully"
             response['statusCode'] = 0
+
+        else:
+            return HttpResponseForbidden('Request Blocked')
      
     except Exception as e:
         response['data'] = 'Error in save profile'
