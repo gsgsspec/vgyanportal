@@ -196,3 +196,17 @@ class Activity(models.Model):
 
     class Meta:
         db_table = 'activity'
+
+
+class Notification(models.Model):
+    id = models.AutoField(primary_key=True)
+    notifydate = models.DateTimeField(null=True)
+    registrationid = models.IntegerField(null=True)
+    courseid = models.IntegerField(null=True)
+    eventtype = models.CharField(max_length=1, null=True) # "Q" Questions , "A" Assessment
+    message = models.CharField(max_length=512, null=True)
+    type = models.CharField(max_length=1, null=True) #      I" Information, "W" Warning , "C" Critical
+    status = models.CharField(max_length=1, null=True) #   "C" Clear from Board , "D" Deleted
+    
+    class Meta:
+        db_table = 'notification'
