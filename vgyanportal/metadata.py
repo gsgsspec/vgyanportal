@@ -55,7 +55,7 @@ def check_referrer(request):
         referrer = request.META['HTTP_REFERER']
         referrer_host = urlsplit(referrer).hostname
 
-        allowed_referrers = ['134.122.25.72']
+        allowed_referrers = ['localhost','134.122.25.72']
 
         if referrer_host not in allowed_referrers:
             return False
