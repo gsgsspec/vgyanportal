@@ -15,5 +15,8 @@ urlpatterns = [
     path('save-assessment',views.saveAssessmentDetails),
     path('update-assessment-status',views.updateAssessmentDetails),
     path('save-video-activity',views.saveVideoActivity),
-    path('vgyan-cors-mod-les-name',views.courseModuleName)
+    path('vgyan-cors-mod-les-name',views.courseModuleName),
+    path('assessmentslist',views.assessmentslist),
+    path('all-notifications',views.allNotifications),
+    path('remove-notification',views.removeNotification)
 ]

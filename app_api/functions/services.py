@@ -3,7 +3,9 @@ from rest_framework.authtoken.models import Token
 from vgyanportal.metadata import getConfig, change_timeformat
 from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB, saveAskQuestionDb, saveAssessmentData
 from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia , Question , \
-        Assessment, Activity
+        Assessment, Activity , Notification
+from django.utils import timezone
+from django.utils.timesince import timesince
 
 
 def authentication_service(dataObjs):
@@ -477,6 +479,139 @@ def courseModuleNameService(courseId,moduleId):
         }
 
         return courseAndModulename
+
+    except Exception as e:
+        raise
+
+
+def assessmentListService(dataObjs,user):
+    try:
+        userDetails = Registration.objects.filter(email = str(user)).last()
+        assessmentsList = []
+
+        if userDetails:
+            userID = userDetails.id
+
+            assessmentDetails = Assessment.objects.filter(registrationid = userID).values()
+            assessmentData = {}
+
+            for details in assessmentDetails:
+
+                assessmentCourseId = details['courseid']
+                if assessmentCourseId:
+                    courseDetails = Course.objects.filter(id = assessmentCourseId).last()
+                    courseName = courseDetails.title
+                
+                assessmentModuleId = details['moduleid']
+                if assessmentModuleId:
+                    courseModule = CourseModule.objects.filter(id = assessmentModuleId).last()
+                    courseModuleName = courseModule.name
+
+                assessmentDate    = details['assessmentdate']
+                asseessmentStatus = details['status']
+
+                assessmentData = {
+                    'coursetitle'      : courseName,
+                    'coursemoduletitle': courseModuleName,
+                    'assessmentstatus' : asseessmentStatus,
+                    'assessmentdate'   : assessmentDate
+                }
+
+                assessmentsList.append(assessmentData)
+
+    except Exception as e:
+        raise
+
+
+def allNotificationsList(dataObjs,user):
+    try:
+        userDetails = Registration.objects.filter(email = str(user)).last()
+        userNotificationsList = []
+
+        if userDetails:
+            userID = userDetails.id
+
+            if  dataObjs['notificationFor'] == "HomePage":
+                notificationData = Notification.objects.filter(registrationid = userID,status = None,).values()
+
+            notificationDetails = {}
+
+            counter = 0
+
+            userSelectedNotificationCount = dataObjs['notificationCount'] # selected count
+
+            if userSelectedNotificationCount >= 5:
+
+                if len(notificationData) > 5:
+                    counter = 5
+                    showMoreNotification = "Y"
+                else:
+                    counter = len(notificationData)
+                    showMoreNotification = "N"
+            
+            if userSelectedNotificationCount == "ALL":
+                counter = len(notificationData)
+
+            if notificationData:
+                for notifi in range(0,counter):
+
+                    notificationCourseId = notificationData[notifi]['courseid']
+                    courseName = ''
+                    if notificationCourseId:
+                        courseDetails = Course.objects.filter(id = notificationCourseId).last()
+                        courseName = courseDetails.title
+                    
+                    notificationCourseModule = notificationData[notifi]['moduleid']
+                    courseModuleName = ''
+                    if notificationCourseModule:
+                        courseModule = CourseModule.objects.filter(id = notificationCourseModule).last()
+                        courseModuleName = courseModule.name
+
+                    notificationTimeSince = timesince(notificationData[notifi]['notifydate'], timezone.now())
+
+                    customizedNotificationTimeSince = notificationTimeSince.replace("minutes", "min").replace("hour", "hr").replace("hours", "hrs")
+   
+                    notificationDate = str(customizedNotificationTimeSince) + ' ago'
+
+                    notificationDetails = {
+                        'identity'         : notificationData[notifi]['id'],
+                        'coursetitle'      : courseName,
+                        'coursemoduletitle': courseModuleName,
+                        'notificationDate' : notificationDate,
+                        'notificationEventType' : notificationData[notifi]['eventtype'],
+                        'notificationMessage'   : notificationData[notifi]['message'],
+                        'notificationDataType'  : notificationData[notifi]['type'],
+                        'notificationStatus'    : notificationData[notifi]['status']
+                    }
+
+                    userNotificationsList.append(notificationDetails)
+
+                userNotificationsList.reverse()
+            else:
+                userNotificationsList = 'EMPTY'
+
+            return userNotificationsList , showMoreNotification
+        
+    except Exception as e:
+        raise
+
+
+def removeNotificationService(dataObjs,user):
+    try:
+
+        userDetails = Registration.objects.filter(email = str(user)).last()
+
+        if userDetails:
+            userID = userDetails.id
+
+        notificationId = dataObjs['notificationsId']
+        notificationStatus = dataObjs['status']
+
+        if notificationId:
+            if notificationStatus == "C":
+                updateNotification = Notification.objects.filter(id = notificationId).last()
+                updateNotification.status = "C"
+                updateNotification.save()
 
     except Exception as e:
         raise

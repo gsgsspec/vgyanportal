@@ -1,6 +1,5 @@
 {% load static  %}
 
-
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
   <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
     <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -11,11 +10,16 @@
   <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
     <ul class="navbar-nav flex-row align-items-center ms-auto">
+
+      <button type="button" class="btn rounded-pill btn-icon btn-secondary nav-icon-height mx-2">
+        <span class="tf-icons bx bx-bell"></span>
+      </button>
+
       <!-- User -->
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
           <div class="avatar avatar-online">
-            <img src="{{user_details.profile_img}}" alt class="w-px-40 h-auto rounded-circle" />
+            <img src="{{user_details.profile_img}}" alt class="w-px-40 h-auto rounded-circle nav-icon-height" />
           </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
@@ -57,7 +61,7 @@
 
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
-    <h5 class="pb-1 mb-4">My Courses</h5>
+    <h5 class="pb-1 mb-4">Courses</h5>
     <div class="row" id="CourseCardContainer">
       {% for course in getCoursesList %}
       <div class="col-12 col-md-12 col-lg-6 d-none courses-card-class" onclick="window.location.href='/course-details/{{course.id}}'" id="CourseCard_{{ course.id }}" >
@@ -84,25 +88,71 @@
     <div class="row justify-content-end" style="float: right;">
       <a class="text-decoration-underline mr-3" id="showMoreId" onclick="showMore(event)" href="">Show More</a>
     </div>
-    
-    <div class="row" style="margin-top: 2.3rem !important;">
+    <!-- Notifications -->
+    <div class="col-md m-0">
+      <div class="card">
+        <h5 class="card-header">Notifications</h5>
+        <div class="card-body" id="notificationsContainer" style="padding: 0rem 1.5rem !important;"> </div>
 
-      <div class="col-12 col-md-12 col-lg-12 mt-1" >
-        <div class="card">
-          <div class="my-course-card">
-            <div class="col-md-12 col-12 col-lg-12 ">
-              <div class="card-body m-0 p-0"> 
-                <div class="p-3 col-12">
-                  Congrats you successfully registered for course
-                </div>
-              </div>
-            </div>
+        <div id="noNotificationsContainer" class="container" style="display: flex; justify-content: center; display: none;">
+          <div>
+            <h5 class="card-header" style="display: flex; justify-content: center; align-items: center;" >
+               <i class="tf-icons bx bx-bell p-clr" style="font-size: 25px;"></i> &nbsp;
+               <span style="color: rgba(128, 128, 128, 0.807);">
+                No Notifications Here
+               </span>
+            </h5>
           </div>
         </div>
+
+        <div class="pb-3" id="showMoreContainer" style="display: flex; justify-content: end; align-items: center; display: none; padding-right: 1.8rem;">
+          <span class="custom_links">
+            Show More
+          </span>
+        </div>
+
       </div>
     </div>
+
+
+    
   </div>
 </div>
+
+
+                  <!-- <div class="alert p-0 m-0" style="float:left; background-color: transparent !important;" >
+                    <div style="display:flex;">
+
+                      <span class="p-clr">
+                        <i class="fas fa-clock p-clr"></i> 13 : 02 
+                      </span>
+
+                      <div class="mx-1">
+                        <span class="vr" style="color : #8080809e; width: 2px; min-height: 13px;"></span>
+                      </div>
+
+                      <span class="p-clr mx-1">
+                        15-12-2023  
+                      </span>
+
+                    </div>
+                  </div> -->
+
+                  <!-- <div>
+                    <div class="alert p-0 m-0" style="float:right; background-color: gainsboro !important;" >
+                      <div style="display: flex; justify-content: center;">
+                        <span class="p-clr mx-1">
+                          <i class="fas fa-clock p-clr"></i> 13 : 02 
+                        </span>
+                        <div>
+                          <span class="vr" style="color : #8080809e; width: 2px; min-height: 10px;"></span>
+                        </div>
+                        <span class="p-clr mx-1">
+                          15-12-2023  
+                        </span>
+                      </div>
+                    </div>
+                  </div> -->
 
 
 <script src="{% static 'js/mycourses.js' %}"></script>

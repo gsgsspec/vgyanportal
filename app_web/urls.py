@@ -9,4 +9,5 @@ urlpatterns = [
     path('course/question',views.askQuestionPage),
     path('rating',views.ratingPage),
     path('course-details/<int:cid>',views.courseDetailsPage),
+    path('assessments',views.assessmentsPage)
 ]

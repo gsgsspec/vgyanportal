@@ -167,6 +167,9 @@
 .red-accordion {
   background-color: red; /* Set your desired red color */
 }
+.nav-icon-height{
+  height: 40px !important;
+}
 /* Media queries starts from here  */
 
 
@@ -361,6 +364,7 @@
 @media (min-width: 300px) {
   .my-courses-images{
     width: 120px;
+    height: 100px;
   }
   .my-course-card{
     display: flex !important;
@@ -435,4 +439,18 @@
   .layout-menu-fixed-offcanvas:not(.layout-menu-collapsed) .layout-page {
     padding-left: 16.25rem;
   }
+}
+
+.custom_links{
+  color: blue; 
+  text-decoration: underline; 
+  cursor: pointer;
+}
+
+.text_color_custom{
+  color: #566a7f;
+}
+
+.notification_Container_Height{
+  height: 520px;
 }

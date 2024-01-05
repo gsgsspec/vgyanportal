@@ -5,7 +5,8 @@ from allauth.account.utils import perform_login
 from allauth.account import app_settings as allauth_settings
 from app_api.functions.masterdata import auth_user
 from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService, saveCourseRating, saveAskQuestion, getAskQuestion, \
-        getlessonVideoService, saveAssessmentService, updateAssessmentService, saveVideoActivityService,courseModuleNameService
+        getlessonVideoService, saveAssessmentService, updateAssessmentService, saveVideoActivityService,courseModuleNameService,assessmentListService,allNotificationsList,\
+        removeNotificationService
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
 from vgyanportal.metadata import check_referrer
@@ -312,6 +313,76 @@ def courseModuleName(request):
 
     except Exception as e:
         response['data'] = 'Error in courseModuleName'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)
+
+@api_view(['POST'])
+def assessmentslist(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+    try:
+        if request.method == "POST":
+            dataObjs = json.loads(request.POST.get('data'))
+            user = request.user
+            assessmentListService(dataObjs,user)
+
+            response['data'] = 'Video activity saved successfully'
+            response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saving video activity'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)
+
+@api_view(['POST'])
+def allNotifications(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1,
+        'data2'     : 'N'
+    }
+    try:
+        if request.method == "POST":
+            dataObjs = json.loads(request.POST.get('data'))
+            user = request.user
+            notificationsList = allNotificationsList(dataObjs,user)
+            print('notificationsList :: ',notificationsList[1])
+
+            response['data'] = notificationsList[0]
+            response['data2'] = notificationsList[1]
+            response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saving video activity'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)
+
+
+@api_view(['POST'])
+def removeNotification(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+    try:
+        if request.method == "POST":
+            dataObjs = json.loads(request.POST.get('data'))
+            user = request.user
+            notificationsList = removeNotificationService(dataObjs,user)
+
+            response['data'] = notificationsList
+            response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saving video activity'
         response['error'] = str(e)
         raise
     return JsonResponse(response)

@@ -5,7 +5,7 @@ import string
 import razorpay
 from vgyanportal import settings
 from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration, Question, CourseMedia, \
-    Assessment,CourseLesson
+    Assessment,CourseLesson , Notification ,CourseModule
 from datetime import datetime
 from  .mailing import sendRegistrainMail
 from vgyanportal.settings import RAZOR_KEY_ID, RAZOR_KEY_SECRET
@@ -172,11 +172,13 @@ def saveAskQuestionDb(dataObjs):
         userEmail = dataObjs['userId']
         getUserRegisterId = Registration.objects.filter(email = userEmail).last()
         
+        userid = getUserRegisterId.id
+
         getQuestion = dataObjs['question']
         vidCurrentTime = dataObjs['videotimecurr']
         
         saveQuestion = Question(
-            registrationid = getUserRegisterId.id,
+            registrationid = userid,
             courseid = getcourseid if getcourseid != "" else 0,
             moduleid = courseModuleId if courseModuleId != "" else 0,
             lessonid = courseLessonId if courseLessonId != "" else 0,
@@ -185,6 +187,16 @@ def saveAskQuestionDb(dataObjs):
             questiondate =datetime.now()
         )
         saveQuestion.save()
+
+        notificationType = {
+            "notifiType" : 'Q',
+            "Action"     : 'newQuestion' ,
+            "user_id"    : userid,  
+            "courseid"   : getcourseid,
+            "courseModule" : courseModuleId
+        }
+
+        saveNotificationData(notificationType)
         
     except Exception as e:
         raise
@@ -203,6 +215,62 @@ def saveAssessmentData(dataObjs,user):
             assessmentdate = datetime.now(),
             status = 'P'
         ).save()
+
+        notificationType = {
+            "notifiType" : 'A' ,
+            "Action"     : 'newAssessment' ,
+            "user_id"    : userid, 
+            "courseid"   : dataObjs["course_id"],
+            "courseModule" : dataObjs["module_id"]
+        }
+
+        saveNotificationData(notificationType)
+
     except Exception as e:
         raise
         
+
+def saveNotificationData(dataObjs):
+    try:
+        notifType   = dataObjs['notifiType']
+        notifAction = dataObjs['Action']
+        userId      = dataObjs['user_id']
+        notifCourseId = dataObjs['courseid']
+        notifModuleId = dataObjs['courseModule']
+
+        notificationEventType = "N"
+        notificationMessage   = 'all conditions Failed'
+        messageType = 'I'
+
+        getCourseName = Course.objects.filter(id = notifCourseId).last()
+        getCourseModuleName = CourseModule.objects.filter(id = notifModuleId).last()
+        courseName = getCourseName.title
+        courseModuleName = getCourseModuleName.name
+
+        if notifType:
+            if notifType == "A":
+                if notifAction == "newAssessment":
+                    notificationEventType = "A"
+                    notificationMessage = 'Your Assessment for' + str(courseModuleName) + 'is pending'
+                    messageType = "I"
+        
+            if notifType == "Q":
+                if notifAction == "newQuestion":
+                    notificationEventType = "Q"
+                    notificationMessage = 'Your Question Posted for answer'
+                    messageType = "S"
+
+        saveNotificationDb = Notification(
+            notifydate     = datetime.now() ,
+            registrationid = userId ,
+            courseid       = notifCourseId ,
+            moduleid       = notifModuleId,
+            eventtype      = notificationEventType ,
+            message        = notificationMessage ,
+            type           = messageType ,
+            status         = None
+        )
+        saveNotificationDb.save()
+    
+    except Exception as e:
+        raise

@@ -160,11 +160,12 @@ class Question(models.Model):
     courseid = models.IntegerField(null=True)
     question = models.CharField(max_length=100, null=True)
     questiondate = models.DateTimeField(null=True)
-    answer = models.CharField(max_length=100, null=True)
+    answer = models.CharField(max_length=256, null=True)
     lessonid = models.IntegerField(null=True)
     moduleid = models.IntegerField(null=True)
     questionvideotime = models.DecimalField(max_digits=10,decimal_places=2,null=True)
     status = models.CharField(max_length=1, null=True) # Y - Display, N - Not to Display
+    answertype = models.CharField(max_length=1, null=True) # A - Answer, R - Refered Answer
 
     class Meta:
         db_table = 'question'

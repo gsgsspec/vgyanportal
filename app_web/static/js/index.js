@@ -26,6 +26,10 @@ function menu_bar() {
         $('.menu-item:has(a[href="/courses"])').addClass('active');
     }
 
+    if (current_url.includes('assessments')){
+        $('.menu-item:has(a[href="/assessments"])').addClass('active');
+    }
+
 }
 
     
