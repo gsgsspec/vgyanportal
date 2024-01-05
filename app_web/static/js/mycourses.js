@@ -129,7 +129,7 @@ function showMore(event) {
 
 // Refersh Notifications
 
-// setInterval(getNotifications, 2000);
+setInterval(getNotifications, 2000);
 
 // Notifications
 
