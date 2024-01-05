@@ -5,7 +5,7 @@ import string
 import razorpay
 from vgyanportal import settings
 from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration, Question, CourseMedia, \
-    Assessment,CourseLesson , Notification ,CourseModule
+    Assessment,CourseLesson , Notification ,CourseModule, Coupon
 from datetime import datetime
 from  .mailing import sendRegistrainMail
 from vgyanportal.settings import RAZOR_KEY_ID, RAZOR_KEY_SECRET
@@ -60,11 +60,27 @@ def addUserDB(dataObjs):
             )
 
             course_payment.save()
+            
+            
+            if dataObjs["coupon_code"] != None:
+                coupon_code = dataObjs["coupon_code"]
+                coupon = Coupon.objects.filter(couponcode=coupon_code,status='A').last()
+
+                if coupon:
+                    if coupon.coupontype == 'C':
+                        current_count = coupon.remainingcount
+                        coupon.remainingcount = int(current_count) - 1
+                        coupon.save()
+
+            else :
+                coupon_code = None
+            
 
             course_registration = CourseRegistration(
                 registrationid = registration.id,
                 courseid = dataObjs["course_id"],
-                status = "A"
+                status = "A",
+                couponcode = coupon_code
             )
 
             course_registration.save()
@@ -102,7 +118,7 @@ def saveProfileDetailsDB(dataObjs, fileObjs):
         user_profile.firstname = dataObjs['firstname']
         user_profile.lastname = dataObjs['lastname']
         user_profile.password = dataObjs['password']
-        user_profile.country = dataObjs['country']
+        # user_profile.country = dataObjs['country']
 
         user_img = fileObjs.get('file')
 

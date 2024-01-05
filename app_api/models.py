@@ -124,6 +124,7 @@ class CourseRegistration(models.Model):
     courseid = models.IntegerField(null=True)
     status = models.CharField(max_length=1, null=True) # A - Active, E - Expired
     dateofpurchase = models.DateTimeField(null=True)
+    couponcode = models.CharField(max_length=20,null=True)
 
     class Meta:
         db_table = 'courseregistration'
@@ -191,7 +192,7 @@ class Activity(models.Model):
     courseid = models.IntegerField(null=True)
     moduleid = models.IntegerField(null=True)
     lessonid = models.IntegerField(null=True)
-    activity = models.CharField(max_length=1, null=True)  # P - Video Play , D - Document Download, Q- Question
+    activity = models.CharField(max_length=1, null=True)  # V - Video Play , D - Document Download, Q - Question, W - Last Watched video Id
     start = models.DateTimeField(null=True)
     end = models.DateTimeField(null=True)
     duration = models.IntegerField(null=True)  # In seconds
