@@ -123,6 +123,7 @@ class CourseRegistration(models.Model):
     registrationid = models.IntegerField(null=True)
     courseid = models.IntegerField(null=True)
     status = models.CharField(max_length=1, null=True) # A - Active, E - Expired
+    dateofpurchase = models.DateTimeField(null=True)
 
     class Meta:
         db_table = 'courseregistration'
@@ -209,6 +210,23 @@ class Notification(models.Model):
     message = models.CharField(max_length=512, null=True)
     type = models.CharField(max_length=1, null=True) #      "I" Information , "S" success, "W" Warning , "C" Critical
     status = models.CharField(max_length=1, null=True) #   "C" Clear from Board , "D" Deleted
-    read = models.CharField(max_length=1, null=True)
+    read = models.CharField(max_length=1, null=True) 
+
     class Meta:
         db_table = 'notification'
+
+
+class Coupon(models.Model):
+    id = models.AutoField(primary_key=True)
+    couponfor = models.CharField(max_length=100, null=True) 
+    couponcode = models.CharField(max_length=15, null=True)
+    discount = models.IntegerField(null=True) 
+    coupontype = models.CharField(max_length=1, null=True)  # D - By Date , C - By count
+    validitydate = models.DateField(null=True)
+    couponcount = models.IntegerField(null=True)
+    remainingcount = models.IntegerField(null=True)
+    datecreated = models.DateTimeField(null=True)  
+    status =  models.CharField(max_length = 1 ,null=True)
+     
+    class Meta:
+        db_table = 'coupon'
