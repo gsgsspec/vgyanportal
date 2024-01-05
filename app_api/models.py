@@ -203,10 +203,11 @@ class Notification(models.Model):
     notifydate = models.DateTimeField(null=True)
     registrationid = models.IntegerField(null=True)
     courseid = models.IntegerField(null=True)
+    moduleid = models.IntegerField(null=True)
     eventtype = models.CharField(max_length=1, null=True) # "Q" Questions , "A" Assessment
     message = models.CharField(max_length=512, null=True)
-    type = models.CharField(max_length=1, null=True) #      I" Information, "W" Warning , "C" Critical
+    type = models.CharField(max_length=1, null=True) #      "I" Information , "S" success, "W" Warning , "C" Critical
     status = models.CharField(max_length=1, null=True) #   "C" Clear from Board , "D" Deleted
-    
+    read = models.CharField(max_length=1, null=True)
     class Meta:
         db_table = 'notification'
