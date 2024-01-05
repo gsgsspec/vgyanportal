@@ -251,14 +251,15 @@ def saveNotificationData(dataObjs):
             if notifType == "A":
                 if notifAction == "newAssessment":
                     notificationEventType = "A"
-                    notificationMessage = 'Your Assessment for' + str(courseModuleName) + 'is pending'
+                    notificationMessage = 'Your Assessment for'+str(courseModuleName)+'is pending'
                     messageType = "I"
         
             if notifType == "Q":
                 if notifAction == "newQuestion":
                     notificationEventType = "Q"
-                    notificationMessage = 'Your Question Posted for answer'
+                    notificationMessage = 'Your Question in'+str(courseModuleName)+ 'is Posted for answer'
                     messageType = "S"
+
 
         saveNotificationDb = Notification(
             notifydate     = datetime.now() ,

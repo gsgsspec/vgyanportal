@@ -180,7 +180,7 @@ function showNotifications(allNotificationList,itearations,showMoreNotifications
     var numberofNotifications = allNotificationList
 
     var looper = 5
-    console.log('showMoreNotifications FUN:: ',showMoreNotifications)
+    
     if (showMoreNotifications ===  "Y"){
 
         $('#showMoreContainer').css('display','flex')
@@ -258,7 +258,7 @@ function showNotifications(allNotificationList,itearations,showMoreNotifications
                           '<i id="notificationIcon" class="'+iconChange+'" style="font-size:'+fontSize+';"></i>' +
                         '</span>' +
                         '<span style="display: flex; flex-direction: column;">' +
-                         ' <span class="text_color_custom">Your Question in '+ courseTitle +' is Posted</span>' +
+                         ' <span class="text_color_custom">'+ notificationMessage +'</span>' +
                          ' <div class="alert p-0 m-0" style="float:left; background-color: transparent !important;" >' +
                             '<div style="display:flex; font-size: small;">' +
                               '<span>' +
