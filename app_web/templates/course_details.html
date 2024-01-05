@@ -112,7 +112,7 @@
                               </li>
                           </ul>
                       </div>
-                      <video id="video-src" src="https://vz-e3c8e33a-ea3.b-cdn.net/b320cd4b-d677-4b3e-96ea-1e87db0caa5a/play_480p.mp4"></video>
+                      <video id="video-src" src="https://vz-e3c8e33a-ea3.b-cdn.net/b320cd4b-d677-4b3e-96ea-1e87db0caa5a/play_480p.mp4" autoplay></video>
                     </div>
                 </div>
                 
@@ -379,6 +379,7 @@
   var first_name = '{{ user_data.first_name }}'
   var last_name = '{{ user_data.last_name }}'
   var email = '{{ user_data.email }}'
+  var current_lessonid = '{{ course_details.current_lessonid }}'
 </script>
 
 <script src="{% static 'js/course_details.js' %}"></script>

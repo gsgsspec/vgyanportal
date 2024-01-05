@@ -134,7 +134,7 @@ function saveVideoActivity(lid){
 
 
     if(!watched_lesson_id){
-        watched_lesson_id = lid
+        watched_lesson_id = lid     
     }  
 
     else{
@@ -145,6 +145,7 @@ function saveVideoActivity(lid){
         dataObj ={
             'lesson_id':watched_lesson_id,
             'time_duration': video_time,
+            'current_video_id':lid
         }
     
         var final_data = {
@@ -165,8 +166,18 @@ function saveVideoActivity(lid){
 
 $(document).ready(function(){
 
-    lesson_id = $(".list-group-item:first").attr("id")
+    
+
+    if (current_lessonid == 'None'){
+        lesson_id = $(".list-group-item:first").attr("id")
+    }
+    else{
+        lesson_id = current_lessonid
+    }
+    
+
     getCourseVideo(lesson_id)
+    activeVideoAccordian(lesson_id)
 
     if (window.innerWidth > 900) {
         $('#layout-menu').css('display', 'none');
@@ -204,26 +215,12 @@ function hideFullPage(){
     $('#display_icon').css('display','block')
     $('#hide_icon').css('display','none')
 }
-
-
-
-
-
-
-
-
-
-
-function showVideoDetails(){
-    var video_player = document.getElementById('playing-video')
-    var time = video_player.currentTime
-    console.log('video_player',video_player)
-    console.log('time',time)
     
+
+function activeVideoAccordian(lesson_id){
+    var accordionItem = $('#'+lesson_id).closest('.accordion-item').find('.accordion-button');
+    accordionItem.click()
 }
-    
-
-
 
 
 

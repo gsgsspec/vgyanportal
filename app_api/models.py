@@ -168,6 +168,7 @@ class Question(models.Model):
     questionvideotime = models.DecimalField(max_digits=10,decimal_places=2,null=True)
     status = models.CharField(max_length=1, null=True) # Y - Display, N - Not to Display
     answertype = models.CharField(max_length=1, null=True) # A - Answer, R - Refered Answer
+    referquestionid = models.IntegerField(null=True)
 
     class Meta:
         db_table = 'question'

@@ -154,8 +154,17 @@ def getCourseDetails(request,cid):
             'title':course.title,
             'module': None,
             'rating':None,
-            'locked_modules':None
+            'locked_modules':None,
+            'current_lessonid':None,
         }
+
+        try:
+            current_lesson_id = Activity.objects.get(registrationid=user_id,courseid=course.id,activity='W').lessonid
+            course_details["current_lessonid"] = current_lesson_id
+        except:
+            current_lesson_id = None
+
+
 
         c_module = CourseModule.objects.filter(courseid=cid,status='A').order_by('sequence')
 
@@ -456,6 +465,22 @@ def saveVideoActivityService(dataObjs,user):
                 moduleid = lesson.moduleid
             )
             user_activity.save()
+
+        try:
+            watched_video = Activity.objects.get(registrationid=user_id,courseid=lesson.courseid,activity='W')
+            watched_video.lessonid = dataObjs["current_video_id"]
+            watched_video.save()
+
+        except:
+
+            watched_video = Activity(
+                registrationid = user_id,
+                courseid = lesson.courseid,
+                activity='W',
+                lessonid = dataObjs["current_video_id"]
+            )
+            watched_video.save()
+
 
     except Exception as e:
         raise
