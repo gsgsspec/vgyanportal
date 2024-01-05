@@ -313,7 +313,7 @@ function getAllQuestions(){
                 var questionTime = overAllQuestions[ans]['queTime']
                 var userRegisterationId = overAllQuestions[ans]['userId'];
 
-                if (parseInt(userRegIdentityId) === userRegisterationId){
+                if (parseInt(userRegIdentityId) === parseInt(userRegisterationId)){
 
                     if (questionAnswer === 'N'){
                         var questionAnswerRes = "Not Answered"
