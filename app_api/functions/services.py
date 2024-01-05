@@ -344,8 +344,6 @@ def getAskQuestion(dataObjs,userId):
             userRegisterId = allQuestion.registrationid
             quesDate       = allQuestion.questiondate
             
-            formateQuestionDate = ""
-            formateQuestionTime = ""
             if userRegisterId == registeredUerId:
 
                 formateQuestionTime = ''
