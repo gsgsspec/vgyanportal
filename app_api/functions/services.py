@@ -344,14 +344,10 @@ def getAskQuestion(dataObjs,userId):
             userRegisterId = allQuestion.registrationid
             quesDate       = allQuestion.questiondate
             
+            formateQuestionDate = quesDate.strftime("%d-%m-%Y")
+            formateQuestionTime = quesDate.strftime("%H : %M")
+
             if userRegisterId == registeredUerId:
-
-                formateQuestionTime = ''
-                formateQuestionDate = ''
-
-                if quesDate:
-                    formateQuestionDate = quesDate.strftime("%d-%m-%Y")
-                    formateQuestionTime = quesDate.strftime("%H : %M")
 
                 questions = {
                     'id'   : questionId,
