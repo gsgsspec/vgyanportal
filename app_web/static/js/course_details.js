@@ -326,7 +326,7 @@ function getAllQuestions(){
                         '<div class="accordion-item card m-2">' +
                         '<h2 class="accordion-header" id="verticalHeading' + questionId + '">' +
                         '<button type="button" class="accordion-button collapsed accordian-cust-sm-cls" data-bs-toggle="collapse" data-bs-target="#verticalAccordion' + questionId + '" aria-expanded="false" aria-controls="verticalAccordion' + questionId + '">' +
-                        '<div style="display: flex; justify-content: center;"> <p class="p-0 m-0 time-container" style="font-size: 12px; color: var(--bs-body-color);width:63px;"> <i class="fas fa-clock clock-icon-cls" style="color: #f46a24 !important;"></i> <span id="hidde-clock-in-mobile">  '+ questionTime +' </span>'  + questionDate +' </p> <div class="vr vr-rm-sm" style="background-color: #f46a24; width:2px; margin: 0rem 0.5rem;"></div></div>' + question + ' </button> ' +
+                        '<div style="display: flex; justify-content: center;"> <p class="p-0 m-0 time-container" style="font-size: 12px; color: var(--bs-body-color);width:69px;"> <i class="fas fa-clock clock-icon-cls" style="color: #f46a24 !important;"></i> <span id="hidde-clock-in-mobile">  '+ questionTime +' </span>'  + questionDate +' </p> <div class="vr vr-rm-sm" style="background-color: #f46a24; width:2px; margin: 0rem 0.5rem;"></div></div>' + question + ' </button> ' +
                         '</h2>' +
                         '<div id="verticalAccordion' + questionId + '" class="accordion-collapse collapse" aria-labelledby="verticalHeading' + questionId + '" data-bs-parent="#vertical-example">' +
                         '<div class="accordion-body"> ' + questionAnswerRes + ' </div>' +
@@ -340,7 +340,7 @@ function getAllQuestions(){
                     '<div class="accordion-item2 card m-2">' +
                     '<h2 class="accordion-header" id="overallHeading' + questionId + '">' +
                     '<button type="button" class="accordion-button collapsed accordian-cust-sm-cls" data-bs-toggle="collapse" data-bs-target="#overallAccordion' + questionId + '" aria-expanded="false" aria-controls="overallAccordion' + questionId + '">' +
-                    '<div style="display: flex; justify-content: center;"> <p class="p-0 m-0 time-container" style="font-size: 12px; color: var(--bs-body-color);width:63px;"> <i class="fas fa-clock clock-icon-cls" style="color: #f46a24 !important;"></i> <span id="hidde-clock-in-mobile">  '+ questionTime +' </span>'  + questionDate +' </p> <div class="vr vr-rm-sm" style="background-color: #f46a24; width:2px; margin: 0rem 0.5rem;"></div></div>' + question + ' </button> ' +
+                    '<div style="display: flex; justify-content: center;"> <p class="p-0 m-0 time-container" style="font-size: 12px; color: var(--bs-body-color);width:69px;"> <i class="fas fa-clock clock-icon-cls" style="color: #f46a24 !important;"></i> <span id="hidde-clock-in-mobile">  '+ questionTime +' </span>'  + questionDate +' </p> <div class="vr vr-rm-sm" style="background-color: #f46a24; width:2px; margin: 0rem 0.5rem;"></div></div>' + question + ' </button> ' +
                     '</h2>' +
                     '<div id="overallAccordion' + questionId + '" class="accordion-collapse collapse" aria-labelledby="overallHeading' + questionId + '" data-bs-parent="#over-all-question">' +
                     '<div class="accordion-body"> ' + questionAnswerRes + ' </div>' +

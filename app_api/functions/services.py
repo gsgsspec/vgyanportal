@@ -334,7 +334,7 @@ def getAskQuestion(dataObjs,userId):
         courseModuleName = courseModule.name
         courseLessonName = userCourseDetails.title
 
-        getQuestions = Question.objects.filter(courseid = getcourseid ,moduleid = getModuleId, lessonid = getLessonId ,registrationid = registeredUerId)
+        getQuestions = Question.objects.filter(courseid = getcourseid ,moduleid = getModuleId, lessonid = getLessonId)
 
         for allQuestion in getQuestions:
             
