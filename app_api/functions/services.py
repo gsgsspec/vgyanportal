@@ -63,7 +63,7 @@ def getMyCourses(userId):
                 else:
                     completedAssessments = 0
                 
-                courseDuration = Activity.objects.filter(registrationid = getcourse['registrationid'],courseid = getcourse['courseid']).values()
+                courseDuration = Activity.objects.filter(registrationid = getcourse['registrationid'],courseid = getcourse['courseid'],activity = 'V').values()
                 
                 watchingTime = 0
                 if courseDuration:
