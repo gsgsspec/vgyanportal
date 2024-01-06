@@ -352,8 +352,7 @@ def allNotifications(request):
             dataObjs = json.loads(request.POST.get('data'))
             user = request.user
             notificationsList = allNotificationsList(dataObjs,user)
-            print('notificationsList :: ',notificationsList[1])
-
+    
             response['data'] = notificationsList[0]
             response['data2'] = notificationsList[1]
             response['statusCode'] = 0

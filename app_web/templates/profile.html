@@ -92,8 +92,8 @@
                 <div class="mb-3  col-md-6 form-password-toggle">
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group input-group-merge">
-                      <input type="password" id="password" value="{{user_data.password}}" class="form-control" placeholder="Password">
-                      {% comment %} <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> {% endcomment %}
+                      <input type="password" id="password" value="{{user_data.password}}" maxlength='20' minlength="5" class="form-control" placeholder="Password" required>
+                     
                     </div>
                 </div>
                 <div class="mb-3 col-md-6">
