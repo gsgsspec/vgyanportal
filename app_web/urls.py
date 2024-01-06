@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 
-
 urlpatterns = [
     path('',views.loginPage),
     path('courses',views.coursesPage),
@@ -9,5 +8,5 @@ urlpatterns = [
     path('course/question',views.askQuestionPage),
     path('rating',views.ratingPage),
     path('course-details/<int:cid>',views.courseDetailsPage),
-    path('assessments',views.assessmentsPage)
+    path('assessments',views.assessmentsPage),
 ]

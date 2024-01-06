@@ -129,7 +129,7 @@ function showMore(event) {
 
 // Refersh Notifications
 
-setInterval(getNotifications, 2000);
+// setInterval(getNotifications, 2000);
 
 // Notifications
 
@@ -154,17 +154,19 @@ function getNotifications(){
     $.post(CONFIG['domain'] + "/api/all-notifications", final_data, function (res) {
         if(res.statusCode == 0){
             var allNotificationList = res.data
-            var showMoreNotifications = res.data2
-            console.log('showMoreNotifications :: ',showMoreNotifications)
+            var showMoreNotificationsData = res.data2
+
+            ShowMoreNotifications(showMoreNotificationsData)
+
             if (allNotificationList != "EMPTY"){
 
-                showNotifications(allNotificationList,showMoreNotifications)
-
+                showNotifications(allNotificationList)
             }
             else{
 
                 noNotifications()
-
+                $('#notificationsContainer').css('height','max-content')
+                $('#showMoreContainer').css('display','none')
             }
         
         }
@@ -175,30 +177,9 @@ function getNotifications(){
 
 // Show Notifications Start
 
-function showNotifications(allNotificationList,itearations,showMoreNotifications){
+function showNotifications(allNotificationList){
 
     var numberofNotifications = allNotificationList
-
-    var looper = 5
-    
-    if (showMoreNotifications ===  "Y"){
-
-        $('#showMoreContainer').css('display','flex')
-
-    }
-    else{
-
-        $('#showMoreContainer').css('display','none')
-        
-        if(numberofNotifications.length == 0){
-            $('#showMoreContainer').css('display','none')
-            $('#noNotificationsContainer').css('display','flex')
-        }
-        else{
-            looper = numberofNotifications.length
-        }
-
-    }
 
     var noNotificationId = $("#notificationsContainer")
     noNotificationId.html('')
@@ -250,7 +231,6 @@ function showNotifications(allNotificationList,itearations,showMoreNotifications
                 Padding = '10px 12px'
             }
 
-
             noNotificationId.append(
                 '<div id="alertContainer'+identity+'" class="alert alert-'+notificationBarColor+' alert-dismissible" role="alert" style="padding: 0.7375rem 0.7375rem">' +
                    ' <div style="display: flex; align-items: center;">' +
@@ -288,11 +268,14 @@ function noNotifications(){
     
     var noNotificationId = $("#notificationsContainer")
     noNotificationId.html('')
-    noNotificationId.css('display','flex')
+    noNotificationId.css({
+        'display':'flex',
+        'height':'max-content'
+    })
     noNotificationId.append(
         "<div class='container' style='display: flex; justify-content: center;'>" +
         "<div>" +
-          "<h5 class='card-header' style='display: flex; justify-content: center; align-items: center;' >" +
+          "<h5 class='card-header pt-0' style='display: flex; justify-content: center; align-items: center;' >" +
             "<i class='tf-icons bx bx-bell p-clr' style='font-size: 25px;'></i> &nbsp;" +
             "<span style='color: rgba(128, 128, 128, 0.807);'>" +
             "  No Notifications Here" +
@@ -306,7 +289,7 @@ function noNotifications(){
 
 // No Notifications End
 
-// Remove Notification
+// Remove Notification Start
 
 function removeNotification(data){
 
@@ -326,17 +309,105 @@ function removeNotification(data){
     
     $.post(CONFIG['domain'] + "/api/remove-notification", final_data, function (res) {
 
-        if (res.statusCode == 0){
-            getNotifications()
+        if (res.statusCode == 0){ 
+            
         }
 
     })
 
+    autoResizeNotificationsContainer()
+    $('#notificationsContainer').css('height','max-content')
+
 }
 
-$('#showMoreContainer').click(function (e) { 
-    e.preventDefault();
+// Remove Notification End
 
-    getNotifications()
+// show Show More hidde Notifications Start
 
-});
+function ShowMoreNotifications(notificationData){
+
+    var showMoreContainerId = $('#showMoreContainer')
+
+    if (notificationData == "Y"){
+        showMoreContainerId.css('display','flex')
+
+    }
+    else{
+        showMoreContainerId.css('display','none')
+    }
+}
+
+// show Show More hidde Notifications End
+
+// Show More Start
+
+var showMoreContainerId = $('#showMoreContainer')
+var showMoreNotifiFlage = 1
+
+showMoreContainerId.click(function (){ 
+
+    if (showMoreNotifiFlage == 2){
+
+        console.log('calling')
+        console.log('showMoreNotifiFlage :: ',showMoreNotifiFlage)
+
+        $('#notificationsContainer').css({
+            'height':'410px',
+            'overflow' : 'hidden'
+        })
+
+        showMoreContainerId.text('Show More')
+        showMoreContainerId.css({
+            "text-decoration": "underline",
+            "color"          : "blue",
+            "cursor"         : "pointer"
+        })
+
+        console.log('aplying')
+        showMoreNotifiFlage = 1
+
+    }
+    else{
+
+        $('#notificationsContainer').css('height','max-content')
+
+        showMoreContainerId.text('Show Less')
+
+        showMoreContainerId.css({
+            "text-decoration": "underline",
+            "color"          : "blue",
+            "cursor"         : "pointer"
+        })
+
+        showMoreNotifiFlage += 1 
+
+    }
+
+})
+
+//  Show More End
+
+// Auto Resize Container
+
+function autoResizeNotificationsContainer(){
+
+    var notifiContainer = $('#notificationsContainer')
+
+    var childerCount = notifiContainer.children().length;
+
+    console.log('childerCount :: ',childerCount)
+
+    if (childerCount <= 5){
+
+        notificationData = "N"
+        ShowMoreNotifications(notificationData)
+
+    }
+
+    if (childerCount == 0 ){
+
+        noNotifications()
+
+    }
+
+}

@@ -3,7 +3,6 @@ from app_api.functions.masterdata import user_not_active,auth_user
 from app_api.functions.services import getMyCourses, getUserProfile, getCourseDetails
 from app_api.models import CourseRegistration, Registration
 
-
 def loginPage(request):
     try:
 

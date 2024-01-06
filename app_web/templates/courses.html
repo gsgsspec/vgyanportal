@@ -84,26 +84,19 @@
       </div>
         {% endfor %}
     </div>
-
     <div class="row justify-content-end" style="float: right;">
       <a class="text-decoration-underline mr-3" id="showMoreId" onclick="showMore(event)" href="">Show More</a>
     </div>
+
     <!-- Notifications -->
     <div class="col-md m-0">
       <div class="card">
         <h5 class="card-header">Notifications</h5>
-        <div class="card-body" id="notificationsContainer" style="padding: 0rem 1.5rem !important;"> </div>
 
-        <div id="noNotificationsContainer" class="container" style="display: flex; justify-content: center; display: none;">
-          <div>
-            <h5 class="card-header" style="display: flex; justify-content: center; align-items: center;" >
-               <i class="tf-icons bx bx-bell p-clr" style="font-size: 25px;"></i> &nbsp;
-               <span style="color: rgba(128, 128, 128, 0.807);">
-                No Notifications Here
-               </span>
-            </h5>
-          </div>
-        </div>
+        <!-- notifications container -->
+        <div class="card-body" id="notificationsContainer" style="padding: 0rem 1.5rem !important; height: 410px; overflow: hidden;"> </div>
+
+       <!-- No Notifictions Container in Js -->
 
         <div class="pb-3" id="showMoreContainer" style="display: flex; justify-content: end; align-items: center; display: none; padding-right: 1.8rem;">
           <span class="custom_links">
@@ -113,47 +106,9 @@
 
       </div>
     </div>
-
-
     
   </div>
 </div>
-
-
-                  <!-- <div class="alert p-0 m-0" style="float:left; background-color: transparent !important;" >
-                    <div style="display:flex;">
-
-                      <span class="p-clr">
-                        <i class="fas fa-clock p-clr"></i> 13 : 02 
-                      </span>
-
-                      <div class="mx-1">
-                        <span class="vr" style="color : #8080809e; width: 2px; min-height: 13px;"></span>
-                      </div>
-
-                      <span class="p-clr mx-1">
-                        15-12-2023  
-                      </span>
-
-                    </div>
-                  </div> -->
-
-                  <!-- <div>
-                    <div class="alert p-0 m-0" style="float:right; background-color: gainsboro !important;" >
-                      <div style="display: flex; justify-content: center;">
-                        <span class="p-clr mx-1">
-                          <i class="fas fa-clock p-clr"></i> 13 : 02 
-                        </span>
-                        <div>
-                          <span class="vr" style="color : #8080809e; width: 2px; min-height: 10px;"></span>
-                        </div>
-                        <span class="p-clr mx-1">
-                          15-12-2023  
-                        </span>
-                      </div>
-                    </div>
-                  </div> -->
-
 
 <script src="{% static 'js/mycourses.js' %}"></script>
    

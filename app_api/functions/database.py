@@ -200,7 +200,7 @@ def saveAskQuestionDb(dataObjs):
             lessonid = courseLessonId if courseLessonId != "" else 0,
             question = getQuestion if getQuestion != '' else "",
             questionvideotime = vidCurrentTime,
-            questiondate =datetime.now()
+            questiondate = datetime.now()
         )
         saveQuestion.save()
 

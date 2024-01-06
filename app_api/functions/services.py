@@ -557,21 +557,30 @@ def allNotificationsList(dataObjs,user):
 
             notificationDetails = {}
 
-            counter = 0
+            counter = len(notificationData)
 
-            userSelectedNotificationCount = dataObjs['notificationCount'] # selected count
-
-            if userSelectedNotificationCount >= 5:
-
-                if len(notificationData) > 5:
-                    counter = 5
+            if counter >= 5:
+                if counter > 5:
                     showMoreNotification = "Y"
                 else:
-                    counter = len(notificationData)
                     showMoreNotification = "N"
             
-            if userSelectedNotificationCount == "ALL":
-                counter = len(notificationData)
+            else:
+                showMoreNotification = "N"
+
+            # userSelectedNotificationCount = dataObjs['notificationCount'] # selected count
+
+            # if userSelectedNotificationCount >= 5:
+
+            #     if len(notificationData) > 5:
+            #         counter = 5
+            #         showMoreNotification = "Y"
+            #     else:
+            #         counter = len(notificationData)
+            #         showMoreNotification = "N"
+            
+            # if userSelectedNotificationCount == "ALL":
+            #     counter = len(notificationData)
 
             if notificationData:
                 for notifi in range(0,counter):
