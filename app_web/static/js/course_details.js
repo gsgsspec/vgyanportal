@@ -35,7 +35,7 @@ document.getElementById('save_rating').onclick=function(){
 
 
 
-function startAssessment(mid){
+function startAssessment(mid, buttonDiv){
      
     dataObj = {
         'course_id': getUserCourseId,
@@ -46,15 +46,15 @@ function startAssessment(mid){
         'paper_title':paper_title+','+mid+')',
     }
 
+    buttonDiv.disabled=true
+
 
     var final_data = {
         'data': JSON.stringify(dataObj),
         csrfmiddlewaretoken: CSRF_TOKEN,
     }
 
-    $("#assessment_"+mid).html('')
     
-
     $.post(CONFIG['acert'] + "/api/vgyanportal-user-registeration", final_data, function (res) {
 
         if (res.statusCode == 0){
@@ -62,12 +62,16 @@ function startAssessment(mid){
             $.post(CONFIG['domain'] + "/api/save-assessment", final_data, function (res) {
                 if (res.statusCode == 0){
 
-                    showSuccessMessage('Assessment requested successfully, please check your email')
+                    $("#assessment_"+mid).html('')
+                    $("#assessment_"+mid).removeClass('justify-content-end')
+                    $("#assessment_"+mid).append('<p><i class="fas fa-check-circle" style="color:#71dd37"></i>&ensp;Assessment requested successfully please check your email.</p>')
                     
                 }
 
                 else {
                     showFailureMessage('Error in getting the assesment data. Please try after sometime')
+                    buttonDiv.disabled=false
+                    
                 }
 
             })
@@ -76,9 +80,14 @@ function startAssessment(mid){
 
         else {
             showFailureMessage('Error in getting the assesment data. Please try after sometime')
+            buttonDiv.disabled=false
         }
 
+    }).fail(function (){
+        showFailureMessage('Error in getting the assesment data. Please try after sometime')
+            buttonDiv.disabled=false
     })
+
     
 }
 
@@ -395,3 +404,6 @@ function askQuestion(){
 
     }) 
 }
+
+
+

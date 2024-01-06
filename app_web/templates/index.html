@@ -48,7 +48,7 @@
   </head>
 
   <body>
-
+    
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
 
@@ -96,6 +96,11 @@
         </aside>
 
         <div class="layout-page">
+          <div id="loader">
+            <div class="spinner-border spinner-border-lg p-clr" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div> 
+          </div>
           {% include template_name %}
         </div>
       </div>
@@ -124,10 +129,10 @@
     <script src="{% static "js/index.js" %}"></script>
 
     <div class="bs-toast toast bg-success fade show toast-placement-ex m-3 top-0 end-0" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500" hidden>
-      <div class="toast-header">
+      {% comment %} <div class="toast-header">
         <i class="fas fa-check-circle" style="color: #fff;"></i>&ensp;
         <div class="me-auto fw-semibold">Success</div>
-      </div>
+      </div> {% endcomment %}
       <div class="toast-body"></div>
     </div>
     
