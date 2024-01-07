@@ -6,7 +6,7 @@ from allauth.account import app_settings as allauth_settings
 from app_api.functions.masterdata import auth_user
 from .functions.services import addUserService, authentication_service, saveProfileDetails, getModuleLessonService, saveCourseRating, saveAskQuestion, getAskQuestion, \
         getlessonVideoService, saveAssessmentService, updateAssessmentService, saveVideoActivityService,courseModuleNameService,assessmentListService,allNotificationsList,\
-        removeNotificationService,markAsReadNotificationService
+        removeNotificationService,markAsReadNotificationService,checkLatestNotificationsService
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
 from vgyanportal.metadata import check_referrer
@@ -387,6 +387,7 @@ def removeNotification(request):
         raise
     return JsonResponse(response)
 
+
 @api_view(['POST'])
 def markAsReadNotification(request):
     response = {
@@ -401,6 +402,30 @@ def markAsReadNotification(request):
 
             markAsReadNotificationService(dataObjs,user)
 
+            response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saving video activity'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)
+
+
+@api_view(['POST'])
+def checkLatestNotifications(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+    try:
+        if request.method == "POST":
+            dataObjs = json.loads(request.POST.get('data'))
+            user = request.user
+
+            count =  checkLatestNotificationsService(dataObjs,user)
+
+            response['data'] = count
             response['statusCode'] = 0
 
     except Exception as e:

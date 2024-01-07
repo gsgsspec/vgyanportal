@@ -673,3 +673,27 @@ def markAsReadNotificationService(dataObjs,user):
         raise
 
 
+def checkLatestNotificationsService(dataObjs,user):
+    try:
+
+        userDetails = Registration.objects.filter(email = str(user)).last()
+
+        if userDetails:
+            userID = userDetails.id
+
+            notificationId = dataObjs['notificationCheck']
+
+            notificationCount = {'count' : 0 }
+
+            if notificationId == "check":
+                notificationsCountDetails = Notification.objects.filter(registrationid = userID , read = None).count()
+
+                notificationCount = {
+                    'count' : notificationsCountDetails
+                }
+        
+            return notificationCount
+
+    except Exception as e:
+        raise
+

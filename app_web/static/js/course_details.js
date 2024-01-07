@@ -175,7 +175,7 @@ function saveVideoActivity(lid){
 
 $(document).ready(function(){
 
-    
+    checkLatestNotifications() // Check Latest Notification function Calling
 
     if (current_lessonid == 'None'){
         lesson_id = $(".list-group-item:first").attr("id")
@@ -405,5 +405,33 @@ function askQuestion(){
     }) 
 }
 
+setInterval(checkLatestNotifications, 2500);
 
+function checkLatestNotifications(){
 
+    dataObj = { 'notificationCheck': "check" }
+    
+    var final_data = {
+        'data': JSON.stringify(dataObj),
+        csrfmiddlewaretoken: CSRF_TOKEN,
+    }
+
+    $.post(CONFIG['domain'] + "/api/Check-latest-notifications", final_data, function (res) {
+
+        if (res.statusCode == 0){ 
+            
+            notifiCount = res.data['count']
+
+            if(notifiCount != 0){
+
+                $('#notificationBadge').text(notifiCount)
+
+            }
+            else{
+                $('#notificationBadge').text()
+            }
+
+        }
+
+    })
+}
