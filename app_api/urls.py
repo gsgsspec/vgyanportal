@@ -18,4 +18,5 @@ urlpatterns = [
     path('assessmentslist',views.assessmentslist),
     path('all-notifications',views.allNotifications),
     path('remove-notification',views.removeNotification),
+    path('mark-as-read-notifications',views.markAsReadNotification)
 ]

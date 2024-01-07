@@ -232,7 +232,7 @@ function showNotifications(allNotificationList){
             }
 
             noNotificationId.append(
-                '<div id="alertContainer'+identity+'" class="alert alert-'+notificationBarColor+' alert-dismissible" role="alert" style="padding: 0.7375rem 0.7375rem">' +
+                '<div id="alertContainer_'+identity+'" data_notification_Main_id="'+identity+'" class="alert alert-'+notificationBarColor+' alert-dismissible" role="alert" style="padding: 0.7375rem 0.7375rem">' +
                    ' <div style="display: flex; align-items: center;">' +
                         '<span id="iconCardContainer" class="card" style="width: max-content; margin-right:10px; padding:'+Padding+'; ">' +
                           '<i id="notificationIcon" class="'+iconChange+'" style="font-size:'+fontSize+';"></i>' +
@@ -251,12 +251,14 @@ function showNotifications(allNotificationList){
                         '</span>'+
                     '</div>' +
                     '<i onclick="removeNotification(this.id)" id="removenotificationbtn_'+identity+'" data_notification_id="'+identity+'" class="btn-close text_color_custom fas fa-times" data-bs-dismiss="alert" aria-label="Close" style="top: 6px; width: 5%; font-size: 17px; cursor: pointer; background: url(""); background-image:url(""); "></i>' +
-                  '</div>'
+                '</div>'
             )
 
         }
 
     }
+
+    MarkAsReadNotifications() // marking as read this notification with this function
     
 }
 
@@ -348,9 +350,6 @@ showMoreContainerId.click(function (){
 
     if (showMoreNotifiFlage == 2){
 
-        console.log('calling')
-        console.log('showMoreNotifiFlage :: ',showMoreNotifiFlage)
-
         $('#notificationsContainer').css({
             'height':'410px',
             'overflow' : 'hidden'
@@ -363,7 +362,6 @@ showMoreContainerId.click(function (){
             "cursor"         : "pointer"
         })
 
-        console.log('aplying')
         showMoreNotifiFlage = 1
 
     }
@@ -395,8 +393,6 @@ function autoResizeNotificationsContainer(){
 
     var childerCount = notifiContainer.children().length;
 
-    console.log('childerCount :: ',childerCount)
-
     if (childerCount <= 5){
 
         notificationData = "N"
@@ -411,3 +407,53 @@ function autoResizeNotificationsContainer(){
     }
 
 }
+
+// Marks As read all Notificarions in the Page Start
+
+var counter = 1
+
+function MarkAsReadNotifications() {
+
+    if (counter == 1){
+
+        var childrenCount = $('#notificationsContainer').children().length;
+        var children      = $('#notificationsContainer').children();
+
+        var dataList = []
+    
+        for (var child = 0; child < childrenCount; child++) {
+    
+           var currentId = children[child].id
+    
+           var  currentChildDataAttr = document.getElementById(currentId)
+    
+           dataList.push(currentChildDataAttr.getAttribute('data_notification_Main_id'))
+    
+        }
+
+        counter += 1
+
+        dataObj = { 'notificationsIdList': dataList }
+    
+        var final_data = {
+            'data': JSON.stringify(dataObj),
+            csrfmiddlewaretoken: CSRF_TOKEN,
+        }
+
+        $.post(CONFIG['domain'] + "/api/mark-as-read-notifications", final_data, function (res) {
+
+            if (res.statusCode == 0){ 
+                
+
+
+            }
+    
+        })
+
+    }
+
+}
+
+
+
+// Marks As read all Notificarions in the Page End

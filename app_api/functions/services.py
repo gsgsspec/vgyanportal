@@ -645,3 +645,31 @@ def removeNotificationService(dataObjs,user):
 
     except Exception as e:
         raise
+
+
+def markAsReadNotificationService(dataObjs,user):
+    try:
+
+        userDetails = Registration.objects.filter(email = str(user)).last()
+
+        if userDetails:
+            userID = userDetails.id
+
+        notificationId = dataObjs['notificationsIdList']
+
+        if notificationId != []:
+
+            for notifiId in notificationId:
+
+                updateNotification = Notification.objects.filter(id = notifiId).last()
+
+                if updateNotification:
+                    if updateNotification.read != 'Y':
+
+                        updateNotification.read = 'Y'
+                        updateNotification.save()
+
+    except Exception as e:
+        raise
+
+
