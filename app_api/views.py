@@ -10,6 +10,7 @@ from .functions.services import addUserService, authentication_service, saveProf
 from .models import User_data
 from django.views.decorators.csrf import csrf_exempt
 from vgyanportal.metadata import check_referrer
+from app_api.functions.database import updateLessonStatusDB
 
 
 @api_view(['POST'])
@@ -388,8 +389,33 @@ def removeNotification(request):
     return JsonResponse(response)
 
 
+
 @api_view(['POST'])
 def markAsReadNotification(request):
+    response = {
+        'data': None,
+        'error': None,
+        'statusCode': 1
+    }
+
+    try:
+        if request.method == "POST":
+            dataObjs = json.loads(request.POST.get('data'))
+            user = request.user
+
+            markAsReadNotificationService(dataObjs,user)
+            response['statusCode'] = 0
+
+    except Exception as e:
+        response['data'] = 'Error in saving video activity'
+        response['error'] = str(e)
+        raise
+    return JsonResponse(response)
+
+
+
+@api_view(['POST'])
+def updateLessonStatus(request):
     response = {
         'data': None,
         'error': None,
@@ -400,15 +426,16 @@ def markAsReadNotification(request):
             dataObjs = json.loads(request.POST.get('data'))
             user = request.user
 
-            markAsReadNotificationService(dataObjs,user)
+            updateLessonStatusDB(dataObjs,user)
 
+            response['data'] = 'Lesson status updated successfully'
             response['statusCode'] = 0
-
     except Exception as e:
-        response['data'] = 'Error in saving video activity'
+        response['data'] = 'Error in updating lesson status'
         response['error'] = str(e)
         raise
     return JsonResponse(response)
+
 
 
 @api_view(['POST'])

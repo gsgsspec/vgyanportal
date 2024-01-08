@@ -211,6 +211,18 @@
   font-size: 12px;
 }
 
+/* Toast Time bar */
+
+.toast-timeout {
+  height: 3px;
+  width:0%;
+  background-color: white;
+  border-radius: 0px 0px 0.5em 0.5em;
+  transition: width 5.2s linear;
+  position: relative;
+}
+
+
 
 /* Media queries starts from here  */
 

@@ -94,6 +94,8 @@ function startAssessment(mid, buttonDiv){
 
 function getCourseVideo(lid){
 
+    getLesssonData(lid)
+
     dataObj ={
         'lesson_id':lid
     }
@@ -232,7 +234,36 @@ function activeVideoAccordian(lesson_id){
 }
 
 
+function getLesssonData(lesson_id){
 
+   lesson_title =  $('#'+lesson_id).find('.lesson-title').text();
+   $('h5[data-lesson-name="lesson-name"]').text(lesson_title);
+
+}
+
+function updateLessonstatus(lesson_id){
+
+    var status_checkbox = document.getElementById('lesson_check_'+lesson_id)
+    var lesson_status = status_checkbox.checked ? 'C' : 'N';
+    
+
+    dataObj = {
+        'lesson_id':lesson_id,
+        'lesson_status':lesson_status
+    }
+
+    var final_data = {
+        'data': JSON.stringify(dataObj),
+        csrfmiddlewaretoken: CSRF_TOKEN,
+    }
+
+    $.post(CONFIG['domain'] + "/api/update-lesson-status", final_data, function (res) {
+        if (res.statusCode == 0){
+            watched_lesson_id = lid
+        }
+
+    })
+}
 
 
 

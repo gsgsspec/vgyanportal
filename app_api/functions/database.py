@@ -5,7 +5,7 @@ import string
 import razorpay
 from vgyanportal import settings
 from app_api.models import Registration, User_data, CourseRating, Course, Payment, CourseRegistration, Question, CourseMedia, \
-    Assessment,CourseLesson , Notification ,CourseModule, Coupon
+    Assessment,CourseLesson , Notification ,CourseModule, Coupon, Activity
 from datetime import datetime
 from  .mailing import sendRegistrainMail
 from vgyanportal.settings import RAZOR_KEY_ID, RAZOR_KEY_SECRET
@@ -296,5 +296,34 @@ def saveNotificationData(dataObjs):
         )
         saveNotificationDb.save()
     
+    except Exception as e:
+        raise
+
+
+
+def updateLessonStatusDB(dataObjs,user):
+    try:
+        
+        userid = Registration.objects.get(email=user).id
+        lesson = CourseLesson.objects.get(id=dataObjs["lesson_id"])
+        print('dataObjs',dataObjs)
+
+        try:
+            user_activity = Activity.objects.get(registrationid=userid,lessonid=lesson.id,activity='V')
+            user_activity.status = dataObjs["lesson_status"]
+            user_activity.save()
+
+        except:
+            user_activity = Activity(
+                registrationid = userid,
+                lessonid=lesson.id,
+                activity='V',
+                duration = 0,
+                courseid = lesson.courseid,
+                moduleid = lesson.moduleid,
+                status = 'N'
+            )
+            user_activity.save()
+
     except Exception as e:
         raise

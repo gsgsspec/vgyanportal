@@ -197,6 +197,7 @@ class Activity(models.Model):
     start = models.DateTimeField(null=True)
     end = models.DateTimeField(null=True)
     duration = models.IntegerField(null=True)  # In seconds
+    status = models.CharField(max_length=1, null=True) # C - Completed 
 
     class Meta:
         db_table = 'activity'

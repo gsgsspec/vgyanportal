@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="/">
+                    <a class="dropdown-item" href="/logout">
                     <i class="bx bx-power-off me-2"></i>
                     <span class="align-middle">Log Out</span>
                     </a>
@@ -154,6 +154,7 @@
                                     {% for lesson in module.lesson_title %}
                                         {% if lesson.lesson_type == 'V' %}
                                             <li class="list-group-item d-flex align-items-center" id="{{lesson.id}}" onclick="getCourseVideo({{lesson.id}})" style="cursor:pointer">
+                                                <input class="form-check-input mt-0" type="checkbox" value="Y" id="lesson_check_{{lesson.id}}" onclick="event.stopPropagation();updateLessonstatus({{lesson.id}})" {% if lesson.lesson_status == 'C' %} checked {% else %} {% endif %}>&emsp;
                                                 <i class="far fa-play-circle lesson-icon"></i>&ensp;
                                                 <p class="lesson-title">{{lesson.title}}</p>
                                                 <span style="margin-left:auto"><i class="fas fa-clock p-clr"></i> &nbsp; {{lesson.lesson_duration}}</span>
@@ -216,6 +217,7 @@
                 </div>
             </div>
         </div>
+        
 
             <div class="col-lg-4 col-md-6">
                 <div class="mt-3">

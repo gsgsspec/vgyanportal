@@ -1,7 +1,13 @@
 function showSuccessMessage(message) {
+
     $('.bs-toast.toast.bg-success').removeAttr('hidden');
     $('.bs-toast.toast.bg-success .toast-body').text(message);
     $('.bs-toast.toast.bg-success').toast('show');
+    $('.bs-toast.toast.bg-success .toast-timeout').css('width', '100%');
+
+    setTimeout(function() {
+        $('.bs-toast.toast.bg-success .toast-timeout').css('width', '');
+    }, 5200);
 }
 
 function showFailureMessage(message) {

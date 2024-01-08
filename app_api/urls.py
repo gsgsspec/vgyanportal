@@ -20,4 +20,5 @@ urlpatterns = [
     path('remove-notification',views.removeNotification),
     path('mark-as-read-notifications',views.markAsReadNotification),
     path('Check-latest-notifications',views.checkLatestNotifications),
+    path('update-lesson-status',views.updateLessonStatus)
 ]

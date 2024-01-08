@@ -56,8 +56,7 @@ document.getElementById('save').onclick=function(){
 document.addEventListener('DOMContentLoaded', function (e) {
 
     accountUserImage = document.getElementById('user_image');
-    fileInput = document.querySelector('.account-file-input'),
-      resetFileInput = document.querySelector('.account-image-reset');
+    fileInput = document.querySelector('.account-file-input');
 
     if (accountUserImage) {
       resetImage = accountUserImage.src;
@@ -65,10 +64,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
         if (fileInput.files[0]) {
           accountUserImage.src = window.URL.createObjectURL(fileInput.files[0]);
         }
-      };
-      resetFileInput.onclick = () => {
-        fileInput.value = '';
-        accountUserImage.src = resetImage;
       };
     }
 });

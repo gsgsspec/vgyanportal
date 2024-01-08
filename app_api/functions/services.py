@@ -189,6 +189,16 @@ def getCourseDetails(request,cid):
 
             for lesson in c_lesson:
 
+                try:
+                    lesson_activity = Activity.objects.get(registrationid=user_id,lessonid=lesson.id,activity='V').status
+                    if lesson_activity != None:
+                        lesson_status = lesson_activity
+                    else:
+                        lesson_status = 'N'
+                except:
+                    lesson_status = 'N'
+
+
                 lesson_duration = ''
                 module_duration = ''
                 if lesson.duration != None:
@@ -201,6 +211,7 @@ def getCourseDetails(request,cid):
                     'id':lesson.id,
                     'lesson_type':lesson.type,
                     'lesson_duration':lesson_duration,
+                    'lesson_status':lesson_status
                 })
 
             module_details.append({
