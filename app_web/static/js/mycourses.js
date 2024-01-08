@@ -259,6 +259,13 @@ function showNotifications(allNotificationList){
     }
 
     MarkAsReadNotifications() // marking as read this notification with this function
+
+    var childrenCount = $('#notificationsContainer').children().length;
+        console.log('childrenCount :: ',childrenCount)
+        
+        if (childrenCount <= 5){
+            $('#notificationsContainer').css('height','max-content')
+        }
     
 }
 
@@ -318,7 +325,6 @@ function removeNotification(data){
     })
 
     autoResizeNotificationsContainer()
-    $('#notificationsContainer').css('height','max-content')
 
 }
 
@@ -387,7 +393,7 @@ showMoreContainerId.click(function (){
 
 // Auto Resize Container
 
-function autoResizeNotificationsContainer(){
+function autoResizeNotificationsContainer(){ //show More notifications label show or hide
 
     var notifiContainer = $('#notificationsContainer')
 
@@ -444,8 +450,6 @@ function MarkAsReadNotifications() {
 
             if (res.statusCode == 0){ 
                 
-
-
             }
     
         })
@@ -453,7 +457,5 @@ function MarkAsReadNotifications() {
     }
 
 }
-
-
 
 // Marks As read all Notificarions in the Page End
