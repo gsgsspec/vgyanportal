@@ -264,10 +264,17 @@ def saveNotificationData(dataObjs):
         courseModuleName = getCourseModuleName.name
 
         if notifType:
+
             if notifType == "A":
+                
                 if notifAction == "newAssessment":
                     notificationEventType = "A"
                     notificationMessage = 'Your Assessment for '+str(courseModuleName)+' in pending'
+                    messageType = "I"
+                
+                if notifAction == "UpdateAssessment":
+                    notificationEventType = "A"
+                    notificationMessage = 'Your Successfully Completed '+str(courseModuleName)+' Assessment Congrates'
                     messageType = "I"
         
             if notifType == "Q":

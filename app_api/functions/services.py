@@ -1,7 +1,7 @@
 import re
 from rest_framework.authtoken.models import Token
 from vgyanportal.metadata import getConfig, change_timeformat
-from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB, saveAskQuestionDb, saveAssessmentData
+from .database import addUserDB, saveProfileDetailsDB, saveCourseRatingDB, saveAskQuestionDb, saveAssessmentData,saveNotificationData
 from app_api.models import Registration, User_data , CourseRegistration, Course, CourseRating, CourseLesson, CourseModule, CourseMedia , Question , \
         Assessment, Activity , Notification
 from django.utils import timezone
@@ -440,6 +440,16 @@ def updateAssessmentService(dataObjs):
         assessment.status = 'C'
         assessment.save()
 
+        notificationType = {
+            "notifiType" : 'A' ,
+            "Action"     : 'UpdateAssessment' ,
+            "user_id"    : registration_id, 
+            "courseid"   : course_id,
+            "courseModule" : module_id
+        }
+
+        saveNotificationData(notificationType)
+
     except Exception as e:
         raise
 
@@ -568,20 +578,6 @@ def allNotificationsList(dataObjs,user):
             else:
                 showMoreNotification = "N"
 
-            # userSelectedNotificationCount = dataObjs['notificationCount'] # selected count
-
-            # if userSelectedNotificationCount >= 5:
-
-            #     if len(notificationData) > 5:
-            #         counter = 5
-            #         showMoreNotification = "Y"
-            #     else:
-            #         counter = len(notificationData)
-            #         showMoreNotification = "N"
-            
-            # if userSelectedNotificationCount == "ALL":
-            #     counter = len(notificationData)
-
             if notificationData:
                 for notifi in range(0,counter):
 
@@ -661,7 +657,7 @@ def markAsReadNotificationService(dataObjs,user):
 
             for notifiId in notificationId:
 
-                updateNotification = Notification.objects.filter(id = notifiId).last()
+                updateNotification = Notification.objects.filter(id = notifiId , registrationid = userID).last()
 
                 if updateNotification:
                     if updateNotification.read != 'Y':
